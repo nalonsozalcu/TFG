@@ -18,6 +18,7 @@ function login()
       
       if($usuario->rol() == "user"){
         $_SESSION["esUser"] = true;
+        $_SESSION["esAdmin"] = false;
       }
       if($usuario->rol() == "admin"){
         $_SESSION["esAdmin"] = true;
