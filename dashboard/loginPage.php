@@ -77,7 +77,7 @@
 									if($_GET["pass"] == 'false')
 										echo ('<p class="text-danger">Usuario o contraseña incorrectos</p>');
 								} ?>
-							<p class="small"><a class="text-primary" href="forget-password.php">Forgot password?</a></p>
+							<p class="small"><a class="text-primary" href="forgetPwdPage.php">Forgot password?</a></p>
 							<div class="d-grid">
 								<button class="btn btn-outline-primary" type="submit">Login</button>
 							</div>

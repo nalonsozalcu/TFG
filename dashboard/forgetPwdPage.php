@@ -38,36 +38,27 @@
 				<div class="col-12 col-md-8 col-lg-6">
 					<div class="card bg-white">
 					<div class="card-body p-5">
-						<form class="form mb-3 mt-md-4" method="POST" action="../api/forget-pwd.php">
+						<form class="form mb-3 mt-md-4" method="POST" action="../api/forgetPwd.php">
 							<h2 class="fw-bold mb-2">PlanWays</h2>
 							<p class=" mb-5">Introduzca su email para enviarte una nueva contraseña</p>
-							<div>
 							<div class="form-group">
-									<label for="email" class="form-label ">Email address</label>
-									<div class="input-group">
-										<span class="input-group-text" id="inputGroupPrepend2"><i class="bi bi-person"></i></span>
-										<input
-											type="email"
-											id="email"
-											name="email"
-											class="form-control"
-											placeholder="Email"
-											required
-										/>
-									</div>
+								<label for="email" class="form-label ">Email address</label>
+								<div class="input-group">
+									<span class="input-group-text" id="inputGroupPrepend2"><i class="bi bi-person"></i></span>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										class="form-control"
+										placeholder="Email"
+										required
+									/>
 								</div>
-								<p class="small"></p>
-								<div class="d-grid">
-								<a class="btn btn-outline-primary" href="../api/forget-pwd.php" type="submit">ENVIAR</a>
-							    </div>
-								
-             					 
-             					
-          					</div>
-							
+							</div>
+							<div class="d-grid mt-3">
+								<button class="btn btn-outline-primary" type="submit">Enviar</button>
+							</div>
 						</form>
-					
-
 					</div>
 					</div>
 				</div>
