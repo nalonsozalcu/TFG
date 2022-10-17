@@ -9,7 +9,7 @@
 			</a>
 
 			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-				<li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+				<li><a href="../dashboard" class="nav-link px-2 link-secondary">Home</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Actividades</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Planes</a></li>
 			</ul>
@@ -26,13 +26,12 @@
 					</a>
 					<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
 						<li><a class="dropdown-item" href="#">Settings</a></li>
-						<li><a class="dropdown-item" href="#">Profile</a></li>
+						<li><a class="dropdown-item" href="../dashboard/profilePage.php">Profile</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="../api/logout.php">Sign out</a></li>
 					</ul>
 				</div>
 			<?php
-			// echo('<a href="../api/logout.php"><button type="button" class="btn btn-primary">Logout</button></a>');
 			}else{
 				echo('<a href="loginPage.php"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>');
 				echo('<a href="signupPage.php"><button type="button" class="btn btn-primary">Sign-up</button></a>');

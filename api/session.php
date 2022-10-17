@@ -13,7 +13,6 @@ function login()
       $_SESSION["username"] = $usuario->username();
       $_SESSION["email"] = $usuario->email();
       $_SESSION["idUsuario"] = $usuario->id();
-      $_SESSION["nombre"] = $usuario->nombre();
       $_SESSION["avatar"] = $usuario->avatar();
       $_SESSION['lastcheck'] = time();
       

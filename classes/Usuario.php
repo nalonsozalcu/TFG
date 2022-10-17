@@ -124,19 +124,9 @@ class Usuario
 		return sha1($password) == $this->password;
 	}
 
-	public function updatePassword(string $oldPassword, string $newPassword) : void {
+	public function updatePassword(string $newPassword) : void {
 		if (!self::is_valid_password($newPassword))
 			throw new \InvalidArgumentException("Invalid password");
-
-		// Only allow to change the password if you know the old password
-		// or if it is set to  (new users)
-		if (!$this->verifyPassword($oldPassword))
-			throw new \InvalidArgumentException("La antigua contraseña no es correcta");
-
-		// The password cannot be the same as the old one
-		if ($this->verifyPassword($newPassword))
-			throw new \InvalidArgumentException("La nueva contraseña no puede ser igual que la anterior");
-
 		$this->password = self::hash($newPassword);
 	}
 
@@ -188,6 +178,27 @@ class Usuario
 		} else if ($conn->affected_rows != 1) {
 			error_log("Se han actualizado '$conn->affected_rows' !");
 		} else return true;
+	}
+	public function update()
+	{
+		$conn = Aplicacion::getConexionBD();
+		
+		$escaped_username = $conn->real_escape_string($this->username);
+		$escaped_email = $conn->real_escape_string($this->email);
+		$escaped_pass = $conn->real_escape_string($this->password);
+		$escaped_nombre = $conn->real_escape_string($this->nombre);
+		$escaped_apellidos = $conn->real_escape_string($this->apellidos);
+		$escaped_avatar = $conn->real_escape_string($this->avatar);
+
+		$query = sprintf("UPDATE usuarios SET username = '$escaped_username', email = '$escaped_email', password = '$escaped_pass', nombre = '$escaped_nombre', apellidos = '$escaped_apellidos', avatar = '$escaped_avatar' WHERE id = $this->id");
+		$result = $conn->query($query);
+
+		if (!$result)
+		error_log($conn->error);
+		else if ($conn->affected_rows != 1)
+		error_log("Se han actualizado '$conn->affected_rows' !");
+
+		return $result;
 	}
 
 

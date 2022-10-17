@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -67,7 +66,7 @@
 								<input type="password" class="form-control" id="inputPassword2" name="password2" placeholder="****">
 							</div>
 							<div class="col-6">
-							<label for="formFile" class="form-label">Imagen de perfil</label>
+							<label for="formFile" class="form-label">Foto de perfil</label>
 							<input class="form-control" type="file" id="formFile" name="avatar">
 							</div>
 							<!-- <div class="col-12">
@@ -95,24 +94,5 @@
 	?>
 
 </body>
-</html>
-
-	<script type="text/javascript">
-		window.addEventListener('load', function() {
-
-			// Do it delayed instead of with autofocus because bootstrap doesn't get it and the input looks glitched
-			let username_input = document.querySelector('[name=username]');
-			if (username_input) {
-				if (!username_input.value) {
-					username_input.focus();
-				} else if (username_input !== document.activeElement) {
-					let password_inpput = document.querySelector('[name=password]');
-					if (password_inpput)
-						password_inpput.focus();
-				}
-			}
-
-		});
-	</script>
 
 </html>
