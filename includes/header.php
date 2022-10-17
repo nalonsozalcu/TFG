@@ -12,6 +12,9 @@
 				<li><a href="../dashboard" class="nav-link px-2 link-secondary">Home</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Actividades</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Planes</a></li>
+				<?php if (isset($_SESSION['login']) && $_SESSION["esAdmin"]) {
+					echo('<li><a href="../dashboard/adminUsersPage.php" class="nav-link px-2 link-dark">Administrar</a></li>');
+				}?>
 			</ul>
 
 			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

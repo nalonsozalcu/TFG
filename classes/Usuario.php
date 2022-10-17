@@ -130,7 +130,7 @@ class Usuario
 		$this->password = self::hash($newPassword);
 	}
 
-	// ---> Funciones para obtener el usuario <---
+	// ---> Funciones para obtener usuarios <---
 	public static function existeUsuario($email)
 	{
 		$conn = Aplicacion::getConexionBD();
@@ -153,6 +153,15 @@ class Usuario
 			$rs->free();
 
 			return $user;
+		}
+		return false;
+	}
+	public static function get_all_users(){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM usuarios");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
 		}
 		return false;
 	}
@@ -200,6 +209,19 @@ class Usuario
 
 		return $result;
 	}
+	public static function delete_by_id($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$query = sprintf("DELETE FROM usuarios WHERE usuarios.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
 
 
 }
