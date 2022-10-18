@@ -71,6 +71,10 @@
 											<div class="col-md-12"><label class="labels">Verifica la contraseña</label><input type="text" class="form-control" placeholder="repetir contraseña" value="" name="contrasenaNueva2"></div>
 										</div>
 									</div>
+									<?php if(isset($_GET["pass"])){
+									if($_GET["pass"] == 'false')
+										echo ('<p class="text-danger">La contraseña introducida es incorrecta</p>');
+								} ?>
 								</div>
 								<div class="mt-5 text-center">
 									<button class="btn btn-primary" type="submit">Save Profile</button>
