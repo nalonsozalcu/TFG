@@ -1,7 +1,7 @@
 <?php require_once "modals.html"; ?>
 <!doctype html>
 
-<header class="p-3 mb-3 border-bottom">
+<header class="p-3 mb-3 border-bottom" style = "background-color: #f7f6fb;">
 	<div class="container-fluid">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 			<a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
@@ -14,7 +14,7 @@
 				<li><a href="#" class="nav-link px-2 link-dark">Actividades</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Planes</a></li>
 				<?php if (isset($_SESSION['login']) && $_SESSION["esAdmin"]) {
-					echo('<li><a href="../dashboard/adminUsersPage.php" class="nav-link px-2 link-dark">Administrar</a></li>');
+					echo('<li><a href="../dashboard/adminPage.php" class="nav-link px-2 link-dark">Administrar</a></li>');
 				}?>
 			</ul>
 
@@ -26,13 +26,13 @@
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class="dropdown text-end">
 					<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="../assets/img/<?php echo($_SESSION['avatar']) ?>" width="32" height="32" class="rounded-circle">
+						<img src="../assets/img/<?php echo($_SESSION['avatar']) ?>" width="42" height="42" class="rounded-circle">
 					</a>
 					<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
 						<li><a class="dropdown-item" href="#">Settings</a></li>
 						<li><a class="dropdown-item" href="../dashboard/profilePage.php">Profile</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Logout</button></li>
+						<li><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#SignOutModal">Logout</button></li>
 					</ul>
 				</div>
 			<?php

@@ -75,7 +75,7 @@
 								<div class="mt-5 text-center">
 									<button class="btn btn-primary" type="submit">Save Profile</button>
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Logout</button>
+									<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#SignOutModal">Logout</button>
 								</div>
 							</form>
 						</div>
