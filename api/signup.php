@@ -11,9 +11,9 @@ $apellidos = $_POST["apellidos"] != "" ? $_POST["apellidos"] : null;
 $avatar = $_POST["avatar"] != "" ? $_POST["avatar"] : null;
 
 if (Usuario::existeUsuario($email))
-   header("location: ../signupPage.php?userexists=true#registro");
+   header("location: ../signupPage.php?userexists=true");
 else if ($password != $password2)
-   header("location: ../signupPage.php?regpass=false#registro");
+   header("location: ../signupPage.php?regpass=false");
 else {
    if (Usuario::registrar($username, $email, $password, $nombre, $apellidos, $avatar))
       header("location: ../dashboard/loginPage.php");
