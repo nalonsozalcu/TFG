@@ -72,9 +72,13 @@
 										</div>
 									</div>
 									<?php if(isset($_GET["pass"])){
-									if($_GET["pass"] == 'false')
-										echo ('<p class="text-danger">La contraseña introducida es incorrecta</p>');
-								} ?>
+										if($_GET["pass"] == 'false')
+											echo ('<p class="text-danger">La contraseña introducida es incorrecta</p>');
+									} ?>
+									<?php if(isset($_GET["newpass"])){
+										if($_GET["newpass"] == 'false')
+											echo ('<p class="text-danger">Las contraseñas no coinciden</p>');
+									} ?>
 								</div>
 								<div class="mt-5 text-center">
 									<button class="btn btn-primary" type="submit">Save Profile</button>
