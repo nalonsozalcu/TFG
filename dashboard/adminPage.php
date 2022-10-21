@@ -30,26 +30,28 @@
 				<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f7f6fb;">
 					<a class="navbar-brand mb-3" href="#">Administrador</a>
 					<ul class="row navbar-nav mr-auto">
-						<div class="col-12 d-flex justify-content-center">
+						<div class="col-12 d-flex ms-5">
 							<li class="nav-item">
 								<a class="nav-link <?php if(!$content) echo('active')?>" href="adminPage.php"><i class="bi bi-house"></i><span class="nav_name">  Home</span></a>
 							</li>
-							</div>
-							<div class="col-12 d-flex justify-content-center">
+						</div>
+						<div class="col-12 d-flex ms-5">
 							<li class="nav-item">
 								<a class="nav-link <?php if($active == 'users') echo('active')?>" href="adminPage.php?content=users"><i class="bi bi-people"></i><span class="nav_name">  Users</span></a>
 							</li>
-							</div>
-							<div class="col-12 d-flex justify-content-center">
+						</div>
+						<div class="col-12 d-flex ms-5">
 							<li class="nav-item">
-								<a class="nav-link" data-bs-toggle="collapse"  href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample"><i class="bi bi-bar-chart"></i><span class="nav_name">  Data</span></a>
-								<div class="collapse <?php echo(($active == 'up_indiv' || $active == 'up_massive' || $active == 'admin')? 'show' : '');?>" id="collapseExample">
-									<a class="nav-link <?php if($active == 'up_indiv') echo('active')?>" href="adminPage.php?content=up_indiv"><i class="bi bi-cloud-arrow-up"></i><span class="nav_name">  Upload individual data</span></a>
-									<a class="nav-link <?php if($active == 'up_massive') echo('active')?>" href="adminPage.php?content=up_massive"><i class="bi bi-cloud-arrow-up-fill"></i><span class="nav_name">  Upload massive data</span></a>
-									<a class="nav-link <?php if($active == 'admin') echo('active')?>" href="adminPage.php?content=admin"><i class="bi bi-clipboard-data"></i><span class="nav_name">  Admin data</span></a>
-								</div>
+								<a class="nav-link <?php echo(($active == 'up_indiv' || $active == 'up_massive' || $active == 'admin')? 'active' : '');?>" data-bs-toggle="collapse"  href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample"><i class="bi bi-bar-chart"></i><span class="nav_name">  Data</span></a>
+								
 							</li>
 						</div>
+							<div class="collapse <?php echo(($active == 'up_indiv' || $active == 'up_massive' || $active == 'admin')? 'show' : '');?>" id="collapseExample">
+								<div class="col-12 d-flex ms-5"><li class="nav-item"><a class="nav-link <?php if($active == 'up_indiv') echo('active')?>" href="adminPage.php?content=up_indiv"><i class="bi bi-cloud-arrow-up"></i><span class="nav_name">  Upload individual data</span></a></li></div>
+								<div class="col-12 d-flex ms-5">	<li class="nav-item"><a class="nav-link <?php if($active == 'up_massive') echo('active')?>" href="adminPage.php?content=up_massive"><i class="bi bi-cloud-arrow-up-fill"></i><span class="nav_name">  Upload massive data</span></a></li></div>
+								<div class="col-12 d-flex ms-5">	<li class="nav-item"><a class="nav-link <?php if($active == 'admin') echo('active')?>" href="adminPage.php?content=admin"><i class="bi bi-clipboard-data"></i><span class="nav_name">  Admin data</span></a></li></div>
+							</div>
+						
 					</ul>
 				</nav>
 			</div>
