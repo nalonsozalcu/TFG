@@ -32,17 +32,35 @@
 				<tbody>
 				<?php
 					$users = Usuario::get_all_users();
-					foreach ($users as $i => $value) {
-						echo('<tr>');
-						echo('<th scope="row">'.($i + 1).'</th>');
-						echo('<td><img src="../assets/img/'.$users[$i]["avatar"].'" width="32" height="32" class="rounded-circle"> '.$users[$i]["nombre"].' '.$users[$i]["apellidos"].'</td>');
-						echo('<td>'.$users[$i]["rol"].'</td>');
-						echo('<td>'.$users[$i]["username"].'</td>');
-						echo('<td>'.$users[$i]["email"].'</td>');
-						echo('<td>'.$users[$i]["id"].'</td>');
-						echo('<td><a href="../api/deleteUser.php?id='.$users[$i]["id"].'" class="btn"><i class="bi bi-trash3"></i></a></td>');
-						echo('</tr>');
-					}?>
+					foreach ($users as $i => $value):?>
+						<tr>
+						<th scope="row"><?php echo($i + 1)?></th>
+						<td><img src="../assets/img/<?php echo($users[$i]["avatar"])?>" width="32" height="32" class="rounded-circle"> <?php echo($users[$i]["nombre"].' '.$users[$i]["apellidos"])?></td>
+						<td><?php echo($users[$i]["rol"])?></td>
+						<td><?php echo($users[$i]["username"])?></td>
+						<td><?php echo($users[$i]["email"])?></td>
+						<td><?php echo($users[$i]["id"])?></td>
+						<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($users[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
+						</tr>
+						<div class="modal fade" id="DeleteUserModal<?php echo($users[$i]["id"])?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteUserModalLabel<?php echo($users[$i]["id"])?>" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="DeleteUserModalLabel<?php echo($users[$i]["id"])?>">Confirm deletion</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									You are going to delete the user with ID: <?php echo($users[$i]["id"])?> and username: <?php echo($users[$i]["username"])?>
+									Are you sure you want to delete?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+									<a href="../api/deleteUser.php?id=<?php echo($users[$i]["id"])?>"><button type="button" class="btn btn-primary">Ok</button></a>
+								</div>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
