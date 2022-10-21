@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="vh-80 d-flex justify-content-center align-items-center">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row mt-3 mb-3 d-flex justify-content-start">
 			<h4>Administrador de usuarios</h4>
 		</div>

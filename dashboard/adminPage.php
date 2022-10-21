@@ -25,6 +25,7 @@
 	<!-- CUERPO -->
 	<!-- Here is our page's main content -->
 	<main>
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-2">
 				<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f7f6fb;">
@@ -75,6 +76,7 @@
 				?>
 			</div>
 		</div>
+	</div>
 	</main>
 
 	<!-- PIE DE PÁGINA -->

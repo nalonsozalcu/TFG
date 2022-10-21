@@ -26,8 +26,8 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `usuarios` (`id`, `username`, `password`, `email`, `nombre`, `apellidos`, `avatar`, `rol`) VALUES
-(1, 'user', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'user@gmail.com', 'User', 'User', 'admin.png', 'user'),
-(2, 'admin', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'admin@gmail.com', 'Admin', 'Admin', 'user.png', 'admin');
+(1, 'user', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'user@gmail.com', 'User', 'User', 'user.png', 'user'),
+(2, 'admin', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'admin@gmail.com', 'Admin', 'Admin', 'admin.png', 'admin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
