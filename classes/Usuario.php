@@ -2,7 +2,6 @@
 
 class Usuario
 {
-	private const TABLE = 'users';
 	private $id;
 	private $username;
 	private $password;
