@@ -37,10 +37,11 @@ if($avatar){
         exit(1);
     }
 
-    $dir="../assets/img/users/".$username."/";
+    $dir="../files/users/".$username."/";
     mkdir($dir);
 
     move_uploaded_file($file_tmp,$dir.$file_name);
+    $_SESSION["avatar"] = $usuario->avatar();
  }
 
 if($pass != null){

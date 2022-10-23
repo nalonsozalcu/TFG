@@ -24,7 +24,7 @@
 					foreach ($users as $i => $value) {
 						echo('<tr>');
 						echo('<th scope="row">'.($i + 1).'</th>');
-						echo('<td><img src="../assets/img/'.$users[$i]["avatar"].'" width="32" height="32" class="rounded-circle"> '.$users[$i]["nombre"].' '.$users[$i]["apellidos"].'</td>');
+						echo('<td><img src="../files/users'.$users[$i]["avatar"].'" width="32" height="32" class="rounded-circle"> '.$users[$i]["nombre"].' '.$users[$i]["apellidos"].'</td>');
 						echo('<td>'.$users[$i]["rol"].'</td>');
 						echo('<td>'.$users[$i]["username"].'</td>');
 						echo('<td>'.$users[$i]["email"].'</td>');
