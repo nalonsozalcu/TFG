@@ -291,3 +291,9 @@ ALTER TABLE `restaurantes`
 ALTER TABLE `subcategorias_restaurantes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+CREATE TABLE `relacion_categorías` ( 
+`id_categoria` INT NOT NULL , 
+`tipo_categoria` VARCHAR(15) NOT NULL , 
+`id_actividad` INT NOT NULL , 
+`tipo_actividad` VARCHAR(15) NOT NULL 
+) ENGINE = InnoDB;
