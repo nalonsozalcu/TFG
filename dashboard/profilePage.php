@@ -21,14 +21,14 @@
 		<div class="container rounded bg-white mt-5 mb-5">
 				<div class="row">
 					<div class="col-md-3 border-right">
-						<div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="../assets/img/<?php echo($usuario->avatar()) ?>"><span class="font-weight-bold"><?php echo($usuario->username()) ?></span><span class="text-black-50"><?php echo($usuario->email()) ?></span><span> </span></div>
+						<div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="../assets/img/users/<?php echo($usuario->username()) ?>/<?php echo($usuario->avatar()) ?>"><span class="font-weight-bold"><?php echo($usuario->username()) ?></span><span class="text-black-50"><?php echo($usuario->email()) ?></span><span> </span></div>
 					</div>
 					<div class="col-md-5 border-right">
 						<div class="p-3 py-5">
 							<div class="d-flex justify-content-between align-items-center mb-3">
 								<h4 class="text-right">Profile Settings</h4>
 							</div>
-							<form class="form" method="POST" action="../api/profile.php">
+							<form class="form" method="POST" action="../api/profile.php" enctype="multipart/form-data">
 								<div class="row mt-2">
 									<div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" value="<?php echo($usuario->nombre()) ?>" placeholder="nombre" name="nombre"></div>
 									<div class="col-md-6"><label class="labels">Apellidos</label><input type="text" class="form-control" value="<?php echo($usuario->apellidos()) ?>" placeholder="apellido" name="apellidos"></div>
@@ -44,6 +44,14 @@
 											<div class="col-md-12 mb-3"><input class="form-control" type="file" id="formFile" name="avatar" value=""></div>
 										</div>
 									</div>
+									<?php if(isset($_GET["ext"])){
+										if($_GET["ext"] == 'false')
+											echo ('<p class="text-danger">Extension no permitida, elija un archivo JPEG o PNG.</p>');
+									} ?>
+									<?php if(isset($_GET["tam"])){
+										if($_GET["tam"] == 'false')
+											echo ('<p class="text-danger">El tamaño del archivo debe ser menor de 2 MB</p>');
+									} ?>
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-12 mb-3"><label class="labels">Cambiar contraseña</label><button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#collapseContraseña"><i class="bi bi-pencil-square"></i></button></div>

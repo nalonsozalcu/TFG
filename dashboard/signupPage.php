@@ -18,7 +18,7 @@
 				<div class="row d-flex justify-content-center">
 					<div class="card bg-white">
 					<div class="card-body p-5">
-						<form class="form row g-3" method="POST" action="../api/signup.php">
+						<form class="form row g-3" method="POST" action="../api/signup.php" enctype="multipart/form-data">
 							<h2 class="fw-bold mb-2">PlanWays</h2>
 							<p class=" mb-5">Please enter your information</p>
 							<div class="col-md-4">
@@ -51,15 +51,15 @@
 							<div class="col-6">
 							<label for="formFile" class="form-label">Foto de perfil</label>
 							<input class="form-control" type="file" id="formFile" name="avatar">
+							<?php if(isset($_GET["ext"])){
+								if($_GET["ext"] == 'false')
+									echo ('<p class="text-danger">Extension no permitida, elija un archivo JPEG o PNG.</p>');
+							} ?>
+							<?php if(isset($_GET["tam"])){
+								if($_GET["tam"] == 'false')
+									echo ('<p class="text-danger">El tamaño del archivo debe ser menor de 2 MB</p>');
+							} ?>
 							</div>
-							<!-- <div class="col-12">
-								<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="gridCheck">
-								<label class="form-check-label" for="gridCheck">
-									Check me out
-								</label>
-								</div>
-							</div> -->
 							<div class="d-grid">
 								<button type="submit" class="btn btn-outline-primary">Sign in</button>
 							</div>

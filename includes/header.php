@@ -26,7 +26,7 @@
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class="dropdown text-end">
 					<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="../assets/img/<?php echo($_SESSION['avatar']) ?>" width="42" height="42" class="rounded-circle">
+						<img src="../assets/img/users/<?php echo($_SESSION["username"]) ?>/<?php echo($_SESSION['avatar']) ?>" width="42" height="42" class="rounded-circle">
 					</a>
 					<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
 						<li><a class="dropdown-item" href="#">Settings</a></li>
