@@ -38,16 +38,24 @@
 							</div>
 							<div class="col-md-12">
 								<label for="inputEmail" class="form-label">Email</label>
-								<input type="email" class="form-control" id="inputEmail" name="email">
+								<input type="email" class="form-control" id="inputEmail" name="email" required>
 							</div>
+							<?php if(isset($_GET["userexists"])){
+								if($_GET["userexists"] == 'true')
+									echo ('<p class="text-danger">El usuario ya esta registrado.</p>');
+							} ?>
 							<div class="col-md-6">
 								<label for="inputPassword" class="form-label">Contraseña</label>
-								<input type="password" class="form-control" id="inputPassword" name="password" placeholder="****">
+								<input type="password" class="form-control" id="inputPassword" name="password" placeholder="****" required>
 							</div>
 							<div class="col-6">
 								<label for="inputPassword2" class="form-label">Verifica la contraseña</label>
-								<input type="password" class="form-control" id="inputPassword2" name="password2" placeholder="****">
+								<input type="password" class="form-control" id="inputPassword2" name="password2" placeholder="****" required>
 							</div>
+							<?php if(isset($_GET["regpass"])){
+								if($_GET["regpass"] == 'false')
+									echo ('<p class="text-danger">Las contraseñas deben coincidir.</p>');
+							} ?>
 							<div class="col-6">
 							<label for="formFile" class="form-label">Foto de perfil</label>
 							<input class="form-control" type="file" id="formFile" name="avatar">

@@ -16,8 +16,10 @@ if($username)$usuario->setUsername($username);
 if($email)$usuario->setEmail($email);
 if($nombre)$usuario->setNombre($nombre);
 if($apellidos)$usuario->setApellidos($apellidos);
-if($avatar){
-    $usuario->setAvatar($avatar['name']);
+if($avatar && $avatar['name']!= ""){
+    var_dump($avatar);
+    exit(1);
+    $usuario->updateAvatar($avatar['name']);
 
     $file_name = $avatar['name'];
     $file_size =$avatar['size'];

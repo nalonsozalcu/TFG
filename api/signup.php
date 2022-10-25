@@ -10,7 +10,7 @@ $nombre = $_POST["nombre"] != "" ? $_POST["nombre"] : null;
 $apellidos = $_POST["apellidos"] != "" ? $_POST["apellidos"] : null;
 $avatar = isset($_FILES['avatar']) ? $_FILES["avatar"] : null;
 
-if($avatar){
+if($avatar && $avatar['name']!= ""){
 
    $file_name = $avatar['name'];
    $file_size =$avatar['size'];
@@ -37,9 +37,9 @@ if($avatar){
 }
 
 if (Usuario::existeUsuario($email))
-   header("location: ../signupPage.php?userexists=true");
+   header("location: ../dashboard/signupPage.php?userexists=true");
 else if ($password != $password2)
-   header("location: ../signupPage.php?regpass=false");
+   header("location: ../dashboard/signupPage.php?regpass=false");
 else {
    if (Usuario::registrar($username, $email, $password, $nombre, $apellidos, $avatar['name']))
       header("location: ../dashboard/loginPage.php");

@@ -95,6 +95,11 @@ class Usuario
 		$this->avatar = $avatar;
 	}
 
+	public function updateAvatar(string $avatar) : void {
+		unlink("../files/users/".$this->username."/".$this->avatar);
+		$this->avatar = $avatar;
+	}
+
 	public function rol() : string {
 		return $this->rol;
 	}

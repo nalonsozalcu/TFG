@@ -35,7 +35,7 @@
 					foreach ($users as $i => $value):?>
 						<tr>
 						<th scope="row"><?php echo($i + 1)?></th>
-						<td><img src="../assets/img/<?php echo($users[$i]["avatar"])?>" width="32" height="32" class="rounded-circle"> <?php echo($users[$i]["nombre"].' '.$users[$i]["apellidos"])?></td>
+						<td><img src="../files/users/<?php echo($users[$i]["username"])?>/<?php echo($users[$i]["avatar"])?>" width="32" height="32" class="rounded-circle"> <?php echo($users[$i]["nombre"].' '.$users[$i]["apellidos"])?></td>
 						<td><?php echo($users[$i]["rol"])?></td>
 						<td><?php echo($users[$i]["username"])?></td>
 						<td><?php echo($users[$i]["email"])?></td>
