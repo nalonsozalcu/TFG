@@ -153,11 +153,10 @@ class Monumento
 	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($id,  $nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $fecha,  $autores,  $categoria)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $fecha,  $autores,  $categoria)
 	{
 		$conn = Aplicacion::getConexionBD();
 
-		$id = $conn->real_escape_string($id);
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
 		$desc_sitio = $conn->real_escape_string($desc_sitio);
@@ -172,7 +171,7 @@ class Monumento
 		$autores = $conn->real_escape_string($autores);
 		$categoria = $conn->real_escape_string($categoria);
 
-		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`, `categoria`) VALUES ('$id',  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha',  '$autores',  '$categoria')");
+		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`, `categoria`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha',  '$autores',  '$categoria')");
 		$result = $conn->query($query);
 		
 		if (!$result) {
