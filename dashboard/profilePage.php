@@ -20,6 +20,10 @@
 	<main>
 		<div class="container rounded bg-white mt-5 mb-5">
 				<div class="row">
+					<?php if(isset($_GET["delete"])){
+						if($_GET["delete"] == 'false')
+							echo ('<p class="text-danger">No ha sido posible borrar el usuario.</p>');
+					} ?>
 					<div class="col-md-3 border-right">
 						<div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="../files/users/<?php echo($usuario->username()) ?>/<?php echo($usuario->avatar()) ?>"><span class="font-weight-bold"><?php echo($usuario->username()) ?></span><span class="text-black-50"><?php echo($usuario->email()) ?></span><span> </span></div>
 					</div>
@@ -119,6 +123,11 @@
 						</div>
 					</div>
 				</div>
+				<div class="row justify-content-end">
+						<div class="col-2">
+							<button type="button" class="btn btn-link link-dark" data-bs-toggle="modal" data-bs-target="#DeleteAccountModal">Delete account</button>
+						</div>
+					</div>
 			</div>
 			</div>
 		</div>
