@@ -216,10 +216,18 @@ class Evento
 		$this->telefono = $telefono;
 	}
 
-	
+	public static function get_all_eventos(){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM eventos");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($id,  $nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $categoria,  $fecha_fin,  $fecha_fin,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
+	public static function registrar($id,  $nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $categoria, $fecha_fin,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
 	{
 		$conn = Aplicacion::getConexionBD();
 

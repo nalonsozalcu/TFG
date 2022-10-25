@@ -17,7 +17,7 @@
 		?>
 		</div>
 		<div class="row d-flex justify-content-center">
-			<table id="example" class="table table-striped" style="width:100%">
+			<table class="table" style="width:100%">
 				<thead>
 					<tr>
 					<th scope="col">#</th>

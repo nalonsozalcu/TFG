@@ -1,39 +1,42 @@
 <!DOCTYPE html>
+<?php if(isset($_GET["table"])){
+	$content = true;
+	$active =  $_GET["table"];
+}else{
+	$content = false;
+	$active ="";
+}
+?>
 <div class="vh-80 d-flex justify-content-center align-items-center">
 	<div class="container">
 		<div class="row mt-3 mb-3 d-flex justify-content-start">
 			<h4>Tablas de datos</h4>
+			<div class="btn-group">
+			<a href="adminPage.php" class="btn btn-outline-secondary <?php if(!$content == 'users') echo('active')?>">Ususarios</a>
+			<a href="adminPage.php?table=museos" class="btn btn-outline-secondary <?php if($active == 'museos') echo('active')?>">Museos</a>
+			<a href="adminPage.php?table=eventos" class="btn btn-outline-secondary <?php if($active == 'eventos') echo('active')?>">Eventos</a>
+			<a href="adminPage.php?table=monumentos" class="btn btn-outline-secondary <?php if($active == 'monumentos') echo('active')?>">Monumentos</a>
+			<a href="adminPage.php?table=restaurantes" class="btn btn-outline-secondary <?php if($active == 'restaurantes') echo('active')?>">Restaurantes</a>
+			</div>
 		</div>
 		<div class="row d-flex justify-content-center">
-			<h5>Usuarios</h5>
-			<table id="example" class="table table-striped" style="width:100%">
-				<thead>
-					<tr>
-					<th scope="col">#</th>
-					<th scope="col">Full name</th>
-					<th scope="col">Role</th>
-					<th scope="col">Username</th>
-					<th scope="col">Email</th>
-					<th scope="col">User ID</th>
-					<!-- <th scope="col"></th> -->
-					</tr>
-				</thead>
-				<tbody>
-				<?php
-					$users = Usuario::get_all_users();
-					foreach ($users as $i => $value) {
-						echo('<tr>');
-						echo('<th scope="row">'.($i + 1).'</th>');
-						echo('<td><img src="../files/users'.$users[$i]["avatar"].'" width="32" height="32" class="rounded-circle"> '.$users[$i]["nombre"].' '.$users[$i]["apellidos"].'</td>');
-						echo('<td>'.$users[$i]["rol"].'</td>');
-						echo('<td>'.$users[$i]["username"].'</td>');
-						echo('<td>'.$users[$i]["email"].'</td>');
-						echo('<td>'.$users[$i]["id"].'</td>');
-						// echo('<td><a href="../api/deleteUser.php?id='.$users[$i]["id"].'" class="btn"><i class="bi bi-trash3"></i></a></td>');
-						echo('</tr>');
-					}?>
-				</tbody>
-			</table>
+		<?php if($content){
+			if($active == 'eventos'){
+				require "tables/eventosTable.php";
+			}
+			if($active == 'museos'){
+				require "tables/museosTable.php";
+			}
+			if($active == 'monumentos'){
+				require "tables/monumentosTable.php";
+			}
+			if($active == 'restaurantes'){
+				require "tables/restaurantesTable.php";
+			}
+		}else{
+			require "tables/usersTable.php";
+		}
+	?>
 		</div>
 	</div>
 </div>
