@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/museo.php">
-	<h5 class="mb-5">Formulario de museo</h5>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php">
+	<h5 class="mb-5">Formulario de restaurante</h5>
 	<div class="container">
 		<div class="row mb-3">
 			<div class="col">
