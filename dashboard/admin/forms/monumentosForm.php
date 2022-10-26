@@ -1,4 +1,27 @@
 <!DOCTYPE html>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=monumentos">
+	<h5 class="mb-3">Añadir categoría</h5>
+	<div class="container">
+		<div class="row mb-3">
+			<div class="col-3">
+				<div class="form-group">
+					<label for="categoria" class="form-label ">Categoría</label>
+					<input
+						type="text"
+						id="categoria"
+						name="categoria"
+						class="form-control"
+						placeholder="categoria"
+						required
+					/>
+				</div>
+			</div>
+			<div class="col-2 align-self-end">
+				<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+			</div>
+		</div>
+	</div>
+</form>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/monumento.php">
 	<h5 class="mb-5">Formulario de monumentos</h5>
 	<div class="container">

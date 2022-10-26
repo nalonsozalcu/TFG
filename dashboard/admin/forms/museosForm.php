@@ -1,4 +1,27 @@
 <!DOCTYPE html>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=museos">
+	<h5 class="mb-3">Añadir categoría</h5>
+	<div class="container">
+		<div class="row mb-3">
+			<div class="col-3">
+				<div class="form-group">
+					<label for="categoria" class="form-label ">Categoría</label>
+					<input
+						type="text"
+						id="categoria"
+						name="categoria"
+						class="form-control"
+						placeholder="categoria"
+						required
+					/>
+				</div>
+			</div>
+			<div class="col-2 align-self-end">
+				<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+			</div>
+		</div>
+	</div>
+</form>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/museo.php">
 	<h5 class="mb-5">Formulario de museo</h5>
 	<div class="container">
@@ -13,6 +36,30 @@
 						class="form-control"
 						placeholder="nombre"
 						required
+					/>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="telefono" class="form-label ">Telefono</label>
+					<input
+						type="text"
+						id="telefono"
+						name="telefono"
+						class="form-control"
+						placeholder="Telefono"
+					/>
+				</div>
+			</div>
+            <div class="col">
+				<div class="form-group">
+					<label for="inputEmail" class="form-label ">Email</label>
+					<input
+						type="text"
+						id="inputEmail"
+						name="email"
+						class="form-control"
+						placeholder="ejemplo@gmail.com"
 					/>
 				</div>
 			</div>
@@ -61,30 +108,6 @@
 						name="url"
 						class="form-control"
 						placeholder="url"
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="telefono" class="form-label ">Telefono</label>
-					<input
-						type="text"
-						id="telefono"
-						name="telefono"
-						class="form-control"
-						placeholder="Telefono"
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="inputEmail" class="form-label ">Email</label>
-					<input
-						type="text"
-						id="inputEmail"
-						name="email"
-						class="form-control"
-						placeholder="ejemplo@gmail.com"
 					/>
 				</div>
 			</div>

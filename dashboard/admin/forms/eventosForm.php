@@ -1,4 +1,49 @@
 <!DOCTYPE html>
+<div class="container">
+	<div class="row mb-3">
+		<h5 class="mb-3">Añadir categorías</h5>
+		<form class="form col-4" method="POST" action="../api/categoria.php?type=eventos">
+			<div class="row">
+				<div class="col-10">
+					<div class="form-group">
+						<label for="categoria" class="form-label ">Categoría</label>
+						<input
+							type="text"
+							id="categoria"
+							name="categoria"
+							class="form-control"
+							placeholder="categoria"
+							required
+						/>
+					</div>
+				</div>
+				<div class="col-2 align-self-end">
+					<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+				</div>
+			</div>
+		</form>
+		<form class="form col-4" method="POST" action="../api/categoria.php?type=eventos&aud=true">
+			<div class="row">
+				<div class="col-10">
+					<div class="form-group">
+						<label for="audiencia" class="form-label ">Tipo de audiencia</label>
+						<input
+							type="text"
+							id="audiencia"
+							name="audiencia"
+							class="form-control"
+							placeholder="audiencia"
+							required
+						/>
+					</div>
+				</div>
+				<div class="col-2 align-self-end">
+					<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/evento.php">
 	<h5 class="mb-5">Formulario de evento</h5>
 	<div class="container">

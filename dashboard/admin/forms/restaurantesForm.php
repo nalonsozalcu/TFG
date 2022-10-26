@@ -1,4 +1,49 @@
 <!DOCTYPE html>
+<div class="container">
+	<div class="row mb-3">
+		<h5 class="mb-3">Añadir categorías</h5>
+		<form class="form col-4" method="POST" action="../api/categoria.php?type=restaurantes">
+			<div class="row">
+				<div class="col-10">
+					<div class="form-group">
+						<label for="categoria" class="form-label ">Categoría</label>
+						<input
+							type="text"
+							id="categoria"
+							name="categoria"
+							class="form-control"
+							placeholder="categoria"
+							required
+						/>
+					</div>
+				</div>
+				<div class="col-2 align-self-end">
+					<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+				</div>
+			</div>
+		</form>
+		<form class="form col-4" method="POST" action="../api/categoria.php?type=restaurantes">
+			<div class="row">
+				<div class="col-10">
+					<div class="form-group">
+						<label for="subcategoria" class="form-label ">Subcategoría</label>
+						<input
+							type="text"
+							id="subcategoria"
+							name="subcategoria"
+							class="form-control"
+							placeholder="subcategoria"
+							required
+						/>
+					</div>
+				</div>
+				<div class="col-2 align-self-end">
+					<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php">
 	<h5 class="mb-5">Formulario de restaurante</h5>
 	<div class="container">
