@@ -165,10 +165,25 @@
 			</div>
 		</div>
 		<div class="row mb-3">
-			<div class="col">
+			<div class="col-6">
 				<div class="form-group">
 					<label for="desc_sitio" class="form-label ">Descripción del lugar</label>
 					<textarea class="form-control" id="desc_sitio" name="desc_sitio" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="col-4">
+			<?php
+				$conn = Aplicacion::getConexionBD();
+				$query = sprintf("SELECT * FROM categorias_museos");
+				$rs = $conn->query($query);
+				$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+				<div class="form-group">
+					<label for="categoria" class="form-label ">Selecciona las categorias</label>
+					<select class="form-control selectpicker" name="categoria" multiple data-live-search="true">
+					<?php foreach ($categorias as $i => $value):?>
+						<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+					<?php endforeach; ?>
+					</select>
 				</div>
 			</div>
 		</div>

@@ -86,17 +86,17 @@
 	<?php
 	require_once "../includes/tables.html";
 	?>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
 	<script>
-	$(document).ready(function() {
-		var table = $('#example').DataTable( {
-			lengthChange: false,
-			buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+		$(document).ready(function() {
+			var table = $('#example').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+			} );
+		
+			table.buttons().container()
+				.appendTo( '#example_wrapper .col-md-6:eq(0)' );
 		} );
-	
-		table.buttons().container()
-			.appendTo( '#example_wrapper .col-md-6:eq(0)' );
-	} );
 	</script>
 </body>
 </html>

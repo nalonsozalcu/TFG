@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="dist/virtual-select.min.css" />
 <div class="container">
 	<div class="row mb-3">
 		<h5 class="mb-3">Añadir categorías</h5>
@@ -277,6 +278,38 @@
 				</div>
 			</div>
 		</div>
+		<div class="row mb-3">
+			<div class="col-4">
+			<?php
+				$conn = Aplicacion::getConexionBD();
+				$query = sprintf("SELECT * FROM categorias_eventos");
+				$rs = $conn->query($query);
+				$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+				<div class="form-group">
+					<label for="categoria" class="form-label ">Selecciona las categorias</label>
+					<select class="form-control selectpicker" name="categoria" multiple data-live-search="true">
+					<?php foreach ($categorias as $i => $value):?>
+						<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+					<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			<div class="col-4">
+			<?php
+				$conn = Aplicacion::getConexionBD();
+				$query = sprintf("SELECT * FROM audiencia_eventos");
+				$rs = $conn->query($query);
+				$audiencia = $rs->fetch_all(MYSQLI_ASSOC);?>
+				<div class="form-group">
+					<label for="audiencia" class="form-label ">Selecciona la audiencia</label>
+					<select class="form-control selectpicker" name="audiencia" multiple data-live-search="true">
+					<?php foreach ($audiencia as $i => $value):?>
+						<option value="<?php echo($audiencia[$i]["id"])?>"><?php echo($audiencia[$i]["tipo"])?></option>
+					<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="row justify-content-end">
 			<div class="col-1">
 				<button class="btn btn-primary" type="submit">Guardar</button>
@@ -284,3 +317,4 @@
 		</div>
 	</div>
 </form>
+

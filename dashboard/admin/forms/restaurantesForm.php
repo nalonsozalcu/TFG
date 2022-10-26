@@ -174,6 +174,38 @@
 				</div>
 			</div>
 		</div>
+		<div class="row mb-3">
+			<div class="col-4">
+			<?php
+				$conn = Aplicacion::getConexionBD();
+				$query = sprintf("SELECT * FROM categorias_restaurantes");
+				$rs = $conn->query($query);
+				$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+				<div class="form-group">
+					<label for="categoria" class="form-label ">Selecciona las categorias</label>
+					<select class="form-control selectpicker" name="categoria" multiple data-live-search="true">
+					<?php foreach ($categorias as $i => $value):?>
+						<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+					<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			<div class="col-4">
+			<?php
+				$conn = Aplicacion::getConexionBD();
+				$query = sprintf("SELECT * FROM subcategorias_restaurantes");
+				$rs = $conn->query($query);
+				$subcategoria = $rs->fetch_all(MYSQLI_ASSOC);?>
+				<div class="form-group">
+					<label for="subcategoria" class="form-label ">Selecciona la subcategoria</label>
+					<select class="form-control selectpicker" name="subcategoria" multiple data-live-search="true">
+					<?php foreach ($subcategoria as $i => $value):?>
+						<option value="<?php echo($subcategoria[$i]["id"])?>"><?php echo($subcategoria[$i]["subcategoria"])?></option>
+					<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="row justify-content-end">
 			<div class="col-1">
 				<button class="btn btn-primary" type="submit">Guardar</button>
