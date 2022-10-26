@@ -153,7 +153,7 @@ class Monumento
 	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $fecha,  $autores,  $categoria)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores,  $categoria)
 	{
 		$conn = Aplicacion::getConexionBD();
 

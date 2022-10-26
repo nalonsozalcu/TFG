@@ -145,7 +145,7 @@ class Restaurante
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $telefono,  $email, $categoria, $subcategoria)
+	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categoria, $subcategoria)
 	{
 		$conn = Aplicacion::getConexionBD();
 
