@@ -1,4 +1,4 @@
-<?php require_once '../classes/Monumento.php'; ?>
+<?php require_once '../classes/Evento.php'; ?>
 <!DOCTYPE html>
 <h5>Eventos</h5>
 <table id="example" class="table table-striped" style="width:100%">
@@ -25,27 +25,27 @@
 	</thead>
 	<tbody>
 	<?php
-		$monumentos = Monumento::get_all_monumentos();
-		if($monumentos):
-			foreach ($monumentos as $i => $value):?>
+		$evento = Evento::get_all_eventos();
+		if($evento):
+			foreach ($evento as $i => $value):?>
 				<tr>
-					<td><?php echo($monumentos[$i]["id"])?></td>
-					<td><?php echo($monumentos[$i]["nombre"])?></td>
-					<td><?php echo($monumentos[$i]["descripcion"])?></td>
-					<td><?php echo($monumentos[$i]["fecha_fin"])?></td>
-					<td><?php echo($monumentos[$i]["fecha_ini"])?></td>
-					<td><?php echo($monumentos[$i]["audiencia"])?></td>
-					<td><?php echo($monumentos[$i]["horario"])?></td>
-					<td><?php echo($monumentos[$i]["transporte"])?></td>
-					<td><?php echo($monumentos[$i]["url"])?></td>
-					<td><?php echo($monumentos[$i]["email"])?></td>
-					<td><?php echo($monumentos[$i]["telefono"])?></td>
-					<td><?php echo($monumentos[$i]["lugar"])?></td>
-					<td><?php echo($monumentos[$i]["direccion"])?></td>
-					<td><?php echo($monumentos[$i]["codpostal"])?></td>
-					<td><?php echo($monumentos[$i]["desc_sitio"])?></td>
-					<td><?php echo($monumentos[$i]["precio"])?></td>
-					<td><?php echo($monumentos[$i]["gratis"])?></td>
+					<td><?php echo($evento[$i]["id"])?></td>
+					<td><?php echo($evento[$i]["nombre"])?></td>
+					<td><?php echo($evento[$i]["descripcion"])?></td>
+					<td><?php echo($evento[$i]["fecha_fin"])?></td>
+					<td><?php echo($evento[$i]["fecha_ini"])?></td>
+					<td><?php echo($evento[$i]["audiencia"])?></td>
+					<td><?php echo($evento[$i]["horario"])?></td>
+					<td><?php echo($evento[$i]["transporte"])?></td>
+					<td><?php echo($evento[$i]["url"])?></td>
+					<td><?php echo($evento[$i]["email"])?></td>
+					<td><?php echo($evento[$i]["telefono"])?></td>
+					<td><?php echo($evento[$i]["lugar"])?></td>
+					<td><?php echo($evento[$i]["direccion"])?></td>
+					<td><?php echo($evento[$i]["codpostal"])?></td>
+					<td><?php echo($evento[$i]["desc_sitio"])?></td>
+					<td><?php echo($evento[$i]["precio"])?></td>
+					<td><?php echo($evento[$i]["gratis"])?></td>
 				</tr>
 			<?php endforeach; 
 		endif;?>

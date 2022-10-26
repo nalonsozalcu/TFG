@@ -145,11 +145,10 @@ class Restaurante
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($id,  $nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $telefono,  $email, $categoria, $subcategoria)
+	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $telefono,  $email, $categoria, $subcategoria)
 	{
 		$conn = Aplicacion::getConexionBD();
 
-		$id = $conn->real_escape_string($id);
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
 		$horario = $conn->real_escape_string($horario);
@@ -163,7 +162,7 @@ class Restaurante
 		$categoria = $conn->real_escape_string($categoria);
 		$subcategoria = $conn->real_escape_string($subcategoria);
 
-		$query = sprintf("INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `horario`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`, `categoria`, `subcategoria`) VALUES ('$id',  '$nombre',  '$descripcion', '$horario',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email',  '$categoria',  '$subcategoria')");
+		$query = sprintf("INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `horario`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`, `categoria`, `subcategoria`) VALUES (NULL,  '$nombre',  '$descripcion', '$horario',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email',  '$categoria',  '$subcategoria')");
 		$result = $conn->query($query);
 		
 		if (!$result) {

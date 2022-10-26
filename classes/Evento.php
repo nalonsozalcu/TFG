@@ -227,11 +227,10 @@ class Evento
 	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($id,  $nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $categoria, $fecha_fin,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $categoria, $fecha_fin,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
 	{
 		$conn = Aplicacion::getConexionBD();
 
-		$id = $conn->real_escape_string($id);
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
 		$desc_sitio = $conn->real_escape_string($desc_sitio);
@@ -256,7 +255,7 @@ class Evento
 
 
 
-		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `categoria`, `fecha_fin`, `fecha_ini`, `gratis`, `audiencia`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES ('$id',  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud',  '$categoria', '$fecha_fin',  '$autores_ini', '$gratis',  '$audiencia', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
+		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `categoria`, `fecha_fin`, `fecha_ini`, `gratis`, `audiencia`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud',  '$categoria', '$fecha_fin',  '$autores_ini', '$gratis',  '$audiencia', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
 		$result = $conn->query($query);
 		
 		if (!$result) {

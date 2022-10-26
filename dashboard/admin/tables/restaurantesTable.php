@@ -1,4 +1,4 @@
-<?php require_once '../classes/Monumento.php'; ?>
+<?php require_once '../classes/Restaurante.php'; ?>
 <!DOCTYPE html>
 <h5>Restaurantes</h5>
 <table id="example" class="table table-striped" style="width:100%">
@@ -17,19 +17,19 @@
 	</thead>
 	<tbody>
 	<?php
-		$monumentos = Monumento::get_all_monumentos();
-		if($monumentos):
-			foreach ($monumentos as $i => $value):?>
+		$restaurantes = Restaurante::get_all_restaurantes();
+		if($restaurantes):
+			foreach ($restaurantes as $i => $value):?>
 				<tr>
-					<td><?php echo($monumentos[$i]["id"])?></td>
-					<td><?php echo($monumentos[$i]["nombre"])?></td>
-					<td><?php echo($monumentos[$i]["descripcion"])?></td>
-					<td><?php echo($monumentos[$i]["horario"])?></td>
-					<td><?php echo($monumentos[$i]["url"])?></td>
-					<td><?php echo($monumentos[$i]["Email"])?></td>
-					<td><?php echo($monumentos[$i]["Telefono"])?></td>
-					<td><?php echo($monumentos[$i]["direccion"])?></td>
-					<td><?php echo($monumentos[$i]["codpostal"])?></td>
+					<td><?php echo($restaurantes[$i]["id"])?></td>
+					<td><?php echo($restaurantes[$i]["nombre"])?></td>
+					<td><?php echo($restaurantes[$i]["descripcion"])?></td>
+					<td><?php echo($restaurantes[$i]["horario"])?></td>
+					<td><?php echo($restaurantes[$i]["url"])?></td>
+					<td><?php echo($restaurantes[$i]["Email"])?></td>
+					<td><?php echo($restaurantes[$i]["Telefono"])?></td>
+					<td><?php echo($restaurantes[$i]["direccion"])?></td>
+					<td><?php echo($restaurantes[$i]["codpostal"])?></td>
 				</tr>
 			<?php endforeach; 
 		endif;?>
