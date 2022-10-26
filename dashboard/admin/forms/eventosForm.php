@@ -18,19 +18,6 @@
 			</div>
 			<div class="col">
 				<div class="form-group">
-					<label for="fecha_fin" class="form-label ">Fecha de fin</label>
-					<input
-						type="date"
-						id="fecha_fin"
-						name="fecha_fin"
-						class="form-control"
-						placeholder="06/12/2000"
-						required
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
 					<label for="fecha_ini" class="form-label ">Fecha de inicio</label>
 					<input
 						type="date"
@@ -44,12 +31,15 @@
 			</div>
 			<div class="col">
 				<div class="form-group">
-						<select class="form-select" for="categoria" aria-label="Default select example">
-							<option selected>Selecciona una categoria</option>
-							<option value="1">Musica</option>
-							<option value="2">Deportivo</option>
-							<option value="3">Three</option>
-						</select>
+					<label for="fecha_fin" class="form-label ">Fecha de fin</label>
+					<input
+						type="date"
+						id="fecha_fin"
+						name="fecha_fin"
+						class="form-control"
+						placeholder="06/12/2000"
+						required
+					/>
 				</div>
 			</div>
 		</div>
@@ -61,8 +51,32 @@
 				</div>
 			</div>
 		</div>
-        <div class="row mb-3">
-        <div class="col">
+		<div class="row mb-3">
+			<div class="col">
+				<div class="form-group">
+					<label for="dias" class="form-label ">Dias de la semana</label>
+					<input
+						type="text"
+						id="dias"
+						name="dias"
+						class="form-control"
+						placeholder="L,M,X,J,V"
+					/>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="dias_ex" class="form-label ">Dias excluidos</label>
+					<input
+						type="text"
+						id="dias_ex"
+						name="dias_ex"
+						class="form-control"
+						placeholder="dd/mm/yyyy"
+					/>
+				</div>
+			</div>
+			<div class="col">
 				<div class="form-group">
 					<label for="precio" class="form-label ">Precio</label>
 					<input
@@ -70,62 +84,15 @@
 						id="precio"
 						name="precio"
 						class="form-control"
-						placeholder="Precio"
-						required
+						placeholder="€"
 					/>
 				</div>
 			</div>
-            <div class="col">
+			<div class="col-1 align-self-end">
 				<div class="form-group">
-					<label for="gratis" class="form-label ">Gratis</label>
-					<input
-						type="text"
-						id="gratis"
-						name="gratis"
-						class="form-control"
-						placeholder="gratis"
-						required
-					/>
+					<label class="form-label" for="gratis">Gratis</label>
+					<input class="form-check-input" type="checkbox" value="" id="gratis" name="gratis">
 				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="audiencia" class="form-label ">Audiencia</label>
-					<input
-						type="text"
-						id="audiencia"
-						name="audiencia"
-						class="form-control"
-						placeholder="audiencia"
-						required
-					/>
-				</div>
-                <div class="col">
-				<div class="form-group">
-					<label for="dias" class="form-label ">Dias de duracion</label>
-					<input
-						type="text"
-						id="dias"
-						name="dias"
-						class="form-control"
-						placeholder="dias"
-						required
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="dias_ex" class="form-label ">Dias restantes</label>
-					<input
-						type="text"
-						id="dias_ex"
-						name="dias_ex"
-						class="form-control"
-						placeholder="dias"
-						required
-					/>
-				</div>
-			</div>
 			</div>
 		</div>
 		<div class="row mb-3">
@@ -193,7 +160,7 @@
 			</div>
 		</div>
 		<div class="row mb-3">
-			<div class="col-6">
+			<div class="col-4">
 				<div class="form-group">
 					<label for="direccion" class="form-label ">Dirección</label>
 					<input
@@ -208,7 +175,7 @@
 			</div>
             <div class="col">
 				<div class="form-group">
-					<label for="lugar" class="form-label ">Lugar</label>
+					<label for="lugar" class="form-label ">Nombre del lugar</label>
 					<input
 						type="text"
 						id="lugar"

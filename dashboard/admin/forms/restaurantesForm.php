@@ -16,24 +16,28 @@
 					/>
 				</div>
 			</div>
-            <div class="col">
+			<div class="col">
 				<div class="form-group">
-                    <select class="form-select" for="categoria" aria-label="Default select example">
-                        <option selected>Selecciona una categoria</option>
-                        <option value="1">Musica</option>
-                        <option value="2">Deportivo</option>
-                        <option value="3">Three</option>
-                    </select>
+					<label for="telefono" class="form-label ">Telefono</label>
+					<input
+						type="text"
+						id="telefono"
+						name="telefono"
+						class="form-control"
+						placeholder="Telefono"
+					/>
 				</div>
 			</div>
-            <div class="col">
-            <div class="form-group">
-                    <select class="form-select" for="subcategoria" aria-label="Default select example">
-                        <option selected>Selecciona una subcategoria</option>
-                        <option value="1">Musica</option>
-                        <option value="2">Deportivo</option>
-                        <option value="3">Three</option>
-                    </select>
+			<div class="col">
+				<div class="form-group">
+					<label for="inputEmail" class="form-label ">Email</label>
+					<input
+						type="text"
+						id="inputEmail"
+						name="email"
+						class="form-control"
+						placeholder="ejemplo@gmail.com"
+					/>
 				</div>
 			</div>
 		</div>
@@ -69,30 +73,6 @@
 						name="url"
 						class="form-control"
 						placeholder="url"
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="telefono" class="form-label ">Telefono</label>
-					<input
-						type="text"
-						id="telefono"
-						name="telefono"
-						class="form-control"
-						placeholder="Telefono"
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="inputEmail" class="form-label ">Email</label>
-					<input
-						type="text"
-						id="inputEmail"
-						name="email"
-						class="form-control"
-						placeholder="ejemplo@gmail.com"
 					/>
 				</div>
 			</div>
