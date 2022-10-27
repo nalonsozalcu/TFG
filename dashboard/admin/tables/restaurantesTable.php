@@ -26,8 +26,8 @@
 					<td><?php echo($restaurantes[$i]["descripcion"])?></td>
 					<td><?php echo($restaurantes[$i]["horario"])?></td>
 					<td><?php echo($restaurantes[$i]["url"])?></td>
-					<td><?php echo($restaurantes[$i]["Email"])?></td>
-					<td><?php echo($restaurantes[$i]["Telefono"])?></td>
+					<td><?php echo($restaurantes[$i]["email"])?></td>
+					<td><?php echo($restaurantes[$i]["telefono"])?></td>
 					<td><?php echo($restaurantes[$i]["direccion"])?></td>
 					<td><?php echo($restaurantes[$i]["codpostal"])?></td>
 				</tr>
