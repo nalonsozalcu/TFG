@@ -12,10 +12,8 @@ $direccion = $_POST["direccion"] != "" ? $_POST["direccion"] : null;
 $codpostal = $_POST["codpostal"] != "" ? $_POST["codpostal"] : null;
 $fecha_fin = $_POST["fecha_fin"] != "" ? $_POST["fecha_fin"] : null;
 $fecha_ini = $_POST["fecha_ini"] != "" ? $_POST["fecha_ini"] : null;
-$audiencia = $_POST["audiencia"] != "" ? $_POST["audiencia"] : null;
 $latitud = $_POST["latitud"] != "" ? $_POST["latitud"] : null;
 $longitud = $_POST["longitud"] != "" ? $_POST["longitud"] : null;
-$categoria = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 $email = $_POST["email"] != "" ? $_POST["email"] : null;
 $telefono = $_POST["telefono"] != "" ? $_POST["telefono"] : null;
 $lugar = $_POST["lugar"] != "" ? $_POST["lugar"] : null;
@@ -23,8 +21,22 @@ $precio = $_POST["precio"] != "" ? $_POST["precio"] : null;
 $dias = $_POST["dias"] != "" ? $_POST["dias"] : null;
 $dias_ex = $_POST["dias_ex"] != "" ? $_POST["dias_ex"] : null;
 $gratis = $_POST["gratis"] != "" ? $_POST["gratis"] : null;
+$categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
+$audiencias = isset($_POST["audiencia"]) ? $_POST["audiencia"] : null;
 
-if (Evento::($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono))
+$categoria="";
+$audiencia="";
+
+if($categorias)
+    foreach ($categorias as $valor)
+        $categoria .= "/".$valor;
+
+if($audiencias)
+    foreach ($audiencias as $valor)
+        $audiencia += "/".$valor;
+
+
+if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

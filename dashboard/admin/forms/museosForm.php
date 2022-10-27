@@ -179,7 +179,7 @@
 				$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
 				<div class="form-group">
 					<label for="categoria" class="form-label ">Selecciona las categorias</label>
-					<select class="form-control selectpicker" name="categoria" multiple data-live-search="true">
+					<select class="form-control selectpicker" name="categoria[]" multiple data-live-search="true">
 					<?php foreach ($categorias as $i => $value):?>
 						<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
 					<?php endforeach; ?>

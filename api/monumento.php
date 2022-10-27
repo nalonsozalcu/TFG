@@ -14,7 +14,13 @@ $fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
 $autores = $_POST["autores"] != "" ? $_POST["autores"] : null;
 $latitud = $_POST["latitud"] != "" ? $_POST["latitud"] : null;
 $longitud = $_POST["longitud"] != "" ? $_POST["longitud"] : null;
-$categoria = isset($_POST['categoria']) ? $_POST["categoria"] : null;
+$categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
+
+$categoria="";
+
+if($categorias)
+    foreach ($categorias as $valor)
+        $categoria .= "/".$valor;
 
 if (Monumento::registrar($nombre, $descripcion, $desc_sitio, $horario, $transporte, $url, $direccion, $codpostal, $latitud, $longitud, $fecha, $autores, $categoria))
     header("location: ../dashboard/adminPage.php?content=up_indiv");

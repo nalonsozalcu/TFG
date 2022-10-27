@@ -14,6 +14,13 @@ $email = $_POST["email"] != "" ? $_POST["email"] : null;
 $telefono = $_POST["telefono"] != "" ? $_POST["telefono"] : null;
 $latitud = $_POST["latitud"] != "" ? $_POST["latitud"] : null;
 $longitud = $_POST["longitud"] != "" ? $_POST["longitud"] : null;
+$categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
+
+$categoria="";
+
+if($categorias)
+    foreach ($categorias as $valor)
+        $categoria .= "/".$valor;
 
 if (Museo::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
