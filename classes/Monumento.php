@@ -142,6 +142,17 @@ class Monumento
 		}
 		return false;
 	}
+
+	public static function getCategoriasbyId(int $id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id = $conn->real_escape_string($id)");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
 	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores)
