@@ -15,12 +15,11 @@ class Monumento
 	private $longitud;
 	private $fecha;
 	private $autores;
-	private $categoria;
 	
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $fecha, string $autores, string $categoria)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $fecha, string $autores)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
@@ -35,7 +34,6 @@ class Monumento
 		$this->longitud = $longitud;
 		$this->fecha = $fecha;
 		$this->autores = $autores;
-		$this->categoria = $categoria;
 		
 	}
 
@@ -135,13 +133,6 @@ class Monumento
 		$this->autores = $autores;
 	}
 
-	public function categoria() : string {
-		return $this->categoria;
-	}
-	public function setCategoria(string $categoria) : void {
-		$this->categoria = $categoria;
-	}
-
 	public static function get_all_monumentos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM monumentos");
@@ -153,7 +144,7 @@ class Monumento
 	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores,  $categoria)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -169,9 +160,9 @@ class Monumento
 		$longitud = $conn->real_escape_string($longitud);
 		$fecha = $conn->real_escape_string($fecha);
 		$autores = $conn->real_escape_string($autores);
-		$categoria = $conn->real_escape_string($categoria);
+		
 
-		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`, `categoria`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha',  '$autores',  '$categoria')");
+		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha',  '$autores')");
 		$result = $conn->query($query);
 		
 		if (!$result) {
@@ -197,9 +188,8 @@ class Monumento
 		$escaped_longitud = $conn->real_escape_string($this->longitud);
 		$escaped_fecha = $conn->real_escape_string($this->fecha);
 		$escaped_autores = $conn->real_escape_string($this->autores);
-		$escaped_categoria = $conn->real_escape_string($this->categoria);
 
-		$query = sprintf("UPDATE monumentos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha = '$escaped_fecha', autores = '$escaped_autores', categoria = '$escaped_categoria' WHERE id = $this->id");
+		$query = sprintf("UPDATE monumentos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha = '$escaped_fecha', autores = '$escaped_autores' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)

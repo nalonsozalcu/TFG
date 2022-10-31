@@ -6,7 +6,6 @@ class Museo
 	private $nombre;
 	private $descripcion;
 	private $desc_sitio;
-	private $categoria;
 	private $horario;
 	private $transporte;
 	private $url;
@@ -21,13 +20,12 @@ class Museo
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $categoria, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, string $email)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, string $email)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
 		$this->descripcion= $descripcion;
 		$this->desc_sitio= $desc_sitio;
-		$this->categoria= $categoria;
 		$this->horario= $horario;
 		$this->transporte = $transporte;
 		$this->url = $url;
@@ -71,13 +69,6 @@ class Museo
 	}
 	public function setDesc_sitio(string $desc_sitio) : void {
 		$this->desc_sitio = $desc_sitio;
-	}
-
-	public function categoria() : string {
-		return $this->categoria;
-	}
-	public function setCategoria(string $categoria) : void {
-		$this->categoria = $categoria;
 	}
 
 	public function horario() : string {
@@ -155,14 +146,13 @@ class Museo
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio, $categoria,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email)
 	{
 		$conn = Aplicacion::getConexionBD();
 
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
 		$desc_sitio = $conn->real_escape_string($desc_sitio);
-		$categoria = $conn->real_escape_string($categoria);
 		$horario = $conn->real_escape_string($horario);
 		$transporte = $conn->real_escape_string($transporte);
 		$url = $conn->real_escape_string($url);
@@ -173,7 +163,7 @@ class Museo
 		$telefono = $conn->real_escape_string($telefono);
 		$email = $conn->real_escape_string($email);
 
-		$query = sprintf("INSERT INTO `museos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `categoria`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email')");
+		$query = sprintf("INSERT INTO `museos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email')");
 		$result = $conn->query($query);
 		
 		if (!$result) {
@@ -190,7 +180,6 @@ class Museo
 		$escaped_nombre = $conn->real_escape_string($this->nombre);
 		$escaped_descripcion = $conn->real_escape_string($this->descripcion);
 		$escaped_desc_sitio = $conn->real_escape_string($this->desc_sitio);
-		$escaped_categoria = $conn->real_escape_string($this->categoria);
 		$escaped_horario = $conn->real_escape_string($this->horario);
 		$escaped_transporte = $conn->real_escape_string($this->transporte);
 		$escaped_url = $conn->real_escape_string($this->url);
@@ -201,7 +190,7 @@ class Museo
 		$escaped_telefono = $conn->real_escape_string($this->telefono);
 		$escaped_email = $conn->real_escape_string($this->email);
 
-		$query = sprintf("UPDATE museos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', categoria = '$escaped_categoria', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email' WHERE id = $this->id");
+		$query = sprintf("UPDATE museos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)

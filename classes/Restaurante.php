@@ -13,13 +13,11 @@ class Restaurante
 	private $longitud;
 	private $telefono;
 	private $email;
-	private $categoria;
-	private $subcategoria;
 	
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $horario, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, string $email, string $categoria, string $subcategoria)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $horario, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, string $email)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
@@ -32,8 +30,6 @@ class Restaurante
 		$this->longitud = $longitud;
 		$this->telefono = $telefono;
 		$this->email = $email;
-		$this->categoria = $categoria;
-		$this->subcategoria = $subcategoria;
 		
 	}
 
@@ -119,19 +115,6 @@ class Restaurante
 		$this->email = $email;
 	}
 
-	public function categoria() : string {
-		return $this->categoria;
-	}
-	public function setCategoria(string $categoria) : void {
-		$this->categoria = $categoria;
-	}
-
-	public function subcategoria() : string {
-		return $this->subcategoria;
-	}
-	public function setSubcategoria(string $subcategoria) : void {
-		$this->subcategoria = $subcategoria;
-	}
 
 	public static function get_all_restaurantes(){
 		$conn = Aplicacion::getConexionBD();
@@ -145,7 +128,7 @@ class Restaurante
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categoria, $subcategoria)
+	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -159,10 +142,8 @@ class Restaurante
 		$longitud = $conn->real_escape_string($longitud);
 		$telefono = $conn->real_escape_string($telefono);
 		$email = $conn->real_escape_string($email);
-		$categoria = $conn->real_escape_string($categoria);
-		$subcategoria = $conn->real_escape_string($subcategoria);
 
-		$query = sprintf("INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `horario`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`, `categoria`, `subcategoria`) VALUES (NULL,  '$nombre',  '$descripcion', '$horario',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email',  '$categoria',  '$subcategoria')");
+		$query = sprintf("INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `horario`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`) VALUES (NULL,  '$nombre',  '$descripcion', '$horario',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email')");
 		$result = $conn->query($query);
 		
 		if (!$result) {
@@ -186,8 +167,7 @@ class Restaurante
 		$escaped_longitud = $conn->real_escape_string($this->longitud);
 		$escaped_telefono = $conn->real_escape_string($this->telefono);
 		$escaped_email = $conn->real_escape_string($this->email);
-		$escaped_categoria = $conn->real_escape_string($this->categoria);
-		$escaped_subcategoria = $conn->real_escape_string($this->subcategoria);
+		
 
 		$query = sprintf("UPDATE restaurantes SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', horario = '$escaped_horario', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email', categoria = '$escaped_categoria', subcategoria = '$escaped_subcategoria' WHERE id = $this->id");
 		$result = $conn->query($query);

@@ -13,7 +13,6 @@ class Evento
 	private $codpostal;
 	private $latitud;
 	private $longitud;
-	private $categoria;
 	private $fecha_fin;
 	private $fecha_ini;
 	private $gratis;
@@ -29,7 +28,7 @@ class Evento
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $categoria, date $fecha_fin, date $fecha_ini, int $gratis, string $audiencia, string $dias, string $dias_ex, string $email, string $lugar, string $precio, string $telefono)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, date $fecha_fin, date $fecha_ini, int $gratis, string $audiencia, string $dias, string $dias_ex, string $email, string $lugar, string $precio, string $telefono)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
@@ -42,7 +41,6 @@ class Evento
 		$this->codpostal = $codpostal;
 		$this->latitud = $latitud;
 		$this->longitud = $longitud;
-		$this->categoria = $categoria;
 		$this->fecha_fin = $fecha_fin;
 		$this->fecha_ini = $fecha_ini;
 		$this->gratis = $gratis;
@@ -139,13 +137,6 @@ class Evento
 		$this->longitud = $longitud;
 	}
 
-	public function categoria() : string {
-		return $this->categoria;
-	}
-	public function setCategoria(string $categoria) : void {
-		$this->categoria = $categoria;
-	}
-
 	public function fecha_fin() : date {
 		return $this->fecha_fin;
 	}
@@ -227,7 +218,7 @@ class Evento
 	}
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -241,7 +232,6 @@ class Evento
 		$codpostal = $conn->real_escape_string($codpostal);
 		$latitud = $conn->real_escape_string($latitud);
 		$longitud = $conn->real_escape_string($longitud);
-		$categoria = $conn->real_escape_string($categoria);
 		$fecha_fin = $conn->real_escape_string($fecha_fin);
 		$fecha_ini = $conn->real_escape_string($fecha_ini);
 		$gratis = $conn->real_escape_string($gratis);
@@ -255,7 +245,7 @@ class Evento
 
 
 
-		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `categoria`, `fecha_fin`, `fecha_ini`, `gratis`, `audiencia`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud',  '$categoria', '$fecha_fin',  '$autores_ini', '$gratis',  '$audiencia', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
+		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `audiencia`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin',  '$autores_ini', '$gratis',  '$audiencia', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
 		$result = $conn->query($query);
 		
 		if (!$result) {
@@ -279,7 +269,6 @@ class Evento
 		$escaped_codpostal = $conn->real_escape_string($this->codpostal);
 		$escaped_latitud = $conn->real_escape_string($this->latitud);
 		$escaped_longitud = $conn->real_escape_string($this->longitud);
-		$escaped_categoria = $conn->real_escape_string($this->categoria);
 		$escaped_fecha_fin = $conn->real_escape_string($this->fecha_fin);
 		$escaped_fecha_ini = $conn->real_escape_string($this->fecha_ini);
 		$escaped_gratis = $conn->real_escape_string($this->gratis);
@@ -291,7 +280,7 @@ class Evento
 		$escaped_precio = $conn->real_escape_string($this->precio);
 		$escaped_telefono = $conn->real_escape_string($this->telefono);
 
-		$query = sprintf("UPDATE eventos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', categoria = '$escaped_categoria', fecha_fin = '$escaped_fecha_fin', fecha_ini = '$escaped_fecha_ini', gratis = '$escaped_gratis', audiencia = '$escaped_audiencia', dias = '$escaped_dias', dias_ex = '$escaped_dias_ex', email = '$escaped_email', lugar = '$escaped_lugar', precio = '$escaped_precio', telefono = '$escaped_telefono' WHERE id = $this->id");
+		$query = sprintf("UPDATE eventos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha_fin = '$escaped_fecha_fin', fecha_ini = '$escaped_fecha_ini', gratis = '$escaped_gratis', audiencia = '$escaped_audiencia', dias = '$escaped_dias', dias_ex = '$escaped_dias_ex', email = '$escaped_email', lugar = '$escaped_lugar', precio = '$escaped_precio', telefono = '$escaped_telefono' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)
