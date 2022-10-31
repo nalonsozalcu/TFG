@@ -62,7 +62,7 @@ class Categoria
 
 	public static function getCategoriabyId(int $id_categoria){
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_categoria = $this->id_categoria");
+		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_categoria = $conn->real_escape_string($id_categoria)");
 		$rs = $conn->query($query);
 		if ($rs && $rs->num_rows > 0) {
 			return $rs->fetch_all(MYSQLI_ASSOC);
@@ -72,7 +72,7 @@ class Categoria
 
 	public static function getCategoriasByActividad(int $id_actividad){
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_actividad = $this->id_actividad");
+		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_actividad = $conn->real_escape_string($id_actividad)");
 		$rs = $conn->query($query);
 		if ($rs && $rs->num_rows > 0) {
 			return $rs->fetch_all(MYSQLI_ASSOC);
