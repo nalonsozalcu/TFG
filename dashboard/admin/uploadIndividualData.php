@@ -11,6 +11,10 @@
 	<div class="container">
 		<div class="row mt-3 mb-3 d-flex justify-content-start">
 			<h4>Subir datos</h4>
+			<?php if(!$content){
+				echo("<p>Selecciona un tipo de actividad:</p>");
+			}
+			?>
 			<div class="btn-group">
 			<a href="adminPage.php?content=up_indiv&table=museos" class="btn btn-outline-secondary <?php if($active == 'museos') echo('active')?>">Museos</a>
 			<a href="adminPage.php?content=up_indiv&table=eventos" class="btn btn-outline-secondary <?php if($active == 'eventos') echo('active')?>">Eventos</a>

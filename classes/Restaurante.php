@@ -1,4 +1,5 @@
 <?php 
+require_once 'Categoria.php';
 
 class Restaurante
 {
@@ -125,20 +126,10 @@ class Restaurante
 		}
 		return false;
 	}
-
-	public static function getCategoriasbyId(int $id){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id = $conn->real_escape_string($id)");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
 	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email)
+	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -155,6 +146,17 @@ class Restaurante
 
 		$query = sprintf("INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `horario`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `telefono`, `email`) VALUES (NULL,  '$nombre',  '$descripcion', '$horario',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$telefono',  '$email')");
 		$result = $conn->query($query);
+		if($result){
+			$query = sprintf("SELECT MAX(`id`) FROM `restaurantes`");
+			$result = $conn->query($query);
+			$id_actividad = $result->fetch_assoc()["MAX(`id`)"];
+			if($categorias)
+				foreach ($categorias as $valor)
+					Categoria::registrar($id_actividad, $valor, "restaurante", "categorias");
+			if($subcategorias)
+				foreach ($subcategorias as $valor)
+					Categoria::registrar($id_actividad, $valor, "restaurante", "subcategorias");
+		}
 		
 		if (!$result) {
 			error_log($conn->error);

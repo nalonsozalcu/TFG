@@ -48,38 +48,6 @@ class Categoria
 		$this->tipo_categoria = $tipo_categoria;
 	}
 
-	
-
-	public static function get_all_categorias(){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM relacion_categorías");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
-
-	public static function getCategoriabyId(int $id_categoria){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_categoria = $conn->real_escape_string($id_categoria)");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
-
-	public static function getCategoriasByActividad(int $id_actividad){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id_actividad = $conn->real_escape_string($id_actividad)");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
-
 	// ---> Funciones para registrar, actualizar o borrar las relaciones de categorias <---
 
 	public static function registrar($id_actividad, $id_categoria, $tipo_actividad, $tipo_categoria)
@@ -119,7 +87,7 @@ class Categoria
 
 		return $result;
 	}
-	public static function delete_by_id_actividad($id_actividad)
+	public static function delete($id_actividad)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -131,20 +99,5 @@ class Categoria
 			error_log("Se han actualizado '$conn->affected_rows' !");
 		} else return true;
 	}
-
-	public static function delete_by_id_categoria($id_categoria)
-	{
-		$conn = Aplicacion::getConexionBD();
-
-		$query = sprintf("DELETE FROM relacion_categorías WHERE relacion_categorías.id_categoria='%s'", $conn->real_escape_string($id_categoria));
-		$rs = $conn->query($query);
-		if (!$rs) {
-			error_log($conn->error);
-		} else if ($conn->affected_rows != 1) {
-			error_log("Se han actualizado '$conn->affected_rows' !");
-		} else return true;
-	}
-
-
 
 }

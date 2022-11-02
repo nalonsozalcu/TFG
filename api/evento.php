@@ -24,19 +24,7 @@ $gratis = $_POST["gratis"] != "" ? $_POST["gratis"] : null;
 $categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 $audiencias = isset($_POST["audiencia"]) ? $_POST["audiencia"] : null;
 
-$categoria="";
-$audiencia="";
-
-if($categorias)
-    foreach ($categorias as $valor)
-        $categoria .= "/".$valor;
-
-if($audiencias)
-    foreach ($audiencias as $valor)
-        $audiencia += "/".$valor;
-
-
-if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono))
+if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

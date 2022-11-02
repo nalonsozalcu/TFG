@@ -12,7 +12,7 @@ if($data_file && $data_file['name']!= ""){
     $file_type=$data_file['type'];
     $file_ext=strtolower(end(explode('.',$file_name)));
 
-    $extensions= array("csv");
+    $extensions= array("csv","xlsx");
 
     if(in_array($file_ext,$extensions)=== false){
         header("location: ../dashboard/adminPage.php?content=up_massive&type=$type&ext=false");

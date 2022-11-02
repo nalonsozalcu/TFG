@@ -1,4 +1,5 @@
 <?php 
+require_once 'Categoria.php';
 
 class Evento
 {
@@ -217,20 +218,9 @@ class Evento
 		return false;
 	}
 
-	public static function getCategoriasbyId(int $id){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT tipo_categoria FROM relacion_categorías WHERE id = $conn->real_escape_string($id)");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
-
-	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -259,6 +249,17 @@ class Evento
 
 		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `audiencia`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin',  '$autores_ini', '$gratis',  '$audiencia', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
 		$result = $conn->query($query);
+		if($result){
+			$query = sprintf("SELECT MAX(`id`) FROM `eventos`");
+			$result = $conn->query($query);
+			$id_actividad = $result->fetch_assoc()["MAX(`id`)"];
+			if($categorias)
+				foreach ($categorias as $valor)
+					Categoria::registrar($id_actividad, $valor, "evento", "categorias");
+			if($audiencias)
+				foreach ($audiencias as $valor)
+					Categoria::registrar($id_actividad, $valor, "evento", "audiencias");
+		}
 		
 		if (!$result) {
 			error_log($conn->error);
