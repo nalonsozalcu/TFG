@@ -87,11 +87,11 @@ class Categoria
 
 		return $result;
 	}
-	public static function delete($id_actividad)
+	public static function delete($id_actividad, $tipo_actividad)
 	{
 		$conn = Aplicacion::getConexionBD();
 
-		$query = sprintf("DELETE FROM relacion_categorías WHERE relacion_categorías.id_actividad='%s'", $conn->real_escape_string($id_actividad));
+		$query = sprintf("DELETE FROM relacion_categorías WHERE relacion_categorías.id_actividad=$conn->real_escape_string($id_actividad) AND relacion_categorías.tipo_actividad=$conn->real_escape_string($tipo_actividad)" );
 		$rs = $conn->query($query);
 		if (!$rs) {
 			error_log($conn->error);
