@@ -1,6 +1,14 @@
+-- 02/11/2022 -- eliminar columna de categoria
+
+ALTER TABLE eventos DROP COLUMN categoria;
+ALTER TABLE monumentos DROP COLUMN categoria;
+ALTER TABLE museos DROP COLUMN categoria;
+ALTER TABLE restaurantes DROP COLUMN categoria;
+
+
 -- 26/10/2022 -- datos para las tablas de catacteristicas
 
-INSERT INTO `audiencia_eventos` (`id`, `tipo`) VALUES
+/*INSERT INTO `audiencia_eventos` (`id`, `tipo`) VALUES
 (1, 'Familias'),
 (2, 'Mujeres'),
 (3, 'Mayores'),
@@ -100,3 +108,4 @@ INSERT INTO `subcategorias_restaurantes` (`id`, `subcategoria`) VALUES
 (24, 'Cántabra'),
 (25, 'Tapas');
 
+*/

@@ -103,7 +103,6 @@ CREATE TABLE `eventos` (
   `longitud` varchar(15) NOT NULL,
   `telefono` varchar(12) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `categoria` varchar(10) NOT NULL,
   `audiencia` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -126,8 +125,7 @@ CREATE TABLE `monumentos` (
   `codpostal` varchar(10) NOT NULL,
   `latitud` varchar(15) NOT NULL,
   `longitud` varchar(15) NOT NULL,
-  `desc_sitio` varchar(800) NOT NULL,
-  `categoria` varchar(10) NOT NULL
+  `desc_sitio` varchar(800) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -149,8 +147,7 @@ CREATE TABLE `museos` (
   `latitud` varchar(15) NOT NULL,
   `longitud` varchar(15) NOT NULL,
   `telefono` varchar(12) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `categoria` varchar(10) NOT NULL
+  `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -171,7 +168,6 @@ CREATE TABLE `restaurantes` (
   `codpostal` varchar(10) NOT NULL,
   `latitud` varchar(15) NOT NULL,
   `longitud` varchar(15) NOT NULL,
-  `categoria` varchar(10) NOT NULL,
   `subcategoria` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
