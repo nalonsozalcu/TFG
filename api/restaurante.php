@@ -15,7 +15,7 @@ $subcategorias = isset($_POST['subcategoria']) ? $_POST["subcategoria"] : null;
 $email = $_POST["email"] != "" ? $_POST["email"] : null;
 $telefono = $_POST["telefono"] != "" ? $_POST["telefono"] : null;
 
-if (Restaurante::registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias))
+if (Restaurante::registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias, true))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

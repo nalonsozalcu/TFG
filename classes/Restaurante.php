@@ -1,5 +1,4 @@
 <?php 
-require_once 'Categoria.php';
 
 class Restaurante
 {
@@ -129,7 +128,7 @@ class Restaurante
 	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias)
+	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias, $form)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -149,13 +148,19 @@ class Restaurante
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `restaurantes`");
 			$result = $conn->query($query);
-			$id_actividad = $result->fetch_assoc()["MAX(`id`)"];
-			if($categorias)
-				foreach ($categorias as $valor)
-					Categoria::registrar($id_actividad, $valor, "restaurante", "categorias");
-			if($subcategorias)
-				foreach ($subcategorias as $valor)
-					Categoria::registrar($id_actividad, $valor, "restaurante", "subcategorias");
+			$id_restaurante = $result->fetch_assoc()["MAX(`id`)"];
+			if($form){
+				if($categorias)
+					foreach ($categorias as $valor){
+						$query = sprintf("INSERT INTO `relacion_categorias_restaurantes` (`id_categoria`, `id_restaurante`) VALUES ($valor,  '$id_restaurante')");
+						$result = $conn->query($query);
+					}
+				if($subcategorias)
+					foreach ($subcategorias as $valor){
+						$query = sprintf("INSERT INTO `relacion_subcategorias_restaurantes` (`id_subcategoria`, `id_restaurante`) VALUES ($valor,  '$id_restaurante')");
+						$result = $conn->query($query);
+					}
+			}
 		}
 		
 		if (!$result) {

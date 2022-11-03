@@ -16,7 +16,7 @@ $latitud = $_POST["latitud"] != "" ? $_POST["latitud"] : null;
 $longitud = $_POST["longitud"] != "" ? $_POST["longitud"] : null;
 $categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 
-if (Museo::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias))
+if (Museo::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, true))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

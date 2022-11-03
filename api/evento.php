@@ -20,11 +20,11 @@ $lugar = $_POST["lugar"] != "" ? $_POST["lugar"] : null;
 $precio = $_POST["precio"] != "" ? $_POST["precio"] : null;
 $dias = $_POST["dias"] != "" ? $_POST["dias"] : null;
 $dias_ex = $_POST["dias_ex"] != "" ? $_POST["dias_ex"] : null;
-$gratis = $_POST["gratis"] != "" ? $_POST["gratis"] : null;
+$gratis = isset($_POST["gratis"]) ? $_POST["gratis"] : 0;
 $categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 $audiencias = isset($_POST["audiencia"]) ? $_POST["audiencia"] : null;
 
-if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $categoria, $fecha_fin, $fecha_ini,  $gratis,  $audiencia,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias))
+if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias, true))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

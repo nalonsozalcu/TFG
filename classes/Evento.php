@@ -1,5 +1,4 @@
 <?php 
-require_once 'Categoria.php';
 
 class Evento
 {
@@ -211,7 +210,7 @@ class Evento
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis, $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias, $form)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -237,18 +236,24 @@ class Evento
 
 
 
-		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin',  '$autores_ini', '$gratis', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
+		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin', '$fecha_fin', '$gratis', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `eventos`");
 			$result = $conn->query($query);
-			$id_actividad = $result->fetch_assoc()["MAX(`id`)"];
-			if($categorias)
-				foreach ($categorias as $valor)
-					Categoria::registrar($id_actividad, $valor, "evento", "categorias");
-			if($audiencias)
-				foreach ($audiencias as $valor)
-					Categoria::registrar($id_actividad, $valor, "evento", "audiencias");
+			$id_evento = $result->fetch_assoc()["MAX(`id`)"];
+			if($form){
+				if($categorias)
+					foreach ($categorias as $valor){
+						$query = sprintf("INSERT INTO `relacion_categorias_eventos` (`id_categoria`, `id_evento`) VALUES ($valor, '$id_evento')");
+						$result = $conn->query($query);
+					}
+				if($audiencias)
+					foreach ($audiencias as $valor){
+						$query = sprintf("INSERT INTO `relacion_audiencia_eventos` (`id_audiencia`, `id_evento`) VALUES ($valor,  '$id_evento')");
+						$result = $conn->query($query);
+					}
+			}
 		}
 		
 		if (!$result) {

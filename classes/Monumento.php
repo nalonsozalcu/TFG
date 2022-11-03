@@ -1,5 +1,4 @@
 <?php 
-require_once 'Categoria.php';
 
 class Monumento
 {
@@ -146,7 +145,7 @@ class Monumento
 	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores, $categorias)
+	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores, $categorias, $form)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -169,10 +168,14 @@ class Monumento
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `monumentos`");
 			$result = $conn->query($query);
-			$id_actividad = $result->fetch_assoc()["MAX(`id`)"];
-			if($categorias)
-				foreach ($categorias as $valor)
-					Categoria::registrar($id_actividad, $valor, "monumento", "categorias");
+			$id_monumento = $result->fetch_assoc()["MAX(`id`)"];
+			if($form){
+				if($categorias)
+					foreach ($categorias as $valor){
+						$query = sprintf("INSERT INTO `relacion_categorias_monumentos` (`id_categoria`, `id_monumento`) VALUES ($valor,  '$id_monumento')");
+						$result = $conn->query($query);
+					}
+			}
 		}
 		if (!$result) {
 			error_log($conn->error);
