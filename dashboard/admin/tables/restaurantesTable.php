@@ -6,8 +6,6 @@
 		<tr>
 		<th scope="col">ID</th>
 		<th scope="col">Nombre</th>
-		<th scope="col">Descripción</th>
-		<th scope="col">Horario</th>
 		<th scope="col">URL</th>
 		<th scope="col">Email</th>
 		<th scope="col">Telefono</th>
@@ -23,8 +21,6 @@
 				<tr>
 					<td><?php echo($restaurantes[$i]["id"])?></td>
 					<td><?php echo($restaurantes[$i]["nombre"])?></td>
-					<td><?php echo($restaurantes[$i]["descripcion"])?></td>
-					<td><?php echo($restaurantes[$i]["horario"])?></td>
 					<td><?php echo($restaurantes[$i]["url"])?></td>
 					<td><?php echo($restaurantes[$i]["email"])?></td>
 					<td><?php echo($restaurantes[$i]["telefono"])?></td>
