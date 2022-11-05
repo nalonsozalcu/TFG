@@ -1,3 +1,4 @@
+<?php require_once '../classes/Museo.php'; ?>
 <!DOCTYPE html>
 <div class="vh-80 d-flex justify-content-center align-items-center">
 	<div class="container-fluid">

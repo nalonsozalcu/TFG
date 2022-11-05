@@ -47,10 +47,10 @@
 								
 							</li>
 						</div>
-							<div class="collapse <?php echo(($active == 'up_indiv' || $active == 'up_massive' || $active == 'admin')? 'show' : '');?>" id="collapseExample">
+							<div class="collapse <?php echo(($active == 'up_indiv' || $active == 'up_massive' || $active == 'adminMuseo')? 'show' : '');?>" id="collapseExample">
 								<div class="col-12 d-flex ms-5"><li class="nav-item"><a class="nav-link <?php if($active == 'up_indiv') echo('active')?>" href="adminPage.php?content=up_indiv"><i class="bi bi-cloud-arrow-up"></i><span class="nav_name">  Upload individual data</span></a></li></div>
 								<div class="col-12 d-flex ms-5">	<li class="nav-item"><a class="nav-link <?php if($active == 'up_massive') echo('active')?>" href="adminPage.php?content=up_massive"><i class="bi bi-cloud-arrow-up-fill"></i><span class="nav_name">  Upload massive data</span></a></li></div>
-								<div class="col-12 d-flex ms-5">	<li class="nav-item"><a class="nav-link <?php if($active == 'admin') echo('active')?>" href="adminPage.php?content=admin"><i class="bi bi-clipboard-data"></i><span class="nav_name">  Admin data</span></a></li></div>
+								<div class="col-12 d-flex ms-5">	<li class="nav-item"><a class="nav-link <?php if($active == 'adminMuseo') echo('active')?>" href="adminPage.php?content=adminMuseo"><i class="bi bi-clipboard-data"></i><span class="nav_name">  Admin data</span></a></li></div>
 							</div>
 						
 					</ul>
@@ -67,7 +67,16 @@
 						if($active == 'up_massive'){
 							require "admin/uploadMassiveData.php";
 						}
-						if($active == 'admin'){
+						if($active == 'adminMuseo'){
+							require "admin/adminData.php";
+						}
+						if($active == 'adminMonumento'){
+							require "admin/adminData.php";
+						}
+						if($active == 'adminEvento'){
+							require "admin/adminData.php";
+						}
+						if($active == 'adminRestaurante'){
 							require "admin/adminData.php";
 						}
 					}else{
