@@ -4,9 +4,7 @@ require_once '../classes/Evento.php';
 
 $nombre = $_POST["nombre"] != "" ? $_POST["nombre"] : null;
 $descripcion = $_POST["descripcion"] != "" ? $_POST["descripcion"] : null;
-$desc_sitio = $_POST["desc_sitio"] != "" ? $_POST["desc_sitio"] : null;
-$horario = $_POST["horario"] != "" ? $_POST["horario"] : null;
-$transporte = $_POST["transporte"] != "" ? $_POST["transporte"] : null;
+$hora = $_POST["hora"] != "" ? $_POST["hora"] : null;
 $url = $_POST["url"] != "" ? $_POST["url"] : null;
 $direccion = $_POST["direccion"] != "" ? $_POST["direccion"] : null;
 $codpostal = $_POST["codpostal"] != "" ? $_POST["codpostal"] : null;
@@ -14,8 +12,6 @@ $fecha_fin = $_POST["fecha_fin"] != "" ? $_POST["fecha_fin"] : null;
 $fecha_ini = $_POST["fecha_ini"] != "" ? $_POST["fecha_ini"] : null;
 $latitud = $_POST["latitud"] != "" ? $_POST["latitud"] : null;
 $longitud = $_POST["longitud"] != "" ? $_POST["longitud"] : null;
-$email = $_POST["email"] != "" ? $_POST["email"] : null;
-$telefono = $_POST["telefono"] != "" ? $_POST["telefono"] : null;
 $lugar = $_POST["lugar"] != "" ? $_POST["lugar"] : null;
 $precio = $_POST["precio"] != "" ? $_POST["precio"] : null;
 $dias = $_POST["dias"] != "" ? $_POST["dias"] : null;
@@ -24,7 +20,7 @@ $gratis = isset($_POST["gratis"]) ? $_POST["gratis"] : 0;
 $categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 $audiencias = isset($_POST["audiencia"]) ? $_POST["audiencia"] : null;
 
-if (Evento::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias, true))
+if (Evento::registrar($nombre, $descripcion, $precio, $gratis, $dias, $dias_ex, $fecha_ini, $fecha_fin, $hora, $url, $lugar, $direccion, $codpostal, $latitud, $longitud, $categorias, $audiencias, true))
     header("location: ../dashboard/adminPage.php?content=up_indiv");
 else
     header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");

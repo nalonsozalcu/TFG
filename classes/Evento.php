@@ -5,52 +5,40 @@ class Evento
 	private $id;
 	private $nombre;
 	private $descripcion;
-	private $desc_sitio;
-	private $horario;
-	private $transporte;
+	private $precio;
+	private $gratis;
+	private $dias;
+	private $dias_ex;
+	private $fecha_ini;
+	private $fecha_fin;
+	private $hora;
 	private $url;
+	private $lugar;
 	private $direccion;
 	private $codpostal;
 	private $latitud;
 	private $longitud;
-	private $fecha_fin;
-	private $fecha_ini;
-	private $gratis;
-	private $dias;
-	private $dias_ex;
-	private $email;
-	private $lugar;
-	private $precio;
-	private $telefono;
-
-	
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, date $fecha_fin, date $fecha_ini, int $gratis, string $dias, string $dias_ex, string $email, string $lugar, string $precio, string $telefono)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $precio, int $gratis, string $dias, string $dias_ex, date $fecha_ini, date $fecha_fin, string $hora, string $url, string $lugar, string $direccion, string $codpostal, string $latitud, string $longitud)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
 		$this->descripcion= $descripcion;
-		$this->desc_sitio= $desc_sitio;
-		$this->horario= $horario;
-		$this->transporte = $transporte;
+		$this->precio = $precio;
+		$this->gratis = $gratis;
+		$this->dias = $dias;
+		$this->dias_ex = $dias_ex;
+		$this->fecha_ini = $fecha_ini;
+		$this->fecha_fin = $fecha_fin;
+		$this->hora= $hora;
 		$this->url = $url;
+		$this->lugar = $lugar;
 		$this->direccion = $direccion;
 		$this->codpostal = $codpostal;
 		$this->latitud = $latitud;
 		$this->longitud = $longitud;
-		$this->fecha_fin = $fecha_fin;
-		$this->fecha_ini = $fecha_ini;
-		$this->gratis = $gratis;
-		$this->dias = $dias;
-		$this->dias_ex = $dias_ex;
-		$this->email = $email;
-		$this->lugar = $lugar;
-		$this->precio = $precio;
-		$this->telefono = $telefono;
-
-		
 	}
 
 	// ---> Setter y Getters <---
@@ -79,25 +67,11 @@ class Evento
 		$this->descripcion = $descripcion;
 	}
 
-	public function desc_sitio() : string {
-		return $this->desc_sitio;
+	public function hora() : string {
+		return $this->hora;
 	}
-	public function setDesc_sitio(string $desc_sitio) : void {
-		$this->desc_sitio = $desc_sitio;
-	}
-
-	public function horario() : string {
-		return $this->horario;
-	}
-	public function setHorario(string $horario) : void {
-		$this->horario = $horario;
-	}
-
-	public function transporte() : string {
-		return $this->transporte;
-	}
-	public function setTransporte(string $transporte) : void {
-		$this->transporte = $transporte;
+	public function setHora(string $hora) : void {
+		$this->hora = $hora;
 	}
 
 	public function url() : string {
@@ -170,13 +144,6 @@ class Evento
 		$this->dias_ex = $dias_ex;
 	}
 
-	public function email() : string {
-		return $this->email;
-	}
-	public function setEmail(string $email) : void {
-		$this->email = $email;
-	}
-
 	public function lugar() : string {
 		return $this->lugar;
 	}
@@ -191,13 +158,6 @@ class Evento
 		$this->precio = $precio;
 	}
 
-	public function telefono() : string {
-		return $this->telefono;
-	}
-	public function setTelefono(string $telefono) : void {
-		$this->telefono = $telefono;
-	}
-
 	public static function get_all_eventos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM eventos");
@@ -210,15 +170,13 @@ class Evento
 
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud, $fecha_fin, $fecha_ini,  $gratis,  $dias,  $dias_ex,  $email,  $lugar,  $precio,  $telefono, $categorias, $audiencias, $form)
+	public static function registrar($nombre, $descripcion, $precio, $gratis, $dias, $dias_ex, $fecha_ini, $fecha_fin, $hora, $url, $lugar, $direccion, $codpostal, $latitud, $longitud, $categorias, $audiencias, $form)
 	{
 		$conn = Aplicacion::getConexionBD();
 
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
-		$desc_sitio = $conn->real_escape_string($desc_sitio);
-		$horario = $conn->real_escape_string($horario);
-		$transporte = $conn->real_escape_string($transporte);
+		$hora = $conn->real_escape_string($hora);
 		$url = $conn->real_escape_string($url);
 		$direccion = $conn->real_escape_string($direccion);
 		$codpostal = $conn->real_escape_string($codpostal);
@@ -229,14 +187,10 @@ class Evento
 		$gratis = $conn->real_escape_string($gratis);
 		$dias = $conn->real_escape_string($dias);
 		$dias_ex = $conn->real_escape_string($dias_ex);
-		$email = $conn->real_escape_string($email);
 		$lugar = $conn->real_escape_string($lugar);
 		$precio = $conn->real_escape_string($precio);
-		$telefono = $conn->real_escape_string($telefono);
 
-
-
-		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `email`, `lugar`, `precio`, `telefono`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin', '$fecha_fin', '$gratis', '$dias',  '$dias_ex', '$email',  '$lugar', '$precio',  '$telefono')");
+		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `hora`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `lugar`, `precio`) VALUES (NULL,  '$nombre',  '$descripcion', '$hora',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin', '$fecha_fin', '$gratis', '$dias',  '$dias_ex',  '$lugar', '$precio')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `eventos`");
@@ -269,9 +223,7 @@ class Evento
 		$escaped_id = $conn->real_escape_string($this->id);
 		$escaped_nombre = $conn->real_escape_string($this->nombre);
 		$escaped_descripcion = $conn->real_escape_string($this->descripcion);
-		$escaped_desc_sitio = $conn->real_escape_string($this->desc_sitio);
-		$escaped_horario = $conn->real_escape_string($this->horario);
-		$escaped_transporte = $conn->real_escape_string($this->transporte);
+		$escaped_hora = $conn->real_escape_string($this->hora);
 		$escaped_url = $conn->real_escape_string($this->url);
 		$escaped_direccion = $conn->real_escape_string($this->direccion);
 		$escaped_codpostal = $conn->real_escape_string($this->codpostal);
@@ -282,12 +234,10 @@ class Evento
 		$escaped_gratis = $conn->real_escape_string($this->gratis);
 		$escaped_dias = $conn->real_escape_string($this->dias);
 		$escaped_dias_ex = $conn->real_escape_string($this->dias_ex);
-		$escaped_email = $conn->real_escape_string($this->email);
 		$escaped_lugar = $conn->real_escape_string($this->lugar);
 		$escaped_precio = $conn->real_escape_string($this->precio);
-		$escaped_telefono = $conn->real_escape_string($this->telefono);
 
-		$query = sprintf("UPDATE eventos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha_fin = '$escaped_fecha_fin', fecha_ini = '$escaped_fecha_ini', gratis = '$escaped_gratis', dias = '$escaped_dias', dias_ex = '$escaped_dias_ex', email = '$escaped_email', lugar = '$escaped_lugar', precio = '$escaped_precio', telefono = '$escaped_telefono' WHERE id = $this->id");
+		$query = sprintf("UPDATE eventos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', hora = '$escaped_hora', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha_fin = '$escaped_fecha_fin', fecha_ini = '$escaped_fecha_ini', gratis = '$escaped_gratis', dias = '$escaped_dias', dias_ex = '$escaped_dias_ex', lugar = '$escaped_lugar', precio = '$escaped_precio' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)
