@@ -175,6 +175,22 @@ class Museo
 						$query = sprintf("INSERT INTO `relacion_categorias_museos` (`id_categoria`, `id_museo`) VALUES ($valor,  '$id_museo')");
 						$result = $conn->query($query);
 					}
+			}else{
+				if($categorias && $categorias !== ""){
+					$categorias= str_replace("/contenido/entidadesYorganismos/", "", $categorias);
+					$query = sprintf("SELECT Count(id) FROM `categorias_museos` WHERE `categoria` = '$categorias'");
+					$result = $conn->query($query);
+					$cont = $result->fetch_assoc()["Count(id)"];
+					if($cont == "0"){
+						$query = sprintf("INSERT INTO `categorias_museos` (`categoria`) VALUES ('$categorias')");
+						$result = $conn->query($query);
+					}
+					$query = sprintf("SELECT `id` FROM `categorias_museos` WHERE `categoria` = '$categorias'");
+					$result = $conn->query($query);
+					$id_categoria = $result->fetch_assoc()["id"];
+					$query = sprintf("INSERT INTO `relacion_categorias_museos` (`id_categoria`, `id_museo`) VALUES ('$id_categoria',  '$id_museo')");
+					$result = $conn->query($query);
+				}
 			}
 		}
 		
