@@ -5,9 +5,6 @@ class Monumento
 	private $id;
 	private $nombre;
 	private $descripcion;
-	private $desc_sitio;
-	private $horario;
-	private $transporte;
 	private $url;
 	private $direccion;
 	private $codpostal;
@@ -19,14 +16,11 @@ class Monumento
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $desc_sitio, string $horario, string $transporte, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $fecha, string $autores)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $fecha, string $autores)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
 		$this->descripcion= $descripcion;
-		$this->desc_sitio= $desc_sitio;
-		$this->horario= $horario;
-		$this->transporte = $transporte;
 		$this->url = $url;
 		$this->direccion = $direccion;
 		$this->codpostal = $codpostal;
@@ -61,27 +55,6 @@ class Monumento
 	}
 	public function setDescripcion(string $descripcion) : void {
 		$this->descripcion = $descripcion;
-	}
-
-	public function desc_sitio() : string {
-		return $this->desc_sitio;
-	}
-	public function setDesc_sitio(string $desc_sitio) : void {
-		$this->desc_sitio = $desc_sitio;
-	}
-
-	public function horario() : string {
-		return $this->horario;
-	}
-	public function setHorario(string $horario) : void {
-		$this->horario = $horario;
-	}
-
-	public function transporte() : string {
-		return $this->transporte;
-	}
-	public function setTransporte(string $transporte) : void {
-		$this->transporte = $transporte;
 	}
 
 	public function url() : string {
@@ -145,15 +118,12 @@ class Monumento
 	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
-	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores, $categorias, $form)
+	public static function registrar($nombre,  $descripcion, $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores, $categorias, $form)
 	{
 		$conn = Aplicacion::getConexionBD();
 
 		$nombre = $conn->real_escape_string($nombre);
 		$descripcion = $conn->real_escape_string($descripcion);
-		$desc_sitio = $conn->real_escape_string($desc_sitio);
-		$horario = $conn->real_escape_string($horario);
-		$transporte = $conn->real_escape_string($transporte);
 		$url = $conn->real_escape_string($url);
 		$direccion = $conn->real_escape_string($direccion);
 		$codpostal = $conn->real_escape_string($codpostal);
@@ -163,7 +133,7 @@ class Monumento
 		$autores = $conn->real_escape_string($autores);
 		
 
-		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `desc_sitio`, `horario`, `transporte`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`) VALUES (NULL,  '$nombre',  '$descripcion', '$desc_sitio', '$horario',  '$transporte',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha',  '$autores')");
+		$query = sprintf("INSERT INTO `monumentos` (`id`, `nombre`, `descripcion`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha`, `autores`) VALUES (NULL, '$nombre', '$descripcion', '$url', '$direccion', '$codpostal', '$latitud', '$longitud', '$fecha', '$autores')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `monumentos`");
@@ -172,9 +142,29 @@ class Monumento
 			if($form){
 				if($categorias)
 					foreach ($categorias as $valor){
-						$query = sprintf("INSERT INTO `relacion_categorias_monumentos` (`id_categoria`, `id_monumento`) VALUES ($valor,  '$id_monumento')");
+						$query = sprintf("INSERT INTO `relacion_categorias_monumentos` (`id_categoria`, `id_monumento`) VALUES ($valor, '$id_monumento')");
 						$result = $conn->query($query);
 					}
+			}else{
+				if($categorias && $categorias !== ""){
+					$categorias = explode(", ", $categorias);
+					foreach ($categorias as $valor){
+						if($valor && $valor != ""){
+							$query = sprintf("SELECT Count(id) FROM `categorias_monumentos` WHERE `categoria` = '$valor'");
+							$result = $conn->query($query);
+							$cont = $result->fetch_assoc()["Count(id)"];
+							if($cont == "0"){
+								$query = sprintf("INSERT INTO `categorias_monumentos` (`categoria`) VALUES ('$valor')");
+								$result = $conn->query($query);
+							}
+							$query = sprintf("SELECT `id` FROM `categorias_monumentos` WHERE `categoria` = '$valor'");
+							$result = $conn->query($query);
+							$id_categoria = $result->fetch_assoc()["id"];
+							$query = sprintf("INSERT INTO `relacion_categorias_monumentos` (`id_categoria`, `id_monumento`) VALUES ('$id_categoria',  '$id_monumento')");
+							$result = $conn->query($query);
+						}
+					}
+				}
 			}
 		}
 		if (!$result) {
@@ -190,9 +180,6 @@ class Monumento
 		$escaped_id = $conn->real_escape_string($this->id);
 		$escaped_nombre = $conn->real_escape_string($this->nombre);
 		$escaped_descripcion = $conn->real_escape_string($this->descripcion);
-		$escaped_desc_sitio = $conn->real_escape_string($this->desc_sitio);
-		$escaped_horario = $conn->real_escape_string($this->horario);
-		$escaped_transporte = $conn->real_escape_string($this->transporte);
 		$escaped_url = $conn->real_escape_string($this->url);
 		$escaped_direccion = $conn->real_escape_string($this->direccion);
 		$escaped_codpostal = $conn->real_escape_string($this->codpostal);
@@ -201,7 +188,7 @@ class Monumento
 		$escaped_fecha = $conn->real_escape_string($this->fecha);
 		$escaped_autores = $conn->real_escape_string($this->autores);
 
-		$query = sprintf("UPDATE monumentos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha = '$escaped_fecha', autores = '$escaped_autores' WHERE id = $this->id");
+		$query = sprintf("UPDATE monumentos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', fecha = '$escaped_fecha', autores = '$escaped_autores' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)

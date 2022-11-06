@@ -167,12 +167,6 @@
 			</div>
 		</div>
 		<div class="row mb-3">
-			<div class="col-6">
-				<div class="form-group">
-					<label for="desc_sitio" class="form-label ">Descripción del lugar</label>
-					<textarea class="form-control" id="desc_sitio" name="desc_sitio" rows="3"></textarea>
-				</div>
-			</div>
 			<div class="col-4">
 			<?php
 				$conn = Aplicacion::getConexionBD();

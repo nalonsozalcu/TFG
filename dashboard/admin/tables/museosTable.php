@@ -6,9 +6,6 @@
 		<tr>
 		<th scope="col">ID</th>
 		<th scope="col">Nombre</th>
-		<th scope="col">Descripción</th>
-		<th scope="col">Horario</th>
-		<th scope="col">Transporte</th>
 		<th scope="col">URL</th>
 		<th scope="col">Email</th>
 		<th scope="col">Telefono</th>
@@ -25,9 +22,6 @@
 				<tr>
 					<td><?php echo($museos[$i]["id"])?></td>
 					<td><?php echo($museos[$i]["nombre"])?></td>
-					<td><?php echo($museos[$i]["descripcion"])?></td>
-					<td><?php echo($museos[$i]["horario"])?></td>
-					<td><?php echo($museos[$i]["transporte"])?></td>
 					<td><?php echo($museos[$i]["url"])?></td>
 					<td><?php echo($museos[$i]["email"])?></td>
 					<td><?php echo($museos[$i]["telefono"])?></td>

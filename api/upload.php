@@ -67,8 +67,7 @@ if($data_file && $data_file['name']!= ""){
                 Monumento::registrar($sheet->getCell("A".$row)->getValue(), $sheet->getCell("B".$row)->getValue(), 
                 $sheet->getCell("C".$row)->getValue(),  $sheet->getCell("D".$row)->getValue(),  $sheet->getCell("E".$row)->getValue(), 
                 $sheet->getCell("F".$row)->getValue(), $sheet->getCell("G".$row)->getValue(),  $sheet->getCell("H".$row)->getValue(),  
-                $sheet->getCell("I".$row)->getValue(),  $sheet->getCell("J".$row)->getValue(),  $sheet->getCell("K".$row)->getValue(),  
-                $sheet->getCell("L".$row)->getValue(), $sheet->getCell("M".$row)->getValue(), false);
+                $sheet->getCell("I".$row)->getValue(),  $sheet->getCell("J".$row)->getValue(), false);
         }
 
     }else if($type === "Eventos"){
