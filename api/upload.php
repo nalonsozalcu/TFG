@@ -43,7 +43,7 @@ if($data_file && $data_file['name']!= ""){
     $highestRow = $sheet->getHighestRow();
     
     if($type === "Museos"){
-        for ($row = 2; $row <= $highestRow; $row++){
+        for ($row = 3; $row <= $highestRow; $row++){
             if($sheet->getCell("A".$row)->getValue() != "")
                 Museo::registrar($sheet->getCell("A".$row)->getValue(), $sheet->getCell("B".$row)->getValue(), 
                 $sheet->getCell("C".$row)->getValue(),  $sheet->getCell("D".$row)->getValue(),  $sheet->getCell("E".$row)->getValue(), 
@@ -52,7 +52,7 @@ if($data_file && $data_file['name']!= ""){
                 $sheet->getCell("L".$row)->getValue(), $sheet->getCell("M".$row)->getValue(), false);
         }
     }else if($type === "Restaurantes"){
-        for ($row = 2; $row <= $highestRow; $row++){
+        for ($row = 3; $row <= $highestRow; $row++){
             if($sheet->getCell("A".$row)->getValue() != "")
                 Restaurante::registrar($sheet->getCell("A".$row)->getValue(), $sheet->getCell("B".$row)->getValue(), 
                 $sheet->getCell("C".$row)->getValue(),  $sheet->getCell("D".$row)->getValue(),  $sheet->getCell("E".$row)->getValue(), 
@@ -62,7 +62,7 @@ if($data_file && $data_file['name']!= ""){
         }
 
     }else if($type === "Monumentos"){
-        for ($row = 2; $row <= $highestRow; $row++){
+        for ($row = 3; $row <= $highestRow; $row++){
             if($sheet->getCell("A".$row)->getValue() != "")
                 Monumento::registrar($sheet->getCell("A".$row)->getValue(), $sheet->getCell("B".$row)->getValue(), 
                 $sheet->getCell("C".$row)->getValue(),  $sheet->getCell("D".$row)->getValue(),  $sheet->getCell("E".$row)->getValue(), 
@@ -72,16 +72,14 @@ if($data_file && $data_file['name']!= ""){
         }
 
     }else if($type === "Eventos"){
-        for ($row = 2; $row <= $highestRow; $row++){
+        for ($row = 3; $row <= $highestRow; $row++){
             if($sheet->getCell("A".$row)->getValue() != "")
                 Evento::registrar($sheet->getCell("A".$row)->getValue(), $sheet->getCell("B".$row)->getValue(), 
                 $sheet->getCell("C".$row)->getValue(),  $sheet->getCell("D".$row)->getValue(),  $sheet->getCell("E".$row)->getValue(), 
                 $sheet->getCell("F".$row)->getValue(), $sheet->getCell("G".$row)->getValue(),  $sheet->getCell("H".$row)->getValue(),  
                 $sheet->getCell("I".$row)->getValue(),  $sheet->getCell("J".$row)->getValue(),  $sheet->getCell("K".$row)->getValue(),  
                 $sheet->getCell("L".$row)->getValue(), $sheet->getCell("M".$row)->getValue(), $sheet->getCell("N".$row)->getValue(),
-                $sheet->getCell("O".$row)->getValue(), $sheet->getCell("P".$row)->getValue(), $sheet->getCell("Q".$row)->getValue(),
-                $sheet->getCell("R".$row)->getValue(), $sheet->getCell("S".$row)->getValue(),$sheet->getCell("O".$row)->getValue(),
-                $sheet->getCell("P".$row)->getValue(), false);
+                $sheet->getCell("O".$row)->getValue(), $sheet->getCell("P".$row)->getValue(), $sheet->getCell("Q".$row)->getValue(), false);
         }
     }
     unlink($dir.$file_name);

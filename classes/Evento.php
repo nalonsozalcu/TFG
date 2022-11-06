@@ -190,7 +190,7 @@ class Evento
 		$lugar = $conn->real_escape_string($lugar);
 		$precio = $conn->real_escape_string($precio);
 
-		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `hora`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `lugar`, `precio`) VALUES (NULL,  '$nombre',  '$descripcion', '$hora',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin', '$fecha_fin', '$gratis', '$dias',  '$dias_ex',  '$lugar', '$precio')");
+		$query = sprintf("INSERT INTO `eventos` (`id`, `nombre`, `descripcion`, `hora`, `url`, `direccion`, `codpostal`, `latitud`, `longitud`, `fecha_fin`, `fecha_ini`, `gratis`, `dias`, `dias_ex`, `lugar`, `precio`) VALUES (NULL,  '$nombre',  '$descripcion', '$hora',  '$url', '$direccion',  '$codpostal', '$latitud', '$longitud', '$fecha_fin', '$fecha_ini', '$gratis', '$dias',  '$dias_ex',  '$lugar', '$precio')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `eventos`");
@@ -207,6 +207,47 @@ class Evento
 						$query = sprintf("INSERT INTO `relacion_audiencia_eventos` (`id_audiencia`, `id_evento`) VALUES ($valor,  '$id_evento')");
 						$result = $conn->query($query);
 					}
+			}else{
+				if($categorias && $categorias !== ""){
+					$categorias = explode("/contenido/actividades/", $categorias);
+					$categorias = explode("/", $categorias[1]);
+					foreach ($categorias as $valor){
+						if($valor && $valor != ""){
+							$query = sprintf("SELECT Count(id) FROM `categorias_eventos` WHERE `categoria` = '$valor'");
+							$result = $conn->query($query);
+							$cont = $result->fetch_assoc()["Count(id)"];
+							if($cont == "0"){
+								$query = sprintf("INSERT INTO `categorias_eventos` (`categoria`) VALUES ('$valor')");
+								$result = $conn->query($query);
+							}
+							$query = sprintf("SELECT `id` FROM `categorias_eventos` WHERE `categoria` = '$valor'");
+							$result = $conn->query($query);
+							$id_categoria = $result->fetch_assoc()["id"];
+							$query = sprintf("INSERT INTO `relacion_categorias_eventos` (`id_categoria`, `id_evento`) VALUES ('$id_categoria',  '$id_evento')");
+							$result = $conn->query($query);
+						}
+					}
+				}
+				if($audiencias && $audiencias !== ""){
+					$audiencias = explode("/usuario/", $audiencias);
+					foreach($audiencias as $valor){
+						if($valor && $valor!= ""){
+							$valor= str_replace(",", "", $valor);
+							$query = sprintf("SELECT Count(id) FROM `audiencia_eventos` WHERE `tipo` = '$valor'");
+							$result = $conn->query($query);
+							$cont = $result->fetch_assoc()["Count(id)"];
+							if($cont == "0"){
+								$query = sprintf("INSERT INTO `audiencia_eventos` (`tipo`) VALUES ('$valor')");
+								$result = $conn->query($query);
+							}
+							$query = sprintf("SELECT `id` FROM `audiencia_eventos` WHERE `tipo` = '$valor'");
+							$result = $conn->query($query);
+							$id_audiencia = $result->fetch_assoc()["id"];
+							$query = sprintf("INSERT INTO `relacion_audiencia_eventos` (`id_audiencia`, `id_evento`) VALUES ('$id_audiencia',  '$id_evento')");
+							$result = $conn->query($query);
+						}
+					}
+				}
 			}
 		}
 		

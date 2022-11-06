@@ -88,6 +88,18 @@
 					/>
 				</div>
 			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="hora" class="form-label ">Hora</label>
+					<input
+						type="text"
+						id="hora"
+						name="hora"
+						class="form-control"
+						placeholder="10:00"
+					/>
+				</div>
+			</div>
 		</div>
 		<div class="row mb-3">
 			<div class="col">
@@ -144,32 +156,6 @@
 		<div class="row mb-3">
 			<div class="col">
 				<div class="form-group">
-					<label for="horario" class="form-label ">Horario</label>
-					<input
-						type="text"
-						id="horario"
-						name="horario"
-						class="form-control"
-						placeholder="horario"
-					/>
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					<label for="transporte" class="form-label ">Transporte</label>
-					<input
-						type="text"
-						id="transporte"
-						name="transporte"
-						class="form-control"
-						placeholder="transporte"
-					/>
-				</div>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				<div class="form-group">
 					<label for="url" class="form-label ">URL</label>
 					<input
 						type="text"
@@ -180,33 +166,7 @@
 					/>
 				</div>
 			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="telefono" class="form-label ">Telefono</label>
-					<input
-						type="text"
-						id="telefono"
-						name="telefono"
-						class="form-control"
-						placeholder="Telefono"
-					/>
-				</div>
-			</div>
-            <div class="col">
-				<div class="form-group">
-					<label for="inputEmail" class="form-label ">Email</label>
-					<input
-						type="text"
-						id="inputEmail"
-						name="email"
-						class="form-control"
-						placeholder="ejemplo@gmail.com"
-					/>
-				</div>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col-4">
+			<div class="col">
 				<div class="form-group">
 					<label for="direccion" class="form-label ">Dirección</label>
 					<input
@@ -219,7 +179,9 @@
 					/>
 				</div>
 			</div>
-            <div class="col">
+		</div>
+		<div class="row mb-3">
+			<div class="col">
 				<div class="form-group">
 					<label for="lugar" class="form-label ">Nombre del lugar</label>
 					<input
@@ -241,7 +203,6 @@
 						name="codpostal"
 						class="form-control"
 						placeholder="09400"
-
 					/>
 				</div>
 			</div>
@@ -267,14 +228,6 @@
 						class="form-control"
 						placeholder="-38.889722"
 					/>
-				</div>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				<div class="form-group">
-					<label for="desc_sitio" class="form-label ">Descripción del lugar</label>
-					<textarea class="form-control" id="desc_sitio" name="desc_sitio" rows="3"></textarea>
 				</div>
 			</div>
 		</div>
