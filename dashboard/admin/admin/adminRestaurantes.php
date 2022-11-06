@@ -21,7 +21,7 @@
 		<th scope="col">Direccion</th>
 		<th scope="col">Telefono</th>
 		<th scope="col">Email</th>
-		<th scope="col">Restaurante ID</th>
+		<th scope="col">ID</th>
 		<th scope="col"></th>
 		<th scope="col"></th>
 		</tr>
@@ -37,7 +37,7 @@
 			<td><?php echo($restaurantes[$i]["telefono"])?></td>
 			<td><?php echo($restaurantes[$i]["email"])?></td>
 			<td><?php echo($restaurantes[$i]["id"])?></td>
-			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($restaurantes[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
+			<td><a class="btn" href="#"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($restaurantes[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
 			</tr>
 			<div class="modal fade" id="DeleteUserModal<?php echo($restaurantes[$i]["id"])?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteUserModalLabel<?php echo($restaurantes[$i]["id"])?>" aria-hidden="true">
