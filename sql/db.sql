@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2022 a las 17:18:10
+-- Tiempo de generación: 07-11-2022 a las 17:27:11
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `audiencia_eventos` (
   `id` int(11) NOT NULL,
-  `tipo` varchar(30) NOT NULL
+  `tipo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `audiencia_eventos` (
 
 CREATE TABLE `categorias_eventos` (
   `id` int(11) NOT NULL,
-  `categoria` varchar(30) NOT NULL
+  `categoria` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE `categorias_eventos` (
 
 CREATE TABLE `categorias_monumentos` (
   `id` int(11) NOT NULL,
-  `categoria` varchar(30) NOT NULL
+  `categoria` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -84,26 +84,21 @@ CREATE TABLE `categorias_restaurantes` (
 
 CREATE TABLE `eventos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(800) NOT NULL,
-  `precio` varchar(50) NOT NULL,
-  `gratis` tinyint(1) NOT NULL,
-  `dias` varchar(30) NOT NULL,
-  `dias_ex` varchar(30) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(8000) DEFAULT NULL,
+  `precio` varchar(100) DEFAULT NULL,
+  `gratis` tinyint(1) DEFAULT NULL,
+  `dias` varchar(30) DEFAULT NULL,
+  `dias_ex` varchar(300) DEFAULT NULL,
   `fecha_ini` date NOT NULL,
   `fecha_fin` date NOT NULL,
-  `desc_sitio` varchar(800) NOT NULL,
-  `horario` varchar(100) NOT NULL,
-  `transporte` varchar(500) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `lugar` varchar(200) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `codpostal` varchar(10) NOT NULL,
-  `latitud` varchar(15) NOT NULL,
-  `longitud` varchar(15) NOT NULL,
-  `telefono` varchar(12) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `audiencia` varchar(10) NOT NULL
+  `hora` varchar(100) DEFAULT NULL,
+  `url` varchar(400) DEFAULT NULL,
+  `lugar` varchar(200) DEFAULT NULL,
+  `direccion` varchar(200) DEFAULT NULL,
+  `codpostal` varchar(10) DEFAULT NULL,
+  `latitud` varchar(30) DEFAULT NULL,
+  `longitud` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -114,18 +109,17 @@ CREATE TABLE `eventos` (
 
 CREATE TABLE `monumentos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(800) NOT NULL,
-  `fecha` varchar(4) NOT NULL,
-  `autores` varchar(100) NOT NULL,
-  `horario` varchar(100) NOT NULL,
-  `transporte` varchar(500) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `codpostal` varchar(10) NOT NULL,
-  `latitud` varchar(15) NOT NULL,
-  `longitud` varchar(15) NOT NULL,
-  `desc_sitio` varchar(800) NOT NULL
+  `nombre` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(8000) DEFAULT NULL,
+  `fecha` varchar(30) DEFAULT NULL,
+  `autores` varchar(300) DEFAULT NULL,
+  `horario` varchar(100) DEFAULT NULL,
+  `transporte` varchar(500) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `codpostal` varchar(10) DEFAULT NULL,
+  `latitud` varchar(30) DEFAULT NULL,
+  `longitud` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -136,18 +130,84 @@ CREATE TABLE `monumentos` (
 
 CREATE TABLE `museos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `descripcion` varchar(800) DEFAULT NULL,
-  `desc_sitio` varchar(800) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `descripcion` varchar(8000) DEFAULT NULL,
+  `desc_sitio` varchar(8000) DEFAULT NULL,
   `horario` varchar(100) DEFAULT NULL,
-  `transporte` varchar(200) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `codpostal` varchar(8) NOT NULL,
-  `latitud` varchar(15) NOT NULL,
-  `longitud` varchar(15) NOT NULL,
-  `telefono` varchar(12) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `transporte` varchar(200) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `codpostal` varchar(8) DEFAULT NULL,
+  `latitud` varchar(30) DEFAULT NULL,
+  `longitud` varchar(30) DEFAULT NULL,
+  `telefono` varchar(12) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_audiencia_eventos`
+--
+
+CREATE TABLE `relacion_audiencia_eventos` (
+  `id_audiencia` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_categorias_eventos`
+--
+
+CREATE TABLE `relacion_categorias_eventos` (
+  `id_categoria` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_categorias_monumentos`
+--
+
+CREATE TABLE `relacion_categorias_monumentos` (
+  `id_categoria` int(11) NOT NULL,
+  `id_monumento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_categorias_museos`
+--
+
+CREATE TABLE `relacion_categorias_museos` (
+  `id_categoria` int(11) NOT NULL,
+  `id_museo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_categorias_restaurantes`
+--
+
+CREATE TABLE `relacion_categorias_restaurantes` (
+  `id_categoria` int(11) NOT NULL,
+  `id_restaurante` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_subcategorias_restaurantes`
+--
+
+CREATE TABLE `relacion_subcategorias_restaurantes` (
+  `id_subcategoria` int(11) NOT NULL,
+  `id_restaurante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -158,17 +218,28 @@ CREATE TABLE `museos` (
 
 CREATE TABLE `restaurantes` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `telefono` varchar(12) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `descripcion` varchar(800) NOT NULL,
-  `horario` varchar(50) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `codpostal` varchar(10) NOT NULL,
-  `latitud` varchar(15) NOT NULL,
-  `longitud` varchar(15) NOT NULL,
-  `subcategoria` varchar(10) NOT NULL
+  `nombre` varchar(50) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(8000) DEFAULT NULL,
+  `horario` varchar(300) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `codpostal` varchar(10) DEFAULT NULL,
+  `latitud` varchar(20) DEFAULT NULL,
+  `longitud` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `restaurantes_imagenes`
+--
+
+CREATE TABLE `restaurantes_imagenes` (
+  `id` int(11) NOT NULL,
+  `id_restaurante` int(11) NOT NULL,
+  `imagen` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -258,6 +329,12 @@ ALTER TABLE `restaurantes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `restaurantes_imagenes`
+--
+ALTER TABLE `restaurantes_imagenes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `subcategorias_restaurantes`
 --
 ALTER TABLE `subcategorias_restaurantes`
@@ -326,6 +403,12 @@ ALTER TABLE `museos`
 -- AUTO_INCREMENT de la tabla `restaurantes`
 --
 ALTER TABLE `restaurantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `restaurantes_imagenes`
+--
+ALTER TABLE `restaurantes_imagenes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
