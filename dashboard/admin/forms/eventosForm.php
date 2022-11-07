@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+if(isset($_GET["id"])){
+	$id =  $_GET["id"];
+}else{
+?>
 <link rel="stylesheet" href="dist/virtual-select.min.css" />
 <div class="container">
 	<div class="row mb-3">
@@ -45,7 +50,8 @@
 		</form>
 	</div>
 </div>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/evento.php">
+<?php } ?>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/evento.php?action=new">
 	<h5 class="mb-5">Formulario de evento</h5>
 	<div class="container">
 		<div class="row mb-3">

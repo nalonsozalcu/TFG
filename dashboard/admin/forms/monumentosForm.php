@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+if(isset($_GET["id"])){
+	$id =  $_GET["id"];
+}else{
+?>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=monumentos">
 	<h5 class="mb-3">Añadir categoría</h5>
 	<div class="container">
@@ -22,7 +27,8 @@
 		</div>
 	</div>
 </form>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/monumento.php">
+<?php } ?>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/monumento.php?action=new">
 	<h5 class="mb-5">Formulario de monumentos</h5>
 	<div class="container">
 		<div class="row mb-3">

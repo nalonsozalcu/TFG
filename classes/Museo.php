@@ -134,6 +134,20 @@ class Museo
 		$this->email = $email;
 	}
 
+	public static function get_museo_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM museos WHERE museos.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$museo = new Museo($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['desc_sitio'], $fila['horario'], $fila['transporte'], $fila['url'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud'], $fila['telefono'], $fila['email']);
+			$rs->free();
+
+			return $museo;
+		}
+		return false;
+	}
+
 	public static function get_all_museos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM museos");
@@ -204,7 +218,6 @@ class Museo
 	{
 		$conn = Aplicacion::getConexionBD();
 
-		$escaped_id = $conn->real_escape_string($this->id);
 		$escaped_nombre = $conn->real_escape_string($this->nombre);
 		$escaped_descripcion = $conn->real_escape_string($this->descripcion);
 		$escaped_desc_sitio = $conn->real_escape_string($this->desc_sitio);
@@ -218,7 +231,7 @@ class Museo
 		$escaped_telefono = $conn->real_escape_string($this->telefono);
 		$escaped_email = $conn->real_escape_string($this->email);
 
-		$query = sprintf("UPDATE museos SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email' WHERE id = $this->id");
+		$query = sprintf("UPDATE museos SET nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', desc_sitio = '$escaped_desc_sitio', horario = '$escaped_horario', transporte = '$escaped_transporte', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)

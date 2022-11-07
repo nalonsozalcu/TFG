@@ -37,7 +37,7 @@
 			<td><?php echo($museos[$i]["telefono"])?></td>
 			<td><?php echo($museos[$i]["email"])?></td>
 			<td><?php echo($museos[$i]["id"])?></td>
-			<td><a class="btn" href="#"><i class="bi bi-pencil-square"></i></a></td>
+			<td><a class="btn" href="adminPage.php?content=admin&form=museos&id=<?php echo($museos[$i]["id"])?>"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($museos[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
 			</tr>
 			<div class="modal fade" id="DeleteUserModal<?php echo($museos[$i]["id"])?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteUserModalLabel<?php echo($museos[$i]["id"])?>" aria-hidden="true">
@@ -53,7 +53,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<a href="../api/deleteMuseo.php?id=<?php echo($museos[$i]["id"])?>"><button type="button" class="btn btn-primary">Ok</button></a>
+						<a href="../api/museo.php?action=delete&id=<?php echo($museos[$i]["id"])?>"><button type="button" class="btn btn-primary">Ok</button></a>
 					</div>
 					</div>
 				</div>

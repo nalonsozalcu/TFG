@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php 
+if(isset($_GET["id"])){
+	require_once '../classes/Museo.php';
+	$id =  $_GET["id"];
+	$museo = Museo::get_museo_by_id($id);
+}else{
+?>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=museos">
 	<h5 class="mb-3">Añadir categoría</h5>
 	<div class="container">
@@ -22,7 +29,8 @@
 		</div>
 	</div>
 </form>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/museo.php">
+<?php } ?>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/museo.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
 	<h5 class="mb-5">Formulario de museo</h5>
 	<div class="container">
 		<div class="row mb-3">
@@ -33,6 +41,7 @@
 						type="text"
 						id="nombre"
 						name="nombre"
+						value="<?php if(isset($_GET["id"])) echo($museo->nombre()) ?>"
 						class="form-control"
 						placeholder="nombre"
 						required
@@ -46,6 +55,7 @@
 						type="text"
 						id="telefono"
 						name="telefono"
+						value="<?php if(isset($_GET["id"])) echo($museo->telefono()) ?>"
 						class="form-control"
 						placeholder="Telefono"
 					/>
@@ -58,6 +68,7 @@
 						type="text"
 						id="inputEmail"
 						name="email"
+						value="<?php if(isset($_GET["id"])) echo($museo->email()) ?>"
 						class="form-control"
 						placeholder="ejemplo@gmail.com"
 					/>
@@ -68,7 +79,7 @@
 			<div class="col">
 				<div class="form-group">
 					<label for="descripcion" class="form-label ">Descripción</label>
-					<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+					<textarea class="form-control" id="descripcion" name="descripcion" rows="3"><?php if(isset($_GET["id"])) echo($museo->descripcion()) ?></textarea>
 				</div>
 			</div>
 		</div>
@@ -80,6 +91,7 @@
 						type="text"
 						id="horario"
 						name="horario"
+						value="<?php if(isset($_GET["id"])) echo($museo->horario()) ?>"
 						class="form-control"
 						placeholder="horario"
 					/>
@@ -92,6 +104,7 @@
 						type="text"
 						id="transporte"
 						name="transporte"
+						value="<?php if(isset($_GET["id"])) echo($museo->transporte()) ?>"
 						class="form-control"
 						placeholder="transporte"
 					/>
@@ -106,6 +119,7 @@
 						type="text"
 						id="url"
 						name="url"
+						value="<?php if(isset($_GET["id"])) echo($museo->url()) ?>"
 						class="form-control"
 						placeholder="url"
 					/>
@@ -120,6 +134,7 @@
 						type="text"
 						id="direccion"
 						name="direccion"
+						value="<?php if(isset($_GET["id"])) echo($museo->direccion()) ?>"
 						class="form-control"
 						placeholder="direccion"
 						required
@@ -133,6 +148,7 @@
 						type="text"
 						id="codpostal"
 						name="codpostal"
+						value="<?php if(isset($_GET["id"])) echo($museo->codpostal()) ?>"
 						class="form-control"
 						placeholder="09400"
 
@@ -146,6 +162,7 @@
 						type="text"
 						id="latitud"
 						name="latitud"
+						value="<?php if(isset($_GET["id"])) echo($museo->latitud()) ?>"
 						class="form-control"
 						placeholder="38.889722"
 					/>
@@ -158,6 +175,7 @@
 						type="text"
 						id="longitud"
 						name="longitud"
+						value="<?php if(isset($_GET["id"])) echo($museo->longitud()) ?>"
 						class="form-control"
 						placeholder="-38.889722"
 					/>
@@ -168,7 +186,7 @@
 			<div class="col-6">
 				<div class="form-group">
 					<label for="desc_sitio" class="form-label ">Descripción del lugar</label>
-					<textarea class="form-control" id="desc_sitio" name="desc_sitio" rows="3"></textarea>
+					<textarea class="form-control" id="desc_sitio" name="desc_sitio" rows="3"><?php if(isset($_GET["id"])) echo($museo->desc_sitio()) ?></textarea>
 				</div>
 			</div>
 			<div class="col-4">
@@ -189,7 +207,11 @@
 		</div>
 		<div class="row justify-content-end">
 			<div class="col-1">
+			<?php if(isset($_GET["id"])) {?>
+				<button class="btn btn-primary" type="submit">Actualizar</a>
+			<?php }else {?>
 				<button class="btn btn-primary" type="submit">Guardar</button>
+			<?php }?>
 			</div>
 		</div>
 	</div>

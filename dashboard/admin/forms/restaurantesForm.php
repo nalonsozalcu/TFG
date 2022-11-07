@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+if(isset($_GET["id"])){
+	$id =  $_GET["id"];
+}else{
+?>
 <div class="container">
 	<div class="row mb-3">
 		<h5 class="mb-3">Añadir categorías</h5>
@@ -44,7 +49,8 @@
 		</form>
 	</div>
 </div>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php">
+<?php } ?>
+<form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php?action=new">
 	<h5 class="mb-5">Formulario de restaurante</h5>
 	<div class="container">
 		<div class="row mb-3">
