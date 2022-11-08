@@ -113,3 +113,14 @@ TRUNCATE TABLE `eventos`;
 TRUNCATE TABLE `monumentos`;
 TRUNCATE TABLE `museos`;
 TRUNCATE TABLE `restaurantes`;
+
+-- 08/11/2022 -- nuevas tablas para gestion de contactos
+CREATE TABLE `solicitudes` (
+  `id_solicitante` int(11) NOT NULL,
+  `id_solicitud` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `contactos` (
+  `id_usuario` int(11) NOT NULL,
+  `id_contacto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

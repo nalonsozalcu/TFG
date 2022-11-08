@@ -146,6 +146,17 @@ class Usuario
 		}
 		return false;
 	}
+	public static function existeUsername($username)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM usuarios WHERE usuarios.username='%s'", $conn->real_escape_string($username));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["id"];
+			$rs->free();
+		}
+		return false;
+	}
 
 	public static function get_user_from_email($email){
 		$conn = Aplicacion::getConexionBD();
@@ -168,6 +179,125 @@ class Usuario
 			return $rs->fetch_all(MYSQLI_ASSOC);
 		}
 		return false;
+	}
+	public static function get_user_contactos_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM usuarios u INNER JOIN contactos c ON u.id = c.id_contacto AND c.id_usuario = $id");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+	public static function get_user_solicitudes_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM usuarios u INNER JOIN solicitudes s ON u.id = s.id_solicitante AND s.id_solicitud = $id");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+	public static function get_num_solicitudes_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT Count('id_solicitantes') FROM `solicitudes` WHERE `id_solicitud` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_assoc()["Count('id_solicitantes')"];
+		}
+		return false;
+	}
+
+	public static function is_solicitud($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM solicitudes WHERE id_solicitud=$id_contact AND id_solicitante=$id_user");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function set_solicitud($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_contact = $conn->real_escape_string($id_contact);
+
+
+		$query = sprintf("INSERT INTO `solicitudes` (`id_solicitante`, `id_solicitud`) VALUES ('$id_user', '$id_contact')");
+		$result = $conn->query($query);
+		
+		if (!$result) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function delete_solicitud($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_contact = $conn->real_escape_string($id_contact);
+
+		$query = sprintf("DELETE FROM solicitudes WHERE id_solicitante=$id_contact AND id_solicitud=$id_user");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function is_contacto($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM contactos WHERE id_contacto=$id_contact AND id_usuario=$id_user");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function set_contacto($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_contact = $conn->real_escape_string($id_contact);
+
+
+		$query = sprintf("INSERT INTO `contactos` (`id_usuario`, `id_contacto`) VALUES ('$id_user', '$id_contact')");
+		$result = $conn->query($query);
+		
+		if (!$result) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function delete_contacto($id_user, $id_contact)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_contact = $conn->real_escape_string($id_contact);
+
+		$query = sprintf("DELETE FROM contactos WHERE id_contacto=$id_contact AND id_usuario=$id_user");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
 	}
 
 	// ---> Funciones para registrar, actualizar o borrar el usuario <---

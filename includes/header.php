@@ -16,11 +16,27 @@
 					echo('<li><a href="../dashboard/adminPage.php" class="nav-link px-2 link-dark">Administrar</a></li>');
 				}?>
 			</ul>
+			<?php if (isset($_SESSION['login'])) {?>
+				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+					<a href="../dashboard/contactsPage.php" class="btn btn-secondary"><i class="bi bi-person-lines-fill"></i></a>
+				</div>
+				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+					<a href="../dashboard/solicitudPage.php" class="btn btn-primary position-relative">
+						<i class="bi bi-people-fill"></i>
+						<?php
+						$solicitudes = Usuario::get_num_solicitudes_by_id($_SESSION["idUsuario"]);
+						if($solicitudes > 0){?>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+							<?php echo($solicitudes);?>
+							</span>
+						<?php } ?>
+					</a>
+				</div>
+			<?php } ?>
 
 			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
 				<input type="search" class="form-control" placeholder="Buscar..." aria-label="Buscar">
 			</form>
-
 			<div class="text-end">
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class="dropdown text-end">
