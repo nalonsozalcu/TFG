@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
+	require_once '../classes/Evento.php';
 	$id =  $_GET["id"];
+	$museo = Evento::get_evento_by_id($id);
 }else{
 ?>
 <link rel="stylesheet" href="dist/virtual-select.min.css" />
@@ -51,7 +53,7 @@ if(isset($_GET["id"])){
 	</div>
 </div>
 <?php } ?>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/evento.php?action=new">
+<form class="form mb-3 mt-md-2" method="POST" action="../api/evento.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
 	<h5 class="mb-5">Formulario de evento</h5>
 	<div class="container">
 		<div class="row mb-3">
@@ -62,6 +64,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="nombre"
 						name="nombre"
+						value="<?php if(isset($_GET["id"])) echo($evento->nombre()) ?>"
 						class="form-control"
 						placeholder="nombre"
 						required
@@ -75,6 +78,7 @@ if(isset($_GET["id"])){
 						type="date"
 						id="fecha_ini"
 						name="fecha_ini"
+						value="<?php if(isset($_GET["id"])) echo($evento->fecha_ini()) ?>"
 						class="form-control"
 						placeholder="02/11/2000"
 						required
@@ -88,6 +92,7 @@ if(isset($_GET["id"])){
 						type="date"
 						id="fecha_fin"
 						name="fecha_fin"
+						value="<?php if(isset($_GET["id"])) echo($evento->fecha_fin()) ?>"
 						class="form-control"
 						placeholder="06/12/2000"
 						required
@@ -101,6 +106,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="hora"
 						name="hora"
+						value="<?php if(isset($_GET["id"])) echo($evento->hora()) ?>"
 						class="form-control"
 						placeholder="10:00"
 					/>
@@ -111,7 +117,7 @@ if(isset($_GET["id"])){
 			<div class="col">
 				<div class="form-group">
 					<label for="descripcion" class="form-label ">Descripción</label>
-					<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+					<textarea class="form-control" id="descripcion" name="descripcion" value="<?php if(isset($_GET["id"])) echo($evento->descripcion()) ?>" rows="3"></textarea>
 				</div>
 			</div>
 		</div>
@@ -123,6 +129,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="dias"
 						name="dias"
+						value="<?php if(isset($_GET["id"])) echo($evento->dias()) ?>"
 						class="form-control"
 						placeholder="L,M,X,J,V"
 					/>
@@ -135,6 +142,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="dias_ex"
 						name="dias_ex"
+						value="<?php if(isset($_GET["id"])) echo($evento->dias_ex()) ?>"
 						class="form-control"
 						placeholder="dd/mm/yyyy"
 					/>
@@ -147,6 +155,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="precio"
 						name="precio"
+						value="<?php if(isset($_GET["id"])) echo($evento->precio()) ?>"
 						class="form-control"
 						placeholder="€"
 					/>
@@ -155,7 +164,7 @@ if(isset($_GET["id"])){
 			<div class="col-1 align-self-end">
 				<div class="form-group">
 					<label class="form-label" for="gratis">Gratis</label>
-					<input class="form-check-input" type="checkbox" value="" id="gratis" name="gratis">
+					<input class="form-check-input" type="checkbox" value="" id="gratis" name="gratis" value="<?php if(isset($_GET["id"])) echo($evento->gratis()) ?>">
 				</div>
 			</div>
 		</div>
@@ -167,6 +176,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="url"
 						name="url"
+						value="<?php if(isset($_GET["id"])) echo($evento->url()) ?>"
 						class="form-control"
 						placeholder="url"
 					/>
@@ -179,6 +189,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="direccion"
 						name="direccion"
+						value="<?php if(isset($_GET["id"])) echo($evento->direccion()) ?>"
 						class="form-control"
 						placeholder="direccion"
 						required
@@ -194,6 +205,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="lugar"
 						name="lugar"
+						value="<?php if(isset($_GET["id"])) echo($evento->lugar()) ?>"
 						class="form-control"
 						placeholder="lugar"
 
@@ -207,6 +219,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="codpostal"
 						name="codpostal"
+						value="<?php if(isset($_GET["id"])) echo($evento->codpostal()) ?>"
 						class="form-control"
 						placeholder="09400"
 					/>
@@ -219,6 +232,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="latitud"
 						name="latitud"
+						value="<?php if(isset($_GET["id"])) echo($evento->latitud()) ?>"
 						class="form-control"
 						placeholder="38.889722"
 					/>
@@ -231,6 +245,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="longitud"
 						name="longitud"
+						value="<?php if(isset($_GET["id"])) echo($evento->longitud()) ?>"
 						class="form-control"
 						placeholder="-38.889722"
 					/>
@@ -270,8 +285,12 @@ if(isset($_GET["id"])){
 			</div>
 		</div>
 		<div class="row justify-content-end">
-			<div class="col-1">
+		<div class="col-1">
+			<?php if(isset($_GET["id"])) {?>
+				<button class="btn btn-primary" type="submit">Actualizar</a>
+			<?php }else {?>
 				<button class="btn btn-primary" type="submit">Guardar</button>
+			<?php }?>
 			</div>
 		</div>
 	</div>

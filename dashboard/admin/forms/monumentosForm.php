@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
+	require_once '../classes/Monumento.php';
 	$id =  $_GET["id"];
+	$monumento = Monumento::get_monumento_by_id($id);
 }else{
 ?>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=monumentos">
@@ -28,7 +30,7 @@ if(isset($_GET["id"])){
 	</div>
 </form>
 <?php } ?>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/monumento.php?action=new">
+<form class="form mb-3 mt-md-2" method="POST" action="../api/monumento.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
 	<h5 class="mb-5">Formulario de monumentos</h5>
 	<div class="container">
 		<div class="row mb-3">
@@ -39,6 +41,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="nombre"
 						name="nombre"
+						value="<?php if(isset($_GET["id"])) echo($monumento->nombre()) ?>"
 						class="form-control"
 						placeholder="nombre"
 						required
@@ -52,6 +55,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="fecha"
 						name="fecha"
+						value="<?php if(isset($_GET["id"])) echo($monumento->fecha()) ?>"
 						class="form-control"
 						placeholder="año"
 						required
@@ -65,6 +69,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="autores"
 						name="autores"
+						value="<?php if(isset($_GET["id"])) echo($monumento->autores()) ?>"
 						class="form-control"
 						placeholder="autores"
 						required
@@ -76,33 +81,7 @@ if(isset($_GET["id"])){
 			<div class="col">
 				<div class="form-group">
 					<label for="descripcion" class="form-label ">Descripción</label>
-					<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
-				</div>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				<div class="form-group">
-					<label for="horario" class="form-label ">Horario</label>
-					<input
-						type="text"
-						id="horario"
-						name="horario"
-						class="form-control"
-						placeholder="horario"
-					/>
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					<label for="transporte" class="form-label ">Transporte</label>
-					<input
-						type="text"
-						id="transporte"
-						name="transporte"
-						class="form-control"
-						placeholder="transporte"
-					/>
+					<textarea class="form-control" id="descripcion" name="descripcion" value="<?php if(isset($_GET["id"])) echo($monumento->descripcion()) ?>" rows="3"></textarea>
 				</div>
 			</div>
 		</div>
@@ -114,6 +93,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="url"
 						name="url"
+						value="<?php if(isset($_GET["id"])) echo($monumento->url()) ?>"
 						class="form-control"
 						placeholder="url"
 					/>
@@ -128,6 +108,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="direccion"
 						name="direccion"
+						value="<?php if(isset($_GET["id"])) echo($monumento->direccion()) ?>"
 						class="form-control"
 						placeholder="direccion"
 						required
@@ -141,6 +122,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="codpostal"
 						name="codpostal"
+						value="<?php if(isset($_GET["id"])) echo($monumento->codpostal()) ?>"
 						class="form-control"
 						placeholder="09400"
 
@@ -154,6 +136,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="latitud"
 						name="latitud"
+						value="<?php if(isset($_GET["id"])) echo($monumento->latitud()) ?>"
 						class="form-control"
 						placeholder="38.889722"
 					/>
@@ -166,6 +149,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="longitud"
 						name="longitud"
+						value="<?php if(isset($_GET["id"])) echo($monumento->longitud()) ?>"
 						class="form-control"
 						placeholder="-38.889722"
 					/>
@@ -191,7 +175,11 @@ if(isset($_GET["id"])){
 		</div>
 		<div class="row justify-content-end">
 			<div class="col-1">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+				<?php if(isset($_GET["id"])) {?>
+					<button class="btn btn-primary" type="submit">Actualizar</a>
+				<?php }else {?>
+					<button class="btn btn-primary" type="submit">Guardar</button>
+				<?php }?>
 			</div>
 		</div>
 	</div>

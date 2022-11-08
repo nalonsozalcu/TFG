@@ -106,6 +106,20 @@ class Monumento
 		$this->autores = $autores;
 	}
 
+	public static function get_monumento_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM monumentos WHERE monumentos.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$monumento = new Monumento($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['url'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud'], $fila['fecha'], $fila['autores']);
+			$rs->free();
+
+			return $monumento;
+		}
+		return false;
+	}
+
 	public static function get_all_monumentos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM monumentos");
@@ -116,7 +130,7 @@ class Monumento
 		return false;
 	}
 	
-	// ---> Funciones para registrar, actualizar o borrar el museo <---
+	// ---> Funciones para registrar, actualizar o borrar el Monumento <---
 
 	public static function registrar($nombre,  $descripcion, $url, $direccion,  $codpostal, $latitud, $longitud,  $fecha,  $autores, $categorias, $form)
 	{

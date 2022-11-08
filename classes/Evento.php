@@ -158,6 +158,22 @@ class Evento
 		$this->precio = $precio;
 	}
 
+
+	public static function get_evento_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM eventos WHERE eventos.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$evento = new Evento($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['gratis'], $fila['dias'], $fila['dias_ex'], $fila['fecha_fin'], $fila['fecha_ini'], $fila['hora'], $fila['url'], $fila['lugar'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud']);
+			$rs->free();
+
+			return $evento;
+		}
+		return false;
+	}
+	
+
 	public static function get_all_eventos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM eventos");
@@ -168,7 +184,7 @@ class Evento
 		return false;
 	}
 
-	// ---> Funciones para registrar, actualizar o borrar el museo <---
+	// ---> Funciones para registrar, actualizar o borrar el evento <---
 
 	public static function registrar($nombre, $descripcion, $precio, $gratis, $dias, $dias_ex, $fecha_ini, $fecha_fin, $hora, $url, $lugar, $direccion, $codpostal, $latitud, $longitud, $categorias, $audiencias, $form)
 	{

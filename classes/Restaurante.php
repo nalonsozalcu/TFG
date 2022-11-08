@@ -115,6 +115,19 @@ class Restaurante
 		$this->email = $email;
 	}
 
+	public static function get_restaurante_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM restaurantes WHERE restaurantes.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$restaurante = new Restaurante($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['horario'], $fila['url'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud'], $fila['telefono'], $fila['email']);
+			$rs->free();
+
+			return $restaurante;
+		}
+		return false;
+	}
 
 	public static function get_all_restaurantes(){
 		$conn = Aplicacion::getConexionBD();
@@ -126,7 +139,7 @@ class Restaurante
 		return false;
 	}
 	
-	// ---> Funciones para registrar, actualizar o borrar el museo <---
+	// ---> Funciones para registrar, actualizar o borrar el restaurante <---
 
 	public static function registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias, $form)
 	{
@@ -186,7 +199,7 @@ class Restaurante
 		$escaped_email = $conn->real_escape_string($this->email);
 		
 
-		$query = sprintf("UPDATE restaurantes SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', horario = '$escaped_horario', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email', categoria = '$escaped_categoria', subcategoria = '$escaped_subcategoria' WHERE id = $this->id");
+		$query = sprintf("UPDATE restaurantes SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', horario = '$escaped_horario', url = '$escaped_url', direccion = '$escaped_direccion', codpostal = '$escaped_codpostal', latitud = '$escaped_latitud', longitud = '$escaped_longitud', telefono = '$escaped_telefono', email = '$escaped_email' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
+	require_once '../classes/Restaurante.php';
 	$id =  $_GET["id"];
+	$restaurante = Restaurante::get_restaurante_by_id($id);
 }else{
 ?>
 <div class="container">
@@ -50,7 +52,7 @@ if(isset($_GET["id"])){
 	</div>
 </div>
 <?php } ?>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php?action=new">
+<form class="form mb-3 mt-md-2" method="POST" action="../api/restaurante.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
 	<h5 class="mb-5">Formulario de restaurante</h5>
 	<div class="container">
 		<div class="row mb-3">
@@ -61,6 +63,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="nombre"
 						name="nombre"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->nombre()) ?>"
 						class="form-control"
 						placeholder="nombre"
 						required
@@ -74,6 +77,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="telefono"
 						name="telefono"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->telefono()) ?>"
 						class="form-control"
 						placeholder="Telefono"
 					/>
@@ -86,6 +90,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="inputEmail"
 						name="email"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->email()) ?>"
 						class="form-control"
 						placeholder="ejemplo@gmail.com"
 					/>
@@ -96,7 +101,7 @@ if(isset($_GET["id"])){
 			<div class="col">
 				<div class="form-group">
 					<label for="descripcion" class="form-label ">Descripción</label>
-					<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+					<textarea class="form-control" id="descripcion" name="descripcion" value="<?php if(isset($_GET["id"])) echo($restaurante->descripcion()) ?>" rows="3"></textarea>
 				</div>
 			</div>
 		</div>
@@ -108,6 +113,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="horario"
 						name="horario"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->horario()) ?>"
 						class="form-control"
 						placeholder="horario"
 					/>
@@ -122,6 +128,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="url"
 						name="url"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->url()) ?>"
 						class="form-control"
 						placeholder="url"
 					/>
@@ -136,6 +143,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="direccion"
 						name="direccion"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->direccion()) ?>"
 						class="form-control"
 						placeholder="direccion"
 						required
@@ -149,6 +157,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="codpostal"
 						name="codpostal"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->codpostal()) ?>"
 						class="form-control"
 						placeholder="09400"
 
@@ -162,6 +171,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="latitud"
 						name="latitud"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->latitud()) ?>"
 						class="form-control"
 						placeholder="38.889722"
 					/>
@@ -174,6 +184,7 @@ if(isset($_GET["id"])){
 						type="text"
 						id="longitud"
 						name="longitud"
+						value="<?php if(isset($_GET["id"])) echo($restaurante->longitud()) ?>"
 						class="form-control"
 						placeholder="-38.889722"
 					/>
@@ -214,7 +225,11 @@ if(isset($_GET["id"])){
 		</div>
 		<div class="row justify-content-end">
 			<div class="col-1">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+				<?php if(isset($_GET["id"])) {?>
+					<button class="btn btn-primary" type="submit">Actualizar</a>
+				<?php }else {?>
+					<button class="btn btn-primary" type="submit">Guardar</button>
+				<?php }?>
 			</div>
 		</div>
 	</div>
