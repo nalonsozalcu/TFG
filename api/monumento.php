@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Monumento::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=true&okD=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=false&okD=false");
 }
 else{
 
@@ -48,8 +48,8 @@ if($action === "new"){
         if($longitud)$monumento->setLongitud($longitud);
     
         if($monumento->update())
-            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=true");
+            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=true&okM=true");
         else
-            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=false");
+            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=false&okM=false");
     }
     }

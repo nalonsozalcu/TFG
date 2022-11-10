@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Restaurante::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&delete=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&delete=true&okD=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&delete=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&delete=false&okD=false");
 }
 else{
 
@@ -31,9 +31,9 @@ $telefono = $_POST["telefono"] != "" ? $_POST["telefono"] : null;
 
 if($action === "new"){
     if (Restaurante::registrar($nombre,  $descripcion,  $horario,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $subcategorias, true))
-        header("location: ../dashboard/adminPage.php?content=up_indiv");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&ok=true");
     else
-        header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false&ok=false");
     }
     
     if($action === "update"){
@@ -49,9 +49,9 @@ if($action === "new"){
         if($longitud)$restaurante->setLongitud($longitud);
     
         if($restaurante->update())
-            header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&update=true");
+            header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&update=true&okM=true");
         else
-            header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&update=false");
+            header("location: ../dashboard/adminPage.php?content=admin&table=restaurantes&update=false&okM=false");
     }
     }
 

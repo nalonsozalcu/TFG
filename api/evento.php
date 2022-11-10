@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Evento::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=true&okD=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=false&okD=false");
 }
 else{
 
@@ -59,9 +59,9 @@ if($action === "new"){
         if($gratis)$evento->setGratis($gratis);
     
         if($evento->update())
-            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=true");
+            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=true&okM=true");
         else
-            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=false");
+            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=false&okM=false");
     }
     }
 

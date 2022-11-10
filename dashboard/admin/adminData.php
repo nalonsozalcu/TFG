@@ -12,6 +12,22 @@ if(isset($_GET["form"])){
 }else{
 	$form ="";
 }
+if(isset($_GET['okM'])){
+	if($_GET['okM'] == "true")
+		echo '<div class="w-25 p-3 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-lg"></i> Se ha modificado correctamente la actividad de ' . $active . '
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+	else
+		echo '<div class="w-25 p-3 alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle"></i> No se ha modificado la actividad de ' . $active . '
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+}
+if(isset($_GET['okD'])){
+	if($_GET['okD'] == "true")
+		echo '<div class="w-25 p-3 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-lg"></i> Se ha eliminado correctamente la actividad de ' . $active . '
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+	else
+		echo '<div class="w-25 p-3 alert alert-danger alert-dismissible fade show" role="alert"><i class="bi bi-exclamation-triangle"></i> No se ha eliminado la actividad de ' . $active . '
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+}
 ?>
 <div class="vh-80 d-flex justify-content-center align-items-center">
 	<div class="container">
