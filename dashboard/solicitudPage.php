@@ -33,7 +33,7 @@
 												<img class="rounded-circle" width="100px" src="../files/users/<?php echo($user["username"]) ?>/<?php echo($user["avatar"]) ?>" alt="user">
 											</div>
 											<div class="col-md-6 col-sm-7">
-												<h5><a href="#" class="profile-link"><?php echo($user["nombre"]) ?></a></h5>
+												<h5><?php echo($user["username"]) ?></h5>
 												<p><?php echo($user["nombre"]) ?></p>
 												<p class="text-muted"><?php echo($user["email"]) ?></p>
 											</div>
@@ -53,11 +53,6 @@
 			</div>
 		</div>
 	</main>
-
-	<!-- PIE DE PÁGINA -->
-	<?php
-	require_once "../includes/footer.php";
-	?>
 
 </body>
 </html>

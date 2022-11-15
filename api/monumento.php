@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Monumento::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=true&okD=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=false&okD=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&delete=false");
 }
 else{
 
@@ -30,9 +30,9 @@ $categorias = isset($_POST['categoria']) ? $_POST["categoria"] : null;
 
 if($action === "new"){
     if (Monumento::registrar($nombre, $descripcion, $url, $direccion, $codpostal, $latitud, $longitud, $fecha, $autores, $categorias, true))
-        header("location: ../dashboard/adminPage.php?content=up_indiv");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&ok=true");
     else
-        header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&ok=false");
 
     }
     
@@ -48,8 +48,8 @@ if($action === "new"){
         if($longitud)$monumento->setLongitud($longitud);
     
         if($monumento->update())
-            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=true&okM=true");
+            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=true");
         else
-            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=false&okM=false");
+            header("location: ../dashboard/adminPage.php?content=admin&table=monumentos&update=false");
     }
     }

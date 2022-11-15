@@ -158,6 +158,21 @@ class Usuario
 		return false;
 	}
 
+	public static function get_user_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM usuarios WHERE usuarios.id='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			// $user = new Usuario($fila['id'], $fila['username'], $fila['password'], $fila['email'], $fila['nombre'], $fila['apellidos'], $fila['avatar'], $fila['rol']);
+			
+			$rs->free();
+
+			return $fila;
+		}
+		return false;
+	}
+
 	public static function get_user_from_email($email){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM usuarios WHERE usuarios.email='%s'", $conn->real_escape_string($email));

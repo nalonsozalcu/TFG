@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Evento::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=true&okD=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=false&okD=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=eventos&delete=false");
 }
 else{
 
@@ -36,9 +36,9 @@ $audiencias = isset($_POST["audiencia"]) ? $_POST["audiencia"] : null;
 
 if($action === "new"){
     if (Evento::registrar($nombre, $descripcion, $precio, $gratis, $dias, $dias_ex, $fecha_ini, $fecha_fin, $hora, $url, $lugar, $direccion, $codpostal, $latitud, $longitud, $categorias, $audiencias, true))
-        header("location: ../dashboard/adminPage.php?content=up_indiv");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&ok=true");
     else
-        header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false");
+        header("location: ../dashboard/adminPage.php?content=up_indiv&ok=false");
     }
     
     if($action === "update"){
@@ -59,9 +59,9 @@ if($action === "new"){
         if($gratis)$evento->setGratis($gratis);
     
         if($evento->update())
-            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=true&okM=true");
+            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=true");
         else
-            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=false&okM=false");
+            header("location: ../dashboard/adminPage.php?content=admin&table=eventos&update=false");
     }
     }
 

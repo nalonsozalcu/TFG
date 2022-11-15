@@ -36,7 +36,7 @@
 													<img class="rounded-circle" width="100px" src="../files/users/<?php echo($user["username"]) ?>/<?php echo($user["avatar"]) ?>" alt="user">
 												</div>
 												<div class="col-md-9 col-sm-9">
-													<h5><a href="#" class="profile-link"><?php echo($user["nombre"]) ?></a></h5>
+													<h5><a href="userPage.php?id=<?php echo($user["id"])?>" class="profile-link"><?php echo($user["username"]) ?></a></h5>
 													<p><?php echo($user["nombre"]) ?></p>
 													<p class="text-muted"><?php echo($user["email"]) ?></p>
 												</div>
@@ -129,11 +129,6 @@
 			</div>
 		</div>
 	</main>
-
-	<!-- PIE DE PÁGINA -->
-	<?php
-	require_once "../includes/footer.php";
-	?>
 
 </body>
 </html>
