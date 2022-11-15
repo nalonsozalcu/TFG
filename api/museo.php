@@ -10,9 +10,9 @@ if(isset($_GET['id'])){
 
 if($action === "delete"){
     if(Museo::delete_by_id($id))
-        header("location: ../dashboard/adminPage.php?content=admin&table=museos&delete=true&okD=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=museos&delete=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=museos&delete=false&okD=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=museos&delete=false");
 }
 else{
 
@@ -34,7 +34,7 @@ if($action === "new"){
 if (Museo::registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, true))
     header("location: ../dashboard/adminPage.php?content=up_indiv&ok=true");
 else
-    header("location: ../dashboard/adminPage.php?content=up_indiv&regpass=false&ok=false");
+    header("location: ../dashboard/adminPage.php?content=up_indiv&ok=false");
 }
 
 if($action === "update"){
@@ -52,8 +52,8 @@ if($action === "update"){
     if($longitud)$museo->setLongitud($longitud);
 
     if($museo->update())
-        header("location: ../dashboard/adminPage.php?content=admin&table=museos&update=true&okM=true");
+        header("location: ../dashboard/adminPage.php?content=admin&table=museos&update=true");
     else
-        header("location: ../dashboard/adminPage.php?content=admin&table=museos&update=false&okM=false");
+        header("location: ../dashboard/adminPage.php?content=admin&table=museos&update=false");
 }
 }

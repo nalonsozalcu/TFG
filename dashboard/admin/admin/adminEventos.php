@@ -1,9 +1,6 @@
 <?php require_once '../classes/Evento.php'; ?>
 <!DOCTYPE html>
 <h4>Administrador de Eventos</h4>
-<!--<div class="row d-flex justify-content-end">
-
-</div>-->
 <table class="table" style="width:100%">
 	<thead>
 		<tr>
