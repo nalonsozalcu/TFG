@@ -21,9 +21,50 @@
 		<div class="vh-80 d-flex justify-content-center align-items-center">
 			<div class="container">
 				<div class="row">
-					<div class="col-8">
+					<div class="col-9">
 						<div class="row d-flex justify-content-left mt-5">
 							<h3>Contactos</h3>
+						</div>
+						<div class="row d-flex justify-content-left mt-2">
+							<button class="col-2 btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+								<i class="bi bi-person-plus-fill"></i> Agregar
+							</button>
+							<div class="collapse <?php echo((isset($_GET['username']) || isset($_GET['contact']) || isset($_GET['sol_send']) || isset($_GET['sol_recived']))? 'show': '')?>" id="collapseExample">
+								<div class="mt-3 card card-body">
+								<form class="form mb-3 mt-md-2" method="POST" action="../api/contactos.php?action=send">
+									<h5 class="mb-3">Añadir contacto</h5>
+									<div class="row">
+										<div class="col mb-3">
+											<div class="form-group">
+												<label for="username" class="form-label ">Username</label>
+												<input type="text" id="username" name="username" class="form-control" required/>
+											</div>
+										</div>
+										<div class="col-2 mb-3 align-self-end">
+											<button class="btn btn-primary" type="submit"><i class="bi bi-send-fill"></i></button>
+										</div>
+										<?php 
+											if(isset($_GET["username"])){
+												if($_GET["username"] == 'false')
+													echo ('<p class="text-danger">El usuario no existe.</p>');
+											} 
+											if(isset($_GET["sol_send"])){
+												if($_GET["sol_send"] == 'true')
+													echo ('<p class="text-danger">Ya has enviado una solicitud a este usuario.</p>');
+											}
+											if(isset($_GET["sol_recived"])){
+												if($_GET["sol_recived"] == 'true')
+													echo ('<p class="text-danger">Has recibido una solicitud de este usuario.</p>');
+											}
+											if(isset($_GET["contact"])){
+												if($_GET["contact"] == 'true')
+													echo ('<p class="text-danger">Este usuario ya es tu contacto.</p>');
+											}
+										?>
+									</div>
+								</form>
+								</div>
+							</div>
 						</div>
 						<div class="row d-flex justify-content-right mt-4">
 						<?php $contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);
@@ -84,45 +125,6 @@
 										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 								}
 							?>
-							<button class="col-8 btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-								<i class="bi bi-person-plus-fill"></i> Enviar solicitud de contacto
-							</button>
-							<div class="collapse <?php echo((isset($_GET['username']) || isset($_GET['contact']) || isset($_GET['sol_send']) || isset($_GET['sol_recived']))? 'show': '')?>" id="collapseExample">
-								<div class="mt-3 card card-body">
-								<form class="form mb-3 mt-md-2" method="POST" action="../api/contactos.php?action=send">
-									<h5 class="mb-3">Añadir contacto</h5>
-									<div class="row">
-										<div class="col mb-3">
-											<div class="form-group">
-												<label for="username" class="form-label ">Username</label>
-												<input type="text" id="username" name="username" class="form-control" required/>
-											</div>
-										</div>
-										<div class="col-2 mb-3 align-self-end">
-											<button class="btn btn-primary" type="submit"><i class="bi bi-send-fill"></i></button>
-										</div>
-										<?php 
-											if(isset($_GET["username"])){
-												if($_GET["username"] == 'false')
-													echo ('<p class="text-danger">El usuario no existe.</p>');
-											} 
-											if(isset($_GET["sol_send"])){
-												if($_GET["sol_send"] == 'true')
-													echo ('<p class="text-danger">Ya has enviado una solicitud a este usuario.</p>');
-											}
-											if(isset($_GET["sol_recived"])){
-												if($_GET["sol_recived"] == 'true')
-													echo ('<p class="text-danger">Has recibido una solicitud de este usuario.</p>');
-											}
-											if(isset($_GET["contact"])){
-												if($_GET["contact"] == 'true')
-													echo ('<p class="text-danger">Este usuario ya es tu contacto.</p>');
-											}
-										?>
-									</div>
-								</form>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

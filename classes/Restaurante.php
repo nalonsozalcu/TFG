@@ -17,7 +17,7 @@ class Restaurante
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $horario, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, string $email)
+	private function __construct(?int $id, string $nombre, string $descripcion, ?string $horario, string $url,string $direccion, string $codpostal, string $latitud, string $longitud, string $telefono, ?string $email)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
@@ -59,7 +59,7 @@ class Restaurante
 		$this->descripcion = $descripcion;
 	}
 
-	public function horario() : string {
+	public function horario() : ?string {
 		return $this->horario;
 	}
 	public function setHorario(string $horario) : void {
@@ -108,7 +108,7 @@ class Restaurante
 		$this->telefono = $telefono;
 	}
 
-	public function email() : string {
+	public function email() : ?string {
 		return $this->email;
 	}
 	public function setEmail(string $email) : void {
@@ -123,8 +123,17 @@ class Restaurante
 			$fila = $rs->fetch_assoc();
 			$restaurante = new Restaurante($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['horario'], $fila['url'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud'], $fila['telefono'], $fila['email']);
 			$rs->free();
-
 			return $restaurante;
+		}
+		return false;
+	}
+
+	public static function get_images_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM restaurantes_imagenes WHERE restaurantes_imagenes.id_restaurante='%s'", $conn->real_escape_string($id));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
 		}
 		return false;
 	}

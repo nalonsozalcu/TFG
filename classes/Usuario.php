@@ -213,6 +213,24 @@ class Usuario
 		}
 		return false;
 	}
+	public static function get_recomendaciones_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM `recomendaciones` WHERE `id_usuario` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+	public static function get_favoritos_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM `favoritos` WHERE `id_usuario` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
 	public static function get_num_solicitudes_by_id($id){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT Count('id_solicitantes') FROM `solicitudes` WHERE `id_solicitud` = '$id'");
@@ -307,6 +325,107 @@ class Usuario
 		$id_contact = $conn->real_escape_string($id_contact);
 
 		$query = sprintf("DELETE FROM contactos WHERE id_contacto=$id_contact AND id_usuario=$id_user");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function get_num_recomendaciones_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT Count('id') FROM `recomendaciones` WHERE `id_usuario` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_assoc()["Count('id')"];
+		}
+		return false;
+	}
+
+	public static function recomendacion_sended($id_user, $id_contact, $tipo, $id_actividad)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM recomendaciones WHERE id_contacto='$id_contact' AND tipo_actividad='$tipo' AND id_actividad='$id_actividad' AND id_usuario='$id_user'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return true;
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function send_recomendacion($id_user, $id_contact, $tipo, $id_actividad)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_contact = $conn->real_escape_string($id_contact);
+		$tipo = $conn->real_escape_string($tipo);
+		$id_actividad = $conn->real_escape_string($id_actividad);
+
+		$query = sprintf("INSERT INTO `recomendaciones` (`id_usuario`, `id_contacto`, `tipo_actividad`, `id_actividad`) VALUES ('$id_user', '$id_contact', '$tipo', '$id_actividad')");
+		$result = $conn->query($query);
+		
+		if (!$result) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function delete_recomendacion($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id = $conn->real_escape_string($id);
+
+		$query = sprintf("DELETE FROM recomendaciones WHERE id=$id");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function is_favorito($id_user, $tipo, $id_actividad)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM favoritos WHERE tipo_actividad='$tipo' AND id_actividad='$id_actividad' AND id_usuario='$id_user'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["id"];
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function new_favorito($id_user, $tipo, $id_actividad)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$tipo = $conn->real_escape_string($tipo);
+		$id_actividad = $conn->real_escape_string($id_actividad);
+
+		$query = sprintf("INSERT INTO `favoritos` (`id_usuario`, `tipo_actividad`, `id_actividad`) VALUES ('$id_user', '$tipo', '$id_actividad')");
+		$result = $conn->query($query);
+		
+		if (!$result) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function delete_favorito($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id = $conn->real_escape_string($id);
+
+		$query = sprintf("DELETE FROM favoritos WHERE id=$id");
 		$rs = $conn->query($query);
 		if (!$rs) {
 			error_log($conn->error);

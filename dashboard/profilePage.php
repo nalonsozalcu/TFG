@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <?php
 	require_once "../includes/head.html";
+    require_once '../classes/Evento.php';
+    require_once '../classes/Museo.php';
+    require_once '../classes/Restaurante.php';
+    require_once '../classes/Monumento.php';
 ?>
 
 <body>
@@ -89,17 +93,43 @@
 							<div class="accordion" id="accordionExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="headingOne">
-									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<button class="accordion-button <?php echo(isset($_GET["fav"])?'':'collapsed')?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="<?php echo(isset($_GET["fav"])?'true':'false')?>" aria-controls="collapseOne">
 										Actividades favoritas
 									</button>
 									</h2>
-									<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+									<div id="collapseOne" class="accordion-collapse collapse <?php echo(isset($_GET["fav"])?'show':'')?>" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 										<div class="accordion-body">
-											<ul class="list-group">
-												<li class="list-group-item">An item</li>
-												<li class="list-group-item">A second item</li>
-												<li class="list-group-item">A third item</li>
-											</ul>
+										<ul class="list-group list-group-flush scroll">
+										<?php
+											$favoritos = Usuario::get_favoritos_by_id($_SESSION["idUsuario"]);
+											if($favoritos){?>
+													<?php foreach($favoritos as $favorito){
+														if($favorito["tipo_actividad"] == "museo"){
+															$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+															$icon = "<i class='fa-solid fa-landmark'></i>";
+														}
+														if($favorito["tipo_actividad"] == "restaurante"){
+															$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+															$icon = '<i class="fa-solid fa-utensils"></i>';
+														}
+														if($favorito["tipo_actividad"] == "monumento"){ 
+															$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+															$icon = '<i class="fa-solid fa-monument"></i>';
+														}
+														if($favorito["tipo_actividad"] == "evento") {
+															$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+															$icon = "<i class='fa-regular fa-calendar-check'></i>";
+														}
+														?>
+														<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+															<h6><?php echo($icon." ".$actividad->nombre()); ?></h6>
+															<a href="../api/favoritos.php?from=prof&action=delete&id=<?php echo (Usuario::is_favorito($_SESSION["idUsuario"], $favorito["tipo_actividad"], $favorito["id_actividad"])) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+														</li>
+													<?php } ?>
+											<?php }else{
+												echo("<p>No hay actividades favoritas.</p>");
+											} ?>
+										</ul>
 										</div>
 									</div>
 								</div>

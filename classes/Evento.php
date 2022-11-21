@@ -21,7 +21,7 @@ class Evento
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $precio, int $gratis, string $dias, string $dias_ex, date $fecha_ini, date $fecha_fin, string $hora, string $url, string $lugar, string $direccion, string $codpostal, string $latitud, string $longitud)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $precio, int $gratis, string $dias, string $dias_ex, string $fecha_ini, string $fecha_fin, string $hora, string $url, string $lugar, string $direccion, string $codpostal, string $latitud, string $longitud)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
@@ -109,17 +109,17 @@ class Evento
 		$this->longitud = $longitud;
 	}
 
-	public function fecha_fin() : date {
+	public function fecha_fin() : string {
 		return $this->fecha_fin;
 	}
-	public function setFecha_fin(date $fecha_fin) : void {
+	public function setFecha_fin(string $fecha_fin) : void {
 		$this->fecha_fin = $fecha_fin;
 	}
 
-	public function fecha_ini() : date {
+	public function fecha_ini() : string {
 		return $this->fecha_ini;
 	}
-	public function setFecha_ini(date $fecha_ini) : void {
+	public function setFecha_ini(string $fecha_ini) : void {
 		$this->fecha_ini = $fecha_ini;
 	}
 

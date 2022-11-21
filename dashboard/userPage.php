@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <?php
 	require_once "../includes/head.html";
+	require_once '../classes/Evento.php';
+    require_once '../classes/Museo.php';
+    require_once '../classes/Restaurante.php';
+    require_once '../classes/Monumento.php';
 ?>
 
 <body>
@@ -19,8 +23,7 @@
 	?>
 	<main>
 		<div class="container">
-
-			<div class="row mt-3 gutters-sm">
+			<div class="row mt-5 gutters-sm">
 				<div class="col-md-4 mb-3">
 					<div class="card">
 						<div class="card-body">
@@ -63,9 +66,27 @@
 					</div>
 					</div>
 					<div class="row">
-							<div class="col-6">
-							<a class="link-danger">Eliminar contacto</a>
+						<div class="col-6">
+							<button class="btn link-danger" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($usuario["id"])?>">Eliminar contacto</button>
+							<div class="modal fade" id="DeleteUserModal<?php echo($usuario["id"])?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteUserModalLabel<?php echo($usuario["id"])?>" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="DeleteUserModalLabel<?php echo($usuario["id"])?>">Confirm deletion</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										You are going to delete the user with username: <?php echo($usuario["username"])?>
+										Are you sure you want to delete?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+										<a href="../api/contactos.php?action=delete&id=<?php echo($usuario["id"])?>"><button type="button" class="btn btn-primary">Ok</button></a>
+									</div>
+									</div>
+								</div>
 							</div>
+						</div>
 						</div>
 				</div>
 				<div class="col-md-8">
@@ -73,36 +94,41 @@
 					<div class="col-sm-6 mb-3">
 					<div class="card h-100">
 						<div class="card-body">
-							<h4 class="d-flex align-items-center mb-3"><i class="material-icons text-primary mr-2">Actividades</i></h4>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre actividad</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
+							<h4 class="d-flex align-items-center mb-3"><i class="material-icons text-dark mr-2">Actividades</i></h4>
+							<ul class="list-group list-group-flush scroll">
+							<?php
+								$favoritos = Usuario::get_favoritos_by_id($usuario["id"]);
+								if($favoritos){?>
+										<?php foreach($favoritos as $favorito){
+											if($favorito["tipo_actividad"] == "museo"){
+												$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+												$icon = "<i class='fa-solid fa-landmark'></i>";
+											}
+											if($favorito["tipo_actividad"] == "restaurante"){
+												$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+												$icon = '<i class="fa-solid fa-utensils"></i>';
+											}
+											if($favorito["tipo_actividad"] == "monumento"){ 
+												$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+												$icon = '<i class="fa-solid fa-monument"></i>';
+											}
+											if($favorito["tipo_actividad"] == "evento") {
+												$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+												$icon = "<i class='fa-regular fa-calendar-check'></i>";
+											}
+											?>
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a href="actividadPage.php?content=<?php echo ($favorito["tipo_actividad"]) ?>&id=<?php echo($favorito["id_actividad"]) ?>" style="text-decoration:none"><h6><?php echo($icon." ".$actividad->nombre()); ?></h6></a>
+												<?php if(Usuario::is_favorito($_SESSION["idUsuario"], $favorito["tipo_actividad"], $favorito["id_actividad"])){ ?>
+													<a href="../api/favoritos.php?from=contact&action=delete&id=<?php echo (Usuario::is_favorito($_SESSION["idUsuario"], $favorito["tipo_actividad"], $favorito["id_actividad"])) ?>&id_contacto=<?php echo($usuario["id"]) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+												<?php }else{?>
+													<a href="../api/favoritos.php?from=contact&action=new&tipo=<?php echo ($favorito["tipo_actividad"]) ?>&id_actividad=<?php echo($favorito["id_actividad"]) ?>&id_contacto=<?php echo($usuario["id"]) ?>" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+												<?php }?>
+											</li>
+										<?php } ?>
+								<?php }else{
+									echo("<p>No hay actividades favoritas.</p>");
+								} ?>
 							</ul>
 						</div>
 					</div>
@@ -110,8 +136,8 @@
 					<div class="col-sm-6 mb-3">
 					<div class="card h-100">
 						<div class="card-body">
-							<h4 class="d-flex align-items-center mb-3"><i class="material-icons text-primary mr-2">Planes</i></h4>
-							<ul class="list-group list-group-flush">
+							<h4 class="d-flex align-items-center mb-3"><i class="material-icons text-dark mr-2">Planes</i></h4>
+							<ul class="list-group list-group-flush scroll">
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6>Nombre plan</h6>
 									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
@@ -132,24 +158,103 @@
 									<h6>Nombre plan</h6>
 									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
 								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6>Nombre plan</h6>
+									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
 								</li>
 							</ul>
 						</div>
 					</div>
 					</div>
 				</div>
-
-
-
 				</div>
 			</div>
 		</div>
 	</main>
-
-	<!-- PIE DE PÁGINA -->
-	<?php
-	require_once "../includes/footer.php";
-	?>
 
 </body>
 </html>

@@ -18,6 +18,18 @@
 			</ul>
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+					<a href="../dashboard/recomendacionesPage.php" class="btn btn-warning position-relative" style="color: white;">
+						<i class="bi bi-chat-square-heart-fill"></i>
+						<?php
+						$recomendaciones = Usuario::get_num_recomendaciones_by_id($_SESSION["idUsuario"]);
+						if($recomendaciones > 0){?>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+							<?php echo($recomendaciones);?>
+							</span>
+						<?php } ?>
+					</a>
+				</div>
+				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
 					<a href="../dashboard/contactsPage.php" class="btn btn-secondary"><i class="bi bi-person-lines-fill"></i></a>
 				</div>
 				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -34,9 +46,9 @@
 				</div>
 			<?php } ?>
 
-			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+			<!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
 				<input type="search" class="form-control" placeholder="Buscar..." aria-label="Buscar">
-			</form>
+			</form> -->
 			<div class="text-end">
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class="dropdown text-end">
