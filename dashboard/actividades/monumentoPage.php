@@ -22,10 +22,51 @@
 					<i class="bi bi-star-fill text-warning ms-1"></i>
 					<i class="bi bi-star-fill ms-1"></i>
 					<i class="bi bi-star-fill ms-1"></i>
+				<?php if(isset($_SESSION["idUsuario"])){
+					$contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);?>
 				<div class="d-flex justify-content-end mt-2 mb-2">
-				<a href="../api/favoritos.php?action=new&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-				<a href="../api/favoritos.php?action=new&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>" class="btn ms-1"><i class="fa-solid fa-share"></i></a>
+					<?php if(Usuario::is_favorito($_SESSION["idUsuario"], "monumento", $monumento->id())){ ?>
+						<a href="../api/favoritos.php?from=ind&action=delete&id=<?php echo (Usuario::is_favorito($_SESSION["idUsuario"], "monumento", $monumento->id())) ?>&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+					<?php }else{?>
+						<a href="../api/favoritos.php?from=ind&action=new&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+					<?php }?>
+					<?php if($contactos){?>
+						<button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseshare" aria-expanded="false" aria-controls="collapseshare">
+							<i class="fa-solid fa-share"></i>
+						</button>
+					<?php }?>
 				</div>
+				<div class="collapse <?php echo(isset($_GET["send"])?'show':'') ?>" id="collapseshare">
+					<div class="card card-body">
+						<h5 class="modal-title mb-3" id="shareModalLabel">Recomendar</h5>
+						<ul class="list-group list-group-flush">
+							<?php foreach($contactos as $user){?>
+								<li class="list-group-item">
+									<div class="row justify-content-between">
+										<div class="col-8">
+											<div class="row justify-content-start">
+												<div class="col-4">
+													<img class="rounded-circle" width="30px" src="../files/users/<?php echo($user["username"]) ?>/<?php echo($user["avatar"]) ?>" alt="user">
+												</div>
+												<div class="col-8 ms-0 align-self-end">
+													<h6 class="mb-0"><?php echo($user["username"]) ?></h6>
+												</div>
+											</div>
+										</div>
+										<div class="col-3 align-self-center">
+										<?php if(!Usuario::recomendacion_sended($user["id"], $_SESSION["idUsuario"], "monumento", $monumento->id())){?>
+											<a href="../api/recomendaciones.php?action=send&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>&id_contacto=<?php echo($user["id"]) ?>" class="btn"><i class="bi bi-send-fill text-primary"></i></a>
+										<?php } else{?>
+												<p class="text-success mb-0">Enviado!</p>
+										<?php }?>
+										</div>
+									</div>
+								</li>
+						<?php }?>
+						</ul>
+					</div>
+				</div>
+				<?php }?>
 			</div>
 			</div>
 			<div class="card mb-4 mb-lg-0">
