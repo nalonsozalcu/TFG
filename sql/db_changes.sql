@@ -124,3 +124,32 @@ CREATE TABLE `contactos` (
   `id_usuario` int(11) NOT NULL,
   `id_contacto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- 21/11/2022 -- nuevas tablas para gestion de recomendaciones y favoritos
+
+CREATE TABLE `recomendaciones` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_contacto` int(11) NOT NULL,
+  `tipo_actividad` varchar(15) NOT NULL,
+  `id_actividad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `recomendaciones`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `recomendaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+CREATE TABLE `favoritos` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `tipo_actividad` varchar(15) NOT NULL,
+  `id_actividad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `favoritos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `favoritos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
