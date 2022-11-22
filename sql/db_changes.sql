@@ -139,7 +139,7 @@ ALTER TABLE `recomendaciones`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `recomendaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 CREATE TABLE `favoritos` (
   `id` int(11) NOT NULL,
@@ -152,4 +152,58 @@ ALTER TABLE `favoritos`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `favoritos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- 22/11/2022 -- nuevas tablas para gestion de valoraciones
+
+CREATE TABLE `valoraciones_eventos` (
+  `id` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `valoraciones_eventos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `valoraciones_eventos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE `valoraciones_museos` (
+  `id` int(11) NOT NULL,
+  `id_museo` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `valoraciones_museos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `valoraciones_museos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE `valoraciones_monumentos` (
+  `id` int(11) NOT NULL,
+  `id_monumento` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `valoraciones_monumentos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `valoraciones_monumentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE `valoraciones_restaurantes` (
+  `id` int(11) NOT NULL,
+  `id_restaurante` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `valoraciones_restaurantes`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `valoraciones_restaurantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

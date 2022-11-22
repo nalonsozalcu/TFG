@@ -184,6 +184,82 @@ class Evento
 		return false;
 	}
 
+	public static function get_global_valoracion($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT valoracion FROM valoraciones_eventos WHERE id_evento=$id");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			$valoraciones = $rs->fetch_all(MYSQLI_ASSOC);
+			$suma = 0;
+			$total = sizeof($valoraciones);
+			foreach($valoraciones as $val){
+				$suma +=  $val['valoracion'];
+			}
+			return  round($suma / $total, 2);
+		}
+		return false;
+	}
+
+	public static function num_valoraciones($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM valoraciones_eventos WHERE id_evento=$id");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->num_rows;
+		}
+		return false;
+	}
+
+	public static function is_valoracion($id_actividad, $id_user)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM valoraciones_eventos WHERE id_evento='$id_actividad' AND id_usuario='$id_user'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["id"];
+			$rs->free();
+		}
+		return false;
+	}
+	public static function get_valoracion($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT valoracion FROM valoraciones_eventos WHERE id='$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["valoracion"];
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function set_valoracion($id_actividad, $id_user, $valoracion){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("INSERT INTO `valoraciones_eventos` (`id_evento`, `id_usuario`, `valoracion`) VALUES ('$id_actividad', '$id_user', '$valoracion')");
+
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public static function delete_valoracion($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id = $conn->real_escape_string($id);
+
+		$query = sprintf("DELETE FROM valoraciones_eventos WHERE id=$id");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+	
+
 	// ---> Funciones para registrar, actualizar o borrar el evento <---
 
 	public static function registrar($nombre, $descripcion, $precio, $gratis, $dias, $dias_ex, $fecha_ini, $fecha_fin, $hora, $url, $lugar, $direccion, $codpostal, $latitud, $longitud, $categorias, $audiencias, $form)

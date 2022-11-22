@@ -39,5 +39,4 @@ if($action === "new"){ //añade la actividad a favoritos
         if($from === "acts")
             header("location: ../dashboard/");
     }
-
 }

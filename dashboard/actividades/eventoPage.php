@@ -16,12 +16,17 @@
 				<h5 class="my-3"><?php echo($evento->nombre()) ?></h5>
 				<p class="text-muted mb-1">Desde: <?php echo($evento->fecha_ini()) ?> Hasta: <?php echo($evento->fecha_fin()) ?></p>
 				<p class="text-muted mb-4">Precio: <?php echo($evento->gratis()?"Gratuito":$evento->precio())?></p>
-				<p class="text-muted mb-1">Valoración: </p>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill ms-1"></i>
-					<i class="bi bi-star-fill ms-1"></i>
+				<p class="mb-1">Valoración: <?php if($evento->get_global_valoracion($evento->id())) echo($evento->get_global_valoracion($evento->id())."  (".$evento->num_valoraciones($evento->id()).")")?></p>
+				<?php 
+				if($evento->get_global_valoracion($evento->id()))
+					for($i=1; $i < 6; $i++){
+						if($i <= $evento->get_global_valoracion($evento->id())){
+							echo('<i class="bi bi-star-fill text-warning ms-1"></i>');
+						}else{
+							echo('<i class="bi bi-star-fill ms-1"></i>');
+						}
+					}
+				?>
 				<?php if(isset($_SESSION["idUsuario"])){
 					$contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);?>
 				<div class="d-flex justify-content-end mt-2 mb-2">
@@ -93,12 +98,22 @@
 					<p class="ms-3 mb-0">Hora: <?php echo($evento->hora()!=""?$evento->hora():"No disponible.") ?></p>
 				</li>
 				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<i class="bi bi-star-fill text-warning"></i>
-					<p class="mb-0 ms-2">Valorar:</p>
-					<div class="form ms-2" style="width: 4rem;">
-						<input min="0" max="5" type="number" id="typeNumber" class="form-control" />
-					</div>
-					<button type="button" class="btn ms-2">Enviar</button>
+					<?php if($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])){?>
+						<p class="mb-0 me-2">Tu valoración: <?php echo($evento->get_valoracion($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])))?></p>
+						<i class="bi bi-star-fill text-warning ms-1"></i>
+						<a href="../api/valoracion.php?action=delete&tipo=evento&id_actividad=<?php echo($evento->id()) ?>&id=<?php echo($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
+					<?php }else{ ?>
+						<i class="bi bi-star-fill text-warning"></i>
+						<p class="mb-0 ms-2">Valorar:</p>
+						<form method="POST" action="../api/valoracion.php?action=new&tipo=evento&id_actividad=<?php echo($evento->id()) ?>">
+							<div class="row ms-2">
+								<div class="col-6">
+								<input min="0" max="5" type="number" id="valoracion" name="valoracion" value="0" class="form-control" />
+							</div>
+								<button type="submit" class="btn col-6">Enviar</button>
+							</div>
+						</form>
+					<?php } ?>
 				</li>
 				</ul>
 			</div>

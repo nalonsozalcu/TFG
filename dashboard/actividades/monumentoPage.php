@@ -16,12 +16,17 @@
 				<h5 class="my-3"><?php echo($monumento->nombre()) ?></h5>
 				<p class="text-muted mb-1">Año: <?php echo($monumento->fecha()) ?></p>
 				<p class="text-muted mb-4">Autores: <?php echo($monumento->autores()) ?></p>
-				<p class="text-muted mb-1">Valoración: </p>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill text-warning ms-1"></i>
-					<i class="bi bi-star-fill ms-1"></i>
-					<i class="bi bi-star-fill ms-1"></i>
+				<p class="mb-1">Valoración: <?php if($monumento->get_global_valoracion($monumento->id())) echo($monumento->get_global_valoracion($monumento->id())."  (".$monumento->num_valoraciones($monumento->id()).")")?></p>
+				<?php 
+				if($monumento->get_global_valoracion($monumento->id()))
+					for($i=1; $i < 6; $i++){
+						if($i <= $monumento->get_global_valoracion($monumento->id())){
+							echo('<i class="bi bi-star-fill text-warning ms-1"></i>');
+						}else{
+							echo('<i class="bi bi-star-fill ms-1"></i>');
+						}
+					}
+				?>
 				<?php if(isset($_SESSION["idUsuario"])){
 					$contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);?>
 				<div class="d-flex justify-content-end mt-2 mb-2">
@@ -81,12 +86,22 @@
 					<p class="ms-3 mb-0"><?php echo($monumento->direccion()." ".$monumento->codpostal()) ?></p>
 				</li>
 				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<i class="bi bi-star-fill text-warning"></i>
-					<p class="mb-0 ms-2">Valorar:</p>
-					<div class="form ms-2" style="width: 4rem;">
-						<input min="0" max="5" type="number" id="typeNumber" class="form-control" />
-					</div>
-					<button type="button" class="btn ms-2">Enviar</button>
+					<?php if($monumento->is_valoracion($monumento->id(), $_SESSION["idUsuario"])){?>
+						<p class="mb-0 me-2">Tu valoración: <?php echo($monumento->get_valoracion($monumento->is_valoracion($monumento->id(), $_SESSION["idUsuario"])))?></p>
+						<i class="bi bi-star-fill text-warning ms-1"></i>
+						<a href="../api/valoracion.php?action=delete&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>&id=<?php echo($monumento->is_valoracion($monumento->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
+					<?php }else{ ?>
+						<i class="bi bi-star-fill text-warning"></i>
+						<p class="mb-0 ms-2">Valorar:</p>
+						<form method="POST" action="../api/valoracion.php?action=new&tipo=monumento&id_actividad=<?php echo($monumento->id()) ?>">
+							<div class="row ms-2">
+								<div class="col-6">
+								<input min="0" max="5" type="number" id="valoracion" name="valoracion" value="0" class="form-control" />
+							</div>
+								<button type="submit" class="btn col-6">Enviar</button>
+							</div>
+						</form>
+					<?php } ?>
 				</li>
 				</ul>
 			</div>
