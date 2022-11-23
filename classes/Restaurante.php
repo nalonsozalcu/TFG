@@ -223,7 +223,7 @@ class Restaurante
 			error_log("Se han actualizado '$conn->affected_rows' !");
 		} else return true;
 	}
-	
+
 	private static function get_id_by_categoria($nombre) : int {
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT id FROM categorias_restaurantes WHERE categorias_restaurantes.categoria='%s'", $conn->real_escape_string($nombre));
@@ -249,6 +249,17 @@ class Restaurante
 		}
 		return false;
 	}
+
+	public static function get_all_restaurantes_by_nombre($nombre){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM restaurantes WHERE restaurantes.nombre LIKE '%$nombre%'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+
 	
 	// ---> Funciones para registrar, actualizar o borrar el restaurante <---
 
