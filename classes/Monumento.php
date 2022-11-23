@@ -120,6 +120,16 @@ class Monumento
 		return false;
 	}
 
+	public static function get_all_monumentos_by_nombre($nombre){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM monumentos WHERE monumentos.nombre='%s'", $conn->real_escape_string($nombre));
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+
 	public static function get_all_monumentos(){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM monumentos");
@@ -142,6 +152,20 @@ class Monumento
 				$suma +=  $val['valoracion'];
 			}
 			return  round($suma / $total, 2);
+		}
+		return false;
+	}
+	
+	public static function get_all_monumentos_by_categoria($nombre){
+		$id = Monumento::get_id_by_categoria($nombre);
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM monumentos WHERE monumentos.id=
+		(SELECT id_monumento
+		 FROM relacion_categorias_monumentos 
+		 WHERE ($id=relacion_categorias_monumentos.id_categoria) AND (monumentos.id=relacion_categorias_monumentos.id_monumento))");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
 		}
 		return false;
 	}
@@ -203,6 +227,18 @@ class Monumento
 		} else if ($conn->affected_rows != 1) {
 			error_log("Se han actualizado '$conn->affected_rows' !");
 		} else return true;
+	}
+
+	private static function get_id_by_categoria($nombre) : int {
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM categorias_monumentos WHERE categorias_monumentos.categoria='%s'", $conn->real_escape_string($nombre));
+		$rs = $conn->query($query);
+		
+		if ($rs && $rs->num_rows > 0) {
+			$rt = $rs->fetch_all(MYSQLI_ASSOC);
+			return (int)$rt[0]["id"];
+		}  
+		return false;
 	}
 	
 	// ---> Funciones para registrar, actualizar o borrar el Monumento <---

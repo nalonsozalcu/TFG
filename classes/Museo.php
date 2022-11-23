@@ -134,6 +134,9 @@ class Museo
 		$this->email = $email;
 	}
 
+
+	
+
 	public static function get_museo_by_id($id){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM museos WHERE museos.id='%s'", $conn->real_escape_string($id));
@@ -144,6 +147,43 @@ class Museo
 			$rs->free();
 
 			return $museo;
+		}
+		return false;
+	}
+
+	public static function get_all_museos_by_categoria($nombre){
+		$id = Museo::get_id_by_categoria($nombre);
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM museos WHERE museos.id=
+		(SELECT id_museo
+		 FROM relacion_categorias_museos 
+		 WHERE ($id=relacion_categorias_museos.id_categoria) AND (museos.id=relacion_categorias_museos.id_museo))");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+
+	private static function get_id_by_categoria($nombre) : int {
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM categorias_museos WHERE categorias_museos.categoria='%s'", $conn->real_escape_string($nombre));
+		$rs = $conn->query($query);
+		
+		if ($rs && $rs->num_rows > 0) {
+			$rt = $rs->fetch_all(MYSQLI_ASSOC);
+			return (int)$rt[0]["id"];
+		}  
+		return false;
+	}
+
+
+	public static function get_all_museos_by_nombre($nombre){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM museos WHERE museos.nombre LIKE '%$nombre%'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
 		}
 		return false;
 	}
@@ -233,6 +273,7 @@ class Museo
 		} else return true;
 	}
 
+	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 
 	public static function registrar($nombre,  $descripcion, $desc_sitio,  $horario,  $transporte,  $url, $direccion,  $codpostal,  $latitud,  $longitud,  $telefono,  $email, $categorias, $form)
@@ -289,6 +330,7 @@ class Museo
 			error_log("Se han actualizado '$conn->affected_rows' !");
 		} else return true;
 	}
+
 	public function update()
 	{
 		$conn = Aplicacion::getConexionBD();
@@ -316,6 +358,7 @@ class Museo
 
 		return $result;
 	}
+
 	public static function delete_by_id($id)
 	{
 		$conn = Aplicacion::getConexionBD();

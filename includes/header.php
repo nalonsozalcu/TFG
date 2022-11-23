@@ -10,7 +10,7 @@
 
 			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="../dashboard" class="nav-link px-2 link-secondary">Home</a></li>
-				<li><a href="#" class="nav-link px-2 link-dark">Actividades</a></li>
+				<li><a href="../dashboard/actividadesPage.php" class="nav-link px-2 link-dark">Actividades</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">Planes</a></li>
 				<?php if (isset($_SESSION['login']) && $_SESSION["esAdmin"]) {
 					echo('<li><a href="../dashboard/adminPage.php" class="nav-link px-2 link-dark">Administrar</a></li>');
