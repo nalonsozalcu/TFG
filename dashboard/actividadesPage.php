@@ -77,9 +77,5 @@ require_once '../classes/Museo.php';?>
 
 	</main>
 
-	<!-- PIE DE PÁGINA -->
-	<?php
-	require_once "../includes/footer.php";
-	?> 
 </body>
 </html>
