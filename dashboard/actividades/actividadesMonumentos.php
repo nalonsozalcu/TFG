@@ -1,10 +1,7 @@
 <?php require_once '../config.php'; ?>
 <!DOCTYPE html>
 <?php 
-	if(isset($_POST["busqueda"])){
-		$nombre = $_POST["busqueda"];
-		$monumento = Monumento::get_all_monumentos_by_nombre($nombre);
-	}else if(isset($_GET["categoria"])){
+	if(isset($_GET["categoria"])){
 		$nombre =  $_GET["categoria"];
 		$monumento = Monumento::get_all_monumentos_by_categoria($nombre);
 	}else{
@@ -24,6 +21,7 @@
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar por categoria</button>
 			<ul class="dropdown-menu dropdown-menu-end">
+
 				<?php
 				$conn = Aplicacion::getConexionBD();
 				$query = sprintf("SELECT * FROM categorias_monumentos");
@@ -45,7 +43,15 @@
 			?>
 			<div class="row mt-2 mb-3">
 			<?php while ($j < 3):
-					if($i < count($monumento)):?>
+					$set = true;
+					if($i < count($monumento)):
+						if(isset($_POST["busqueda"])){
+							$nombre = $_POST["busqueda"];
+							if(!str_contains(strtolower($monumento[$i]["nombre"]),  strtolower($nombre))) {
+								$set = false;
+							}
+						}
+						if($set):?>
 						<div class="col-4">
 							<div class="card h-100">
 								<div class="card-body">
@@ -73,8 +79,10 @@
 								</div>
 							</div>
 						</div>
-				<?php $i++;
+				<?php	else: $j--;
+						endif;
 					endif;
+					$i++;
 					$j++;
 				endwhile;
 				?>

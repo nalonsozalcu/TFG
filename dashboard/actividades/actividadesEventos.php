@@ -1,10 +1,7 @@
 <?php require_once '../config.php'; ?>
 <!DOCTYPE html>
 <?php 
-	if(isset($_POST["busqueda"])){
-		$nombre = $_POST["busqueda"];
-		$evento = Evento::get_all_eventos_by_nombre($nombre);
-	}else if(isset($_GET["categoria"])){
+	if(isset($_GET["categoria"])){
 		$nombre =  $_GET["categoria"];
 		$evento = Evento::get_all_eventos_by_categoria($nombre);
 	}else{
@@ -45,36 +42,46 @@
 			?>
 			<div class="row mt-2 mb-3">
 			<?php while ($j < 3):
-					if($i < count($evento)):?>
-						<div class="col-4">
-							<div class="card h-100">
-								<div class="card-body">
-									<h5><i class='fa-regular fa-calendar-check'></i><a href="actividadPage.php?content=evento&id=<?php echo($evento[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($evento[$i]["nombre"])?></a></h5>
-									<p class="card-text mb-2"><?php echo($evento[$i]["direccion"])?></p>
-									<?php 
-									if(Evento::get_global_valoracion($evento[$i]["id"])){
-										for($e=1; $e < 6; $e++){
-											if($e <= Evento::get_global_valoracion($evento[$i]["id"])){
-												echo('<i class="bi bi-star-fill text-warning ms-1"></i>');
-											}else{
-												echo('<i class="bi bi-star-fill ms-1"></i>');
+					$set = true;
+					if($i < count($evento)):
+						if(isset($_POST["busqueda"])){
+							$nombre = $_POST["busqueda"];
+							if(!str_contains(strtolower($evento[$i]["nombre"]),  strtolower($nombre))) {
+								$set = false;
+							}
+						}
+						if($set):?>
+							<div class="col-4">
+								<div class="card h-100">
+									<div class="card-body">
+										<h5><i class='fa-regular fa-calendar-check'></i><a href="actividadPage.php?content=evento&id=<?php echo($evento[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($evento[$i]["nombre"])?></a></h5>
+										<p class="card-text mb-2"><?php echo($evento[$i]["direccion"])?></p>
+										<?php 
+										if(Evento::get_global_valoracion($evento[$i]["id"])){
+											for($e=1; $e < 6; $e++){
+												if($e <= Evento::get_global_valoracion($evento[$i]["id"])){
+													echo('<i class="bi bi-star-fill text-warning ms-1"></i>');
+												}else{
+													echo('<i class="bi bi-star-fill ms-1"></i>');
+												}
 											}
-										}
-									}?>
-									<div class="text-end">
-										<?php
-										if(Usuario::is_favorito($_SESSION["idUsuario"], "evento", $evento[$i]["id"])){ 
-											echo('<a href="../api/favoritos.php?from=acts&action=delete&id='.Usuario::is_favorito($_SESSION["idUsuario"], "evento", $evento[$i]["id"]).'&tipo=evento&id_actividad='.$evento[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>');
-										}else{
-											echo('<a href="../api/favoritos.php?from=acts&action=new&tipo=evento&id_actividad='.$evento[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>');
-										}
-										?>
+										}?>
+										<div class="text-end">
+											<?php
+											if(Usuario::is_favorito($_SESSION["idUsuario"], "evento", $evento[$i]["id"])){ 
+												echo('<a href="../api/favoritos.php?from=acts&action=delete&id='.Usuario::is_favorito($_SESSION["idUsuario"], "evento", $evento[$i]["id"]).'&tipo=evento&id_actividad='.$evento[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>');
+											}else{
+												echo('<a href="../api/favoritos.php?from=acts&action=new&tipo=evento&id_actividad='.$evento[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>');
+											}
+											?>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-				<?php $i++;
+				<?php	else: $j--;
+						endif;
 					endif;
+					$i++;
 					$j++;
 				endwhile;
 				?>

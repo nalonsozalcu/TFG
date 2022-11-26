@@ -1,10 +1,7 @@
 <?php require_once '../config.php'; ?>
 <!DOCTYPE html>
 <?php 
-	if(isset($_POST["busqueda"])){
-		$nombre =  $_POST["busqueda"];
-		$restaurante = Restaurante::get_all_restaurantes_by_nombre($nombre);
-	}else if(isset($_GET["categoria"])){
+	if(isset($_GET["categoria"])){
 		$nombre =  $_GET["categoria"];
 		$restaurante = Restaurante::get_all_restaurantes_by_categoria($nombre);
 	}else{
@@ -46,7 +43,15 @@
 			?>
 			<div class="row mt-2 mb-3">
 			<?php while ($j < 3):
-					if($i < count($restaurante)):?>
+					$set = true;
+					if($i < count($restaurante)):
+						if(isset($_POST["busqueda"])){
+							$nombre = $_POST["busqueda"];
+							if(!str_contains(strtolower($restaurante[$i]["nombre"]),  strtolower($nombre))) {
+								$set = false;
+							}
+						}
+						if($set):?>
 						<div class="col-4">
 							<div class="card h-100">
 								<div class="card-body">
@@ -74,8 +79,10 @@
 								</div>
 							</div>
 						</div>
-				<?php $i++;
+				<?php	else: $j--;
+						endif;
 					endif;
+					$i++;
 					$j++;
 				endwhile;
 				?>
