@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <?php
 	require_once "../includes/head.html";
-    require_once '../classes/Evento.php';
-    require_once '../classes/Museo.php';
-    require_once '../classes/Restaurante.php';
-    require_once '../classes/Monumento.php';
+	require_once '../classes/Evento.php';
+	require_once '../classes/Museo.php';
+	require_once '../classes/Restaurante.php';
+	require_once '../classes/Monumento.php';
 	
 ?>  
 
@@ -31,18 +31,18 @@
 					if($recomendaciones){?>
 						<ul class="list-group list-group-flush">
 							<?php foreach($recomendaciones as $recomendacion){
-                                $user = Usuario::get_user_by_id($recomendacion["id_contacto"]);
-                                if($recomendacion["tipo_actividad"] == "museo") $actividad = Museo::get_museo_by_id($recomendacion["id_actividad"]);
-                                if($recomendacion["tipo_actividad"] == "restaurante") $actividad = Restaurante::get_restaurante_by_id($recomendacion["id_actividad"]);
-                                if($recomendacion["tipo_actividad"] == "monumento") $actividad = Monumento::get_monumento_by_id($recomendacion["id_actividad"]);
-                                if($recomendacion["tipo_actividad"] == "evento") $actividad = Evento::get_evento_by_id($recomendacion["id_actividad"]);
-                                ?>
+								$user = Usuario::get_user_by_id($recomendacion["id_contacto"]);
+								if($recomendacion["tipo_actividad"] == "museo") $actividad = Museo::get_museo_by_id($recomendacion["id_actividad"]);
+								if($recomendacion["tipo_actividad"] == "restaurante") $actividad = Restaurante::get_restaurante_by_id($recomendacion["id_actividad"]);
+								if($recomendacion["tipo_actividad"] == "monumento") $actividad = Monumento::get_monumento_by_id($recomendacion["id_actividad"]);
+								if($recomendacion["tipo_actividad"] == "evento") $actividad = Evento::get_evento_by_id($recomendacion["id_actividad"]);
+								?>
 									<li class="list-group-item">
 										<div class="row">
 											<div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-3"><img width="100px" src="../assets/img/<?php echo($recomendacion["tipo_actividad"]."_icon.png") ?>" alt="icon"></div>
-                                                    <div class="col align-self-center">
+												<div class="row">
+													<div class="col-3"><img width="100px" src="../assets/img/<?php echo($recomendacion["tipo_actividad"]."_icon.png") ?>" alt="icon"></div>
+													<div class="col align-self-center">
 														<a href="actividadPage.php?content=<?php echo($recomendacion["tipo_actividad"]) ?>&id=<?php echo($actividad->id()) ?>"><h6><?php echo($actividad->nombre()) ?></h6></a>
 														<p><?php echo($actividad->direccion()) ?></p>
 														<div class="row"><div class="col">
@@ -53,7 +53,7 @@
 															<i class="bi bi-star-fill ms-1"></i>
 														</div></div>
 													</div>
-                                                </div>
+												</div>
 											</div>
 											<div class="col-md-3 align-self-end">
 												<p class="mb-0">Recomendado por: <?php echo($user["username"]) ?></p>

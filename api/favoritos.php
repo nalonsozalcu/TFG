@@ -26,7 +26,7 @@ if($action === "delete"){ //elimina la actividad de favoritos
         if($from === "contact")
             header("location: ../dashboard/userPage.php?id=$id_contacto");
         if($from === "acts")
-            header("location: ../dashboard/");
+            header("location: ../dashboard/actividadesPage.php?table=$tipo");
     }
 }
 
@@ -37,6 +37,6 @@ if($action === "new"){ //añade la actividad a favoritos
         if($from === "contact")
             header("location: ../dashboard/userPage.php?id=$id_contacto");
         if($from === "acts")
-            header("location: ../dashboard/");
+            header("location: ../dashboard/actividadesPage.php?table=$tipo");
     }
 }
