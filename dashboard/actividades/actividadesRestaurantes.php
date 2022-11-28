@@ -69,10 +69,12 @@
 									}?>
 									<div class="text-end">
 										<?php
-										if(Usuario::is_favorito($_SESSION["idUsuario"], "restaurante", $restaurante[$i]["id"])){ 
-											echo('<a href="../api/favoritos.php?from=acts&action=delete&id='.Usuario::is_favorito($_SESSION["idUsuario"], "restaurante", $restaurante[$i]["id"]).'&tipo=restaurante&id_actividad='.$restaurante[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>');
-										}else{
-											echo('<a href="../api/favoritos.php?from=acts&action=new&tipo=restaurante&id_actividad='.$restaurante[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>');
+										if(isset($_SESSION["idUsuario"])){
+											if(Usuario::is_favorito($_SESSION["idUsuario"], "restaurante", $restaurante[$i]["id"])){ 
+												echo('<a href="../api/favoritos.php?from=acts&action=delete&id='.Usuario::is_favorito($_SESSION["idUsuario"], "restaurante", $restaurante[$i]["id"]).'&tipo=restaurante&id_actividad='.$restaurante[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>');
+											}else{
+												echo('<a href="../api/favoritos.php?from=acts&action=new&tipo=restaurante&id_actividad='.$restaurante[$i]["id"].'" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>');
+											}
 										}
 										?>
 									</div>

@@ -98,7 +98,7 @@
 					<p class="ms-3 mb-0">Hora: <?php echo($evento->hora()!=""?$evento->hora():"No disponible.") ?></p>
 				</li>
 				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<?php if($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])){?>
+					<?php if(isset($_SESSION["idUsuario"])){ if($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])){?>
 						<p class="mb-0 me-2">Tu valoración: <?php echo($evento->get_valoracion($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])))?></p>
 						<i class="bi bi-star-fill text-warning ms-1"></i>
 						<a href="../api/valoracion.php?action=delete&tipo=evento&id_actividad=<?php echo($evento->id()) ?>&id=<?php echo($evento->is_valoracion($evento->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
@@ -113,7 +113,7 @@
 								<button type="submit" class="btn col-6">Enviar</button>
 							</div>
 						</form>
-					<?php } ?>
+					<?php }} ?>
 				</li>
 				</ul>
 			</div>

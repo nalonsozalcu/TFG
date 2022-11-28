@@ -92,7 +92,7 @@
 					<p class="ms-3 mb-0"><?php echo($restaurante->email()) ?></p>
 				</li>
 				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<?php if($restaurante->is_valoracion($restaurante->id(), $_SESSION["idUsuario"])){?>
+					<?php if(isset($_SESSION["idUsuario"])){ if($restaurante->is_valoracion($restaurante->id(), $_SESSION["idUsuario"])){?>
 						<p class="mb-0 me-2">Tu valoración: <?php echo($restaurante->get_valoracion($restaurante->is_valoracion($restaurante->id(), $_SESSION["idUsuario"])))?></p>
 						<i class="bi bi-star-fill text-warning ms-1"></i>
 						<a href="../api/valoracion.php?action=delete&tipo=restaurante&id_actividad=<?php echo($restaurante->id()) ?>&id=<?php echo($restaurante->is_valoracion($restaurante->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
@@ -107,7 +107,7 @@
 								<button type="submit" class="btn col-6">Enviar</button>
 							</div>
 						</form>
-					<?php } ?>
+					<?php }} ?>
 				</li>
                 <li class="list-group-item d-flex justify-content-start align-items-center p-3">
                     <div class="row">

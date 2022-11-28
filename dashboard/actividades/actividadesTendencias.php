@@ -25,7 +25,7 @@
 						<div class="col-4">
 							<div class="card h-100" style="width: 25rem;">
 								<div class="card-body">
-									<img width="50px" src="../assets/img/<?php echo($tipo."_icon.png") ?>" alt="icon">
+									<img width="30px" src="../assets/img/<?php echo($tipo."_icon.png") ?>" alt="icon">
 									<a href="actividadPage.php?content=<?php echo($tipo) ?>&id=<?php echo($actividad->id()) ?>"><h6><?php echo($actividad->nombre()) ?></h6></a>
 									<p><?php echo($actividad->direccion()) ?></p>
 									<?php 
