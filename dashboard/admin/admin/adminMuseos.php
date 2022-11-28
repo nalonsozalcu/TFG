@@ -25,6 +25,11 @@
 			<td><?php echo($museos[$i]["telefono"])?></td>
 			<td><?php echo($museos[$i]["email"])?></td>
 			<td><?php echo($museos[$i]["id"])?></td>
+			<?php if(Museo::is_tendencia($museos[$i]["id"])){
+				echo('<td><a class="btn" href="../api/tendencias.php?action=delete&tipo=museos&id='.Museo::is_tendencia($museos[$i]["id"]).'"><i class="bi bi-star-fill"></i></a></td>');
+			}else{
+				echo('<td><a class="btn" href="../api/tendencias.php?action=new&tipo=museos&id_actividad='.$museos[$i]["id"].'"><i class="bi bi-star"></i></a></td>');
+			}?>
 			<td><a class="btn" href="adminPage.php?content=admin&form=museos&id=<?php echo($museos[$i]["id"])?>"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($museos[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
 			</tr>

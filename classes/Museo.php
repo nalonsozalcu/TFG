@@ -273,6 +273,18 @@ class Museo
 		} else return true;
 	}
 
+	public static function is_tendencia($id_actividad)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM tendencias WHERE tipo_actividad='museos' AND id_actividad='$id_actividad'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["id"];
+			$rs->free();
+		}
+		return false;
+	}
+
 	
 	// ---> Funciones para registrar, actualizar o borrar el museo <---
 

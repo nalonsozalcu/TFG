@@ -23,6 +23,11 @@
 			<td><?php echo($monumentos[$i]["direccion"])?></td>
 			<td><?php echo($monumentos[$i]["autores"])?></td>
 			<td><?php echo($monumentos[$i]["id"])?></td>
+			<?php if(Monumento::is_tendencia($monumentos[$i]["id"])){
+				echo('<td><a class="btn" href="../api/tendencias.php?action=delete&tipo=monumentos&id='.Monumento::is_tendencia($monumentos[$i]["id"]).'"><i class="bi bi-star-fill"></i></a></td>');
+			}else{
+				echo('<td><a class="btn" href="../api/tendencias.php?action=new&tipo=monumentos&id_actividad='.$monumentos[$i]["id"].'"><i class="bi bi-star"></i></a></td>');
+			}?>
 			<td><a class="btn" href="adminPage.php?content=admin&form=monumentos&id=<?php echo($monumentos[$i]["id"])?>"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($monumentos[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
 			</tr>

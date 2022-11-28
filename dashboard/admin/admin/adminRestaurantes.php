@@ -25,6 +25,11 @@
 			<td><?php echo($restaurantes[$i]["telefono"])?></td>
 			<td><?php echo($restaurantes[$i]["email"])?></td>
 			<td><?php echo($restaurantes[$i]["id"])?></td>
+			<?php if(Restaurante::is_tendencia($restaurantes[$i]["id"])){
+				echo('<td><a class="btn" href="../api/tendencias.php?action=delete&tipo=restaurantes&id='.Restaurante::is_tendencia($restaurantes[$i]["id"]).'"><i class="bi bi-star-fill"></i></a></td>');
+			}else{
+				echo('<td><a class="btn" href="../api/tendencias.php?action=new&tipo=restaurantes&id_actividad='.$restaurantes[$i]["id"].'"><i class="bi bi-star"></i></a></td>');
+			}?>
 			<td><a class="btn" href="adminPage.php?content=admin&form=restaurantes&id=<?php echo($restaurantes[$i]["id"])?>"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($restaurantes[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
 			</tr>
