@@ -35,47 +35,43 @@ require_once '../classes/Museo.php';?>
 		<div class="container">
 			<div class="row d-flex justify-content-left mt-5">
 				<h4>Actividades</h4>
-				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="actividadesPage.php" class="nav-link px-2 link-secondary">Todas</a></li>
-					<li><a href="#" class="nav-link px-2 link-dark">Tendencias</a></li>
-					<li><a href="#" class="nav-link px-2 link-dark">Recomendadas</a></li>
+			</div>
+			<nav class="navbar navbar-expand">
+				<ul class="navbar-nav mb-5">
+					<li class="nav-item"><a href="actividadesPage.php" class="nav-link <?php if($content == false) echo('active')?>"><i class="bi bi-star"></i> Tendencias </i></a></li>
+					<div class="vr"></div>
+					<li class="nav-item"><a href="actividadesPage.php?table=museo" class="nav-link <?php if($active == 'museo') echo('active')?>"> Museos </a></li>
+					<div class="vr"></div>
+					<li class="nav-item"><a href="actividadesPage.php?table=evento" class="nav-link <?php if($active == 'evento') echo('active')?>"> Eventos </a></li>
+					<div class="vr"></div>
+					<li class="nav-item"><a href="actividadesPage.php?table=monumento" class="nav-link <?php if($active == 'monumento') echo('active')?>"> Monumentos </a></li>
+					<div class="vr"></div>
+					<li class="nav-item"><a href="actividadesPage.php?table=restaurante" class="nav-link <?php if($active == 'restaurante') echo('active')?>"> Restaurantes </a></li>
 				</ul>
-			</div>
-		<div class="row mt-3 mb-3 d-flex justify-content-start">
-			<?php if(!$content){
-			echo("<p>Selecciona un tipo de actividad:</p>");
-			}
-			?>
-			<div class="btn-group">
-			<a href="actividadesPage.php?table=museo" class="btn btn-outline-secondary <?php if($active == 'museo') echo('active')?>">Museos</a>
-			<a href="actividadesPage.php?table=evento" class="btn btn-outline-secondary <?php if($active == 'evento') echo('active')?>">Eventos</a>
-			<a href="actividadesPage.php?table=monumento" class="btn btn-outline-secondary <?php if($active == 'monumento') echo('active')?>">Monumentos</a>
-			<a href="actividadesPage.php?table=restaurante" class="btn btn-outline-secondary <?php if($active == 'restaurante') echo('active')?>">Restaurantes</a>
-			</div>
-		
-		</div>
-		<div class="row d-flex justify-content-center">
-		<?php 
-	
-			if($active == 'evento'){
-				require "actividades/actividadesEventos.php";
-			}
-			if($active == 'monumento'){
-				require "actividades/actividadesMonumentos.php";
-			}
-			if($active == 'restaurante'){
-				require "actividades/actividadesRestaurantes.php";
-			}
-			if($active == 'museo'){
-				require "actividades/actividadesMuseos.php";
-			}
-		?>
-		</div>
+				<div class="row d-flex justify-content-center">
+				<?php 
+					if(!$content){
+						require "actividades/actividadesTendencias.php";
+					}
+					if($active == 'evento'){
+						require "actividades/actividadesEventos.php";
+					}
+					if($active == 'monumento'){
+						require "actividades/actividadesMonumentos.php";
+					}
+					if($active == 'restaurante'){
+						require "actividades/actividadesRestaurantes.php";
+					}
+					if($active == 'museo'){
+						require "actividades/actividadesMuseos.php";
+					}
+				?>
+				</div>
+			</nav>
 		</div>
 	</div>
 
 
 	</main>
-
 </body>
 </html>

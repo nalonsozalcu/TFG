@@ -207,3 +207,16 @@ ALTER TABLE `valoraciones_restaurantes`
 
 ALTER TABLE `valoraciones_restaurantes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-----
+CREATE TABLE `tendencias` (
+  `id` int(11) NOT NULL,
+  `id_actividad` int(11) NOT NULL,
+  `tipo_actividad` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tendencias`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `tendencias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
