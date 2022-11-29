@@ -6,7 +6,13 @@
 		$museo = Museo::get_all_museos_by_categoria($nombre);
 	}else{
 		$museo = Museo::get_all_museos();
-		}
+	}
+
+	if(isset($_GET["localizacion"])){ ?>
+		<div class="container-fluid">
+		<?php require "actividades/mapa.php"; ?>
+		</div>
+<?php }else{
 ?>
 <div class="input-group">
 	<form method="POST">
@@ -31,6 +37,9 @@
 				<?php endforeach;?>
 			</ul>
 		</div>
+	</div>
+	<div class="col-auto ms-4">
+		<a href="actividadesPage.php?table=museo&localizacion=true" class="btn btn-primary">Buscar por localizacion</a>
 	</div>
 </div>
 <div class="container mt-3">
@@ -93,3 +102,5 @@
 		endif;
 	?>
 </div>
+<?php }
+	?>
