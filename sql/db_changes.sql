@@ -220,3 +220,5 @@ ALTER TABLE `tendencias`
 
 ALTER TABLE `tendencias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+UPDATE `museos` SET `longitud` = '-3.724901454689311' WHERE `museos`.`id` = 6
