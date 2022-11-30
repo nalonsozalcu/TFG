@@ -51,6 +51,10 @@
 						<input class="form-check-input" type="checkbox" name="free_check" id="check">
 						<label for="check" class="form-label">Gratis</label>
 					</div>
+					<div class="form-group">
+						<label for="fecha" class="form-label">Fecha del evento</label>
+						<input type="date" id="fecha" name="fecha" class="form-control" value="">
+					</div>
 					<?php
 					$conn = Aplicacion::getConexionBD();
 					$query = sprintf("SELECT * FROM categorias_eventos");
@@ -77,6 +81,7 @@
 						<?php endforeach; ?>
 						</select>
 					</div>
+					
 					<div class="text-end">
 						<button type="submit" class="btn btn-primary mt-3 mb-3">Aplicar filtros</button>
 					</div>
@@ -126,6 +131,11 @@
 									$set = false;
 									break;
 								}
+							}
+						}
+						if((isset($_POST["fecha"])) && ($_POST["fecha"] != "")){
+							if(($evento[$i]["fecha_ini"] > $_POST["fecha"]) || ($evento[$i]["fecha_fin"] < $_POST["fecha"])){
+								$set = false;
 							}
 						}
 						if($set):?>
