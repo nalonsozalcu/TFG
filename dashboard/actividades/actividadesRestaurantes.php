@@ -19,32 +19,75 @@
 
 
 ?>
-<div class="input-group">
-	<form method="POST">
-		<div class="input-group">
-			<input type="search" class="form-control" name="busqueda" placeholder="Buscar..." aria-label="Buscar" required>
-			<button type="submit" class="btn btn-primary">
-				<i class="fas fa-search"></i>
-			</button>
-		</div>
-	</form>
-	<div class="col-auto ms-4">
-		<div class="input-group-append">
-			<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar por categoria</button>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<?php
-				$conn = Aplicacion::getConexionBD();
-				$query = sprintf("SELECT * FROM categorias_restaurantes");
-				$rs = $conn->query($query);
-				$categorias = $rs->fetch_all(MYSQLI_ASSOC);
-				foreach ($categorias as $i => $value):?>
-					<li><a class="dropdown-item" href="actividadesPage.php?table=restaurante&categoria=<?php echo($categorias[$i]["categoria"])?>"><?php echo($categorias[$i]["categoria"])?></a></li>
-				<?php endforeach;?>
-			</ul>
+<div class="input-group row justify-content-between">
+	<div class="col-8">
+		<div class="row justify-content-start">
+			<form class="col-6" method="POST">
+				<div class="input-group">
+					<input type="search" class="form-control" name="busqueda" placeholder="Buscar..." aria-label="Buscar" required>
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</form>
+			<div class="col-auto">
+				<a href="actividadesPage.php?table=restaurante&localizacion=true" class="btn btn-secondary"><i class="fas fa-map-marked-alt"></i></a>
+			</div>
 		</div>
 	</div>
-  <div class="col-auto ms-4">
-		<a href="actividadesPage.php?table=restaurante&localizacion=true" class="btn btn-primary">Buscar por localizacion</a>
+	<div class="col-auto">
+		<button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filtros" aria-expanded="false" aria-controls="collapseExample">
+			Filtrar <i class="fas fa-caret-down"></i>
+		</button>
+		<div class="collapse" id="filtros">
+			<div class="card card-body">
+				<form class="form" method="POST">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" name="val_check" id="flexCheck">
+						<label for="flexCheck" class="form-label">Valoración <i class="bi bi-star-fill text-warning ms-1"></i></label>
+					</div>
+					<p class="form-label">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5</p>
+					<input type="range" class="form-range" min="0" max="5" name="valoracion" id="valoracion">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" name="free_check" id="check">
+						<label for="check" class="form-label">Gratis</label>
+					</div>
+					<?php
+					$conn = Aplicacion::getConexionBD();
+					$query = sprintf("SELECT * FROM categorias_restaurantes");
+					$rs = $conn->query($query);
+					$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+					<div class="form-group">
+						<label for="categoria" class="form-label mt-3">Selecciona las categorias</label>
+						<select class="form-control" name="categoria[]" multiple>
+							<?php foreach ($categorias as $i => $value):?>
+								<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<?php
+					$conn = Aplicacion::getConexionBD();
+					$query = sprintf("SELECT * FROM subcategorias_restaurantes");
+					$rs = $conn->query($query);
+					$subcategoria = $rs->fetch_all(MYSQLI_ASSOC);?>
+					<div class="form-group">
+						<label for="subcategoria" class="form-label mt-3">Selecciona las subcategorias</label>
+						<select class="form-control" name="subcategoria[]" multiple>
+						<?php foreach ($subcategoria as $i => $value):?>
+							<option value="<?php echo($subcategoria[$i]["id"])?>"><?php echo($subcategoria[$i]["subcategoria"])?></option>
+						<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="text-end">
+						<button type="submit" class="btn btn-primary mt-3 mb-3">Aplicar filtros</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="container mt-3">
@@ -62,6 +105,27 @@
 							$nombre = $_POST["busqueda"];
 							if(!str_contains(strtolower($restaurante[$i]["nombre"]),  strtolower($nombre))) {
 								$set = false;
+							}
+						}
+						if(isset($_POST["val_check"])){
+							if(Restaurante::get_global_valoracion($restaurante[$i]["id"]) != $_POST["valoracion"]){
+								$set = false;
+							}
+						}
+						if(isset($_POST["categoria"])){
+							foreach($_POST["categoria"] as $categoria){
+								if(!Restaurante::has_categoria_by_id($restaurante[$i]["id"], $categoria)){
+									$set = false;
+									break;
+								}
+							}
+						}
+						if(isset($_POST["subcategoria"])){
+							foreach($_POST["subcategoria"] as $subcategoria){
+								if(!Restaurante::has_subcategoria_by_id($restaurante[$i]["id"], $subcategoria)){
+									$set = false;
+									break;
+								}
 							}
 						}
 						if($set):?>

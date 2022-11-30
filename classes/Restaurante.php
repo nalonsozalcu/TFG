@@ -224,38 +224,24 @@ class Restaurante
 		} else return true;
 	}
 
-	private static function get_id_by_categoria($nombre) : int {
+	public static function has_categoria_by_id($id, $id_categoria) : int {
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT id FROM categorias_restaurantes WHERE categorias_restaurantes.categoria='%s'", $conn->real_escape_string($nombre));
+		$query = sprintf("SELECT * FROM relacion_categorias_restaurantes WHERE id_categoria=$id_categoria AND id_restaurante='$id'");
 		$rs = $conn->query($query);
-		
-		if ($rs && $rs->num_rows > 0) {
-			$rt = $rs->fetch_all(MYSQLI_ASSOC);
-			return (int)$rt[0]["id"];
-		}  
-		return false;
-	}
-
-	public static function get_all_restaurantes_by_categoria($nombre){
-		$id = Restaurante::get_id_by_categoria($nombre);
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM restaurantes WHERE restaurantes.id=
-		(SELECT id_restaurante
-		 FROM relacion_categorias_restaurantes 
-		 WHERE ($id=relacion_categorias_restaurantes.id_categoria) AND (restaurantes.id=relacion_categorias_restaurantes.id_restaurante))");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
 		}
 		return false;
 	}
 
-	public static function get_all_restaurantes_by_nombre($nombre){
+	public static function has_subcategoria_by_id($id, $id_categoria) : int {
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM restaurantes WHERE restaurantes.nombre LIKE '%$nombre%'");
+		$query = sprintf("SELECT * FROM relacion_subcategorias_restaurantes WHERE id_subcategoria=$id_categoria AND id_restaurante='$id'");
 		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
 		}
 		return false;
 	}

@@ -151,39 +151,13 @@ class Museo
 		return false;
 	}
 
-	public static function get_all_museos_by_categoria($nombre){
-		$id = Museo::get_id_by_categoria($nombre);
+	public static function has_categoria_by_id($id, $id_categoria) : int {
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM museos WHERE museos.id=
-		(SELECT id_museo
-		 FROM relacion_categorias_museos 
-		 WHERE ($id=relacion_categorias_museos.id_categoria) AND (museos.id=relacion_categorias_museos.id_museo))");
+		$query = sprintf("SELECT * FROM relacion_categorias_museos WHERE id_categoria=$id_categoria AND id_museo='$id'");
 		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
-
-	private static function get_id_by_categoria($nombre) : int {
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT id FROM categorias_museos WHERE categorias_museos.categoria='%s'", $conn->real_escape_string($nombre));
-		$rs = $conn->query($query);
-		
-		if ($rs && $rs->num_rows > 0) {
-			$rt = $rs->fetch_all(MYSQLI_ASSOC);
-			return (int)$rt[0]["id"];
-		}  
-		return false;
-	}
-
-
-	public static function get_all_museos_by_nombre($nombre){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM museos WHERE museos.nombre LIKE '%$nombre%'");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
 		}
 		return false;
 	}
