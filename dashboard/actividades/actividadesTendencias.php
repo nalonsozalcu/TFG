@@ -25,8 +25,8 @@
 						<div class="col-4">
 							<div class="card h-100" style="width: 25rem;">
 								<div class="card-body">
-									<img width="30px" src="../assets/img/<?php echo($tipo."_icon.png") ?>" alt="icon">
-									<a href="actividadPage.php?content=<?php echo($tipo) ?>&id=<?php echo($actividad->id()) ?>"><h6><?php echo($actividad->nombre()) ?></h6></a>
+									<img class="mb-3" width="30px" src="../assets/img/<?php echo($tipo."_icon.png") ?>" alt="icon">
+									<a style="text-decoration:none" href="actividadPage.php?content=<?php echo($tipo) ?>&id=<?php echo($actividad->id()) ?>"><h5><?php echo($actividad->nombre()) ?> <i class="bi bi-fire"></i></h5></a>
 									<p><?php echo($actividad->direccion()) ?></p>
 									<?php 
 									if($actividad->get_global_valoracion($actividad->id())){

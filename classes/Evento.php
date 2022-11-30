@@ -172,16 +172,6 @@ class Evento
 		}
 		return false;
 	}
-	
-	public static function get_all_eventos_by_nombre($nombre){
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM eventos WHERE eventos.nombre LIKE '%s'", $conn->real_escape_string($nombre));
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
 
 	public static function get_all_eventos(){
 		$conn = Aplicacion::getConexionBD();
@@ -208,20 +198,7 @@ class Evento
 		}
 		return false;
 	}
-	
-	public static function get_all_eventos_by_categoria($nombre){
-		$id = Evento::get_id_by_categoria($nombre);
-		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT * FROM eventos WHERE eventos.id=
-		(SELECT id_evento
-		 FROM relacion_categorias_eventos 
-		 WHERE ($id=relacion_categorias_eventos.id_categoria) AND (eventos.id=relacion_categorias_eventos.id_evento))");
-		$rs = $conn->query($query);
-		if ($rs && $rs->num_rows > 0) {
-			return $rs->fetch_all(MYSQLI_ASSOC);
-		}
-		return false;
-	}
+
 
 	public static function num_valoraciones($id){
 		$conn = Aplicacion::getConexionBD();
@@ -282,16 +259,25 @@ class Evento
 		} else return true;
 	}
 	
-
-	private static function get_id_by_categoria($nombre) : int {
+	public static function has_categoria_by_id($id, $id_categoria) : int {
 		$conn = Aplicacion::getConexionBD();
-		$query = sprintf("SELECT id FROM categorias_eventos WHERE categorias_eventos.categoria='%s'", $conn->real_escape_string($nombre));
+		$query = sprintf("SELECT * FROM relacion_categorias_eventos WHERE id_categoria=$id_categoria AND id_evento='$id'");
 		$rs = $conn->query($query);
-		
-		if ($rs && $rs->num_rows > 0) {
-			$rt = $rs->fetch_all(MYSQLI_ASSOC);
-			return (int)$rt[0]["id"];
-		}  
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
+		}
+		return false;
+	}
+
+	public static function has_audiencia_by_id($id, $id_audiencia) : int {
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM relacion_audiencia_eventos WHERE id_audiencia=$id_audiencia AND id_evento='$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return true;
+			$rs->free();
+		}
 		return false;
 	}
 

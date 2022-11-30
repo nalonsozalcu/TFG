@@ -11,11 +11,12 @@
 
 <?php 
 	if(isset($_GET["localizacion"])){ ?>
-    <div class="container-fluid">
-    <?php require "actividades/mapa.php"; ?>
-    </div>
-    <?php }else{
-   
+	<div class="container-fluid">
+		<h5 class="mt-3 mb-4">Mapa de restaurantes</h5>
+		<?php require "actividades/mapa.php"; ?>
+	</div>
+	<?php }else{
+
 
 ?>
 <div class="input-group">
@@ -67,7 +68,7 @@
 						<div class="col-4">
 							<div class="card h-100">
 								<div class="card-body">
-									<h5><i class="fa-solid fa-utensils"></i><a href="actividadPage.php?content=restaurante&id=<?php echo($restaurante[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($restaurante[$i]["nombre"])?></a></h5>
+									<h5><i class="fa-solid fa-utensils"></i><a href="actividadPage.php?content=restaurante&id=<?php echo($restaurante[$i]["id"])?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($restaurante[$i]["nombre"]); if(Restaurante::is_tendencia($restaurante[$i]["id"])) echo (' <i class="bi bi-fire"></i>'); ?></a></h5>
 									<p class="card-text mb-2"><?php echo($restaurante[$i]["direccion"])?></p>
 									<?php 
 									if(Restaurante::get_global_valoracion($restaurante[$i]["id"])){

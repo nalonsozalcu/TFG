@@ -10,7 +10,8 @@
 
 	if(isset($_GET["localizacion"])){ ?>
 		<div class="container-fluid">
-		<?php require "actividades/mapa.php"; ?>
+			<h5 class="mt-3 mb-4">Mapa de museos</h5>
+			<?php require "actividades/mapa.php"; ?>
 		</div>
 <?php }else{
 ?>
@@ -63,7 +64,7 @@
 						<div class="col-4">
 							<div class="card h-100">
 								<div class="card-body">
-									<h5><i class='fa-solid fa-landmark'></i><a href="actividadPage.php?content=museo&id=<?php echo($museo[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($museo[$i]["nombre"])?></a></h5>
+									<h5><i class='fa-solid fa-landmark'></i><a href="actividadPage.php?content=museo&id=<?php echo($museo[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($museo[$i]["nombre"]); if(Museo::is_tendencia($museo[$i]["id"])) echo (' <i class="bi bi-fire"></i>');?></a></h5>
 									<p class="card-text mb-2"><?php echo($museo[$i]["direccion"])?></p>
 									<?php 
 									if(Museo::get_global_valoracion($museo[$i]["id"])){

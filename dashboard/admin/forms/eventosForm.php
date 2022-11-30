@@ -6,7 +6,6 @@ if(isset($_GET["id"])){
 	$museo = Evento::get_evento_by_id($id);
 }else{
 ?>
-<link rel="stylesheet" href="dist/virtual-select.min.css" />
 <div class="container">
 	<div class="row mb-3">
 		<h5 class="mb-3">Añadir categorías</h5>
