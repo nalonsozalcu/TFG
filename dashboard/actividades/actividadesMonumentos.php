@@ -32,39 +32,57 @@
 		</div>
 	</div>
 	<div class="col-auto">
-		<button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filtros" aria-expanded="false" aria-controls="collapseExample">
-			Filtrar <i class="fas fa-caret-down"></i>
-		</button>
-		<div class="collapse" id="filtros">
-			<div class="card card-body">
-				<form class="form" method="POST">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="val_check" id="flexCheck">
-						<label for="flexCheck" class="form-label">Valoración <i class="bi bi-star-fill text-warning ms-1"></i></label>
+		<?php if(empty($_POST)){?>
+			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#filtersModal">
+				Filtrar
+			</button>
+		<?php } else{ ?>
+			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#filtersModal">
+				Filtrar
+			</button>
+			<a href="actividadesPage.php?table=monumento" type="button" class="btn btn-outline-danger">
+				Eliminar filtros
+			</a>
+		<?php } ?>
+		<div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="filtersModalLabel">Filtros</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<p class="form-label">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5</p>
-					<input type="range" class="form-range" min="0" max="5" name="valoracion" id="valoracion">
-					<?php
-					$conn = Aplicacion::getConexionBD();
-					$query = sprintf("SELECT * FROM categorias_monumentos");
-					$rs = $conn->query($query);
-					$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
-					<div class="form-group">
-						<label for="categoria" class="form-label mt-3">Selecciona las categorias</label>
-						<select class="form-control" name="categoria[]" multiple>
-							<?php foreach ($categorias as $i => $value):?>
-								<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="text-end">
-						<button type="submit" class="btn btn-primary mt-3 mb-3">Aplicar filtros</button>
-					</div>
-				</form>
+					<form class="form" method="POST">
+						<div class="modal-body">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="val_check" id="flexCheck">
+								<label for="flexCheck" class="form-label">Valoración <i class="bi bi-star-fill text-warning ms-1"></i></label>
+							</div>
+							<p class="form-label">0&emsp;&emsp;&emsp;&emsp;&emsp;
+												1&emsp;&emsp;&emsp;&emsp;&emsp;
+												2&emsp;&emsp;&emsp;&emsp;&emsp;
+												3&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+												4&emsp;&emsp;&emsp;&emsp;&nbsp;5</p>
+							<input type="range" class="form-range" min="0" max="5" name="valoracion" id="valoracion">
+							<?php
+							$conn = Aplicacion::getConexionBD();
+							$query = sprintf("SELECT * FROM categorias_monumentos");
+							$rs = $conn->query($query);
+							$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+							<div class="form-group">
+								<label for="categoria" class="form-label mt-3">Selecciona las categorias</label>
+								<select class="form-control" name="categoria[]" multiple>
+									<?php foreach ($categorias as $i => $value):?>
+										<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary mt-3 mb-3">Aplicar filtros</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

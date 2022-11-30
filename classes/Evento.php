@@ -165,7 +165,7 @@ class Evento
 		$rs = $conn->query($query);
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
-			$evento = new Evento($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['gratis'], $fila['dias'], $fila['dias_ex'], $fila['fecha_fin'], $fila['fecha_ini'], $fila['hora'], $fila['url'], $fila['lugar'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud']);
+			$evento = new Evento($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['gratis'], $fila['dias'], $fila['dias_ex'], $fila['fecha_ini'], $fila['fecha_fin'], $fila['hora'], $fila['url'], $fila['lugar'], $fila['direccion'], $fila['codpostal'], $fila['latitud'], $fila['longitud']);
 			$rs->free();
 
 			return $evento;
