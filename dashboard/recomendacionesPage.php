@@ -7,6 +7,7 @@
 	require_once '../classes/Museo.php';
 	require_once '../classes/Restaurante.php';
 	require_once '../classes/Monumento.php';
+	require_once '../classes/Plan.php';
 	
 ?>  
 
@@ -36,6 +37,7 @@
 								if($recomendacion["tipo_actividad"] == "restaurante") $actividad = Restaurante::get_restaurante_by_id($recomendacion["id_actividad"]);
 								if($recomendacion["tipo_actividad"] == "monumento") $actividad = Monumento::get_monumento_by_id($recomendacion["id_actividad"]);
 								if($recomendacion["tipo_actividad"] == "evento") $actividad = Evento::get_evento_by_id($recomendacion["id_actividad"]);
+								if($recomendacion["tipo_actividad"] == "plan") $actividad = Plan::get_plan_by_id($recomendacion["id_actividad"]);
 								?>
 									<li class="list-group-item">
 										<div class="row">
@@ -44,7 +46,10 @@
 													<div class="col-3"><img width="100px" src="../assets/img/<?php echo($recomendacion["tipo_actividad"]."_icon.png") ?>" alt="icon"></div>
 													<div class="col align-self-center">
 														<a href="actividadPage.php?content=<?php echo($recomendacion["tipo_actividad"]) ?>&id=<?php echo($actividad->id()) ?>"><h6><?php echo($actividad->nombre()) ?></h6></a>
-														<p><?php echo($actividad->direccion()) ?></p>
+														<p><?php 
+														if($recomendacion["tipo_actividad"] != "plan"){
+																echo($actividad->direccion());
+														 } ?></p>
 														<div class="row"><div class="col">
 															<i class="bi bi-star-fill text-warning ms-1"></i>
 															<i class="bi bi-star-fill text-warning ms-1"></i>

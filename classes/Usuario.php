@@ -231,6 +231,15 @@ class Usuario
 		}
 		return false;
 	}
+	public static function get_planesfavoritos_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM `planes_favoritos` WHERE `id_usuario` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
 	public static function get_num_solicitudes_by_id($id){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT Count('id_solicitantes') FROM `solicitudes` WHERE `id_solicitud` = '$id'");
@@ -401,6 +410,18 @@ class Usuario
 		return false;
 	}
 
+	public static function is_planfavorito($id_user, $id_plan)
+	{
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT id FROM planes_favoritos WHERE id_plan='$id_plan' AND id_usuario='$id_user'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			return $rs->fetch_assoc()["id"];
+			$rs->free();
+		}
+		return false;
+	}
+
 	public static function new_favorito($id_user, $tipo, $id_actividad)
 	{
 		$conn = Aplicacion::getConexionBD();
@@ -419,6 +440,23 @@ class Usuario
 		} else return true;
 	}
 
+	public static function new_planfavorito($id_user, $id_plan)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $conn->real_escape_string($id_user);
+		$id_plan = $conn->real_escape_string($id_plan);
+
+		$query = sprintf("INSERT INTO `planes_favoritos` (`id_usuario`, `id_plan`) VALUES ('$id_user', '$id_plan')");
+		$result = $conn->query($query);
+		
+		if (!$result) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
 	public static function delete_favorito($id)
 	{
 		$conn = Aplicacion::getConexionBD();
@@ -426,6 +464,21 @@ class Usuario
 		$id = $conn->real_escape_string($id);
 
 		$query = sprintf("DELETE FROM favoritos WHERE id=$id");
+		$rs = $conn->query($query);
+		if (!$rs) {
+			error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+			error_log("Se han actualizado '$conn->affected_rows' !");
+		} else return true;
+	}
+
+	public static function delete_planfavorito($id)
+	{
+		$conn = Aplicacion::getConexionBD();
+
+		$id = $conn->real_escape_string($id);
+
+		$query = sprintf("DELETE FROM planes_favoritos WHERE id=$id");
 		$rs = $conn->query($query);
 		if (!$rs) {
 			error_log($conn->error);

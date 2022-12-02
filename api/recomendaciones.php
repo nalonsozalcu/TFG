@@ -12,6 +12,7 @@ if(isset($_GET['id_actividad'])){
     $id_actividad = $_GET['id_actividad'];
 }
 
+
 if($action === "discard"){ //descarta la recomendacion de contacto
     if(Usuario::delete_recomendacion($id))
         header("location: ../dashboard/recomendacionesPage.php");
@@ -20,12 +21,22 @@ if($action === "discard"){ //descarta la recomendacion de contacto
 }
 
 if($action === "acept"){ //añade la actividad a favoritos
-    if(Usuario::is_favorito($_SESSION["idUsuario"], $tipo, $id_actividad) && Usuario::delete_recomendacion($id))
+    if($tipo === "plan"){
+        if(Usuario::is_planfavorito($_SESSION["idUsuario"], $id_actividad) && Usuario::delete_recomendacion($id))
+        header("location: ../dashboard/recomendacionesPage.php");
+    else if(Usuario::new_planfavorito($_SESSION["idUsuario"], $id_actividad) && Usuario::delete_recomendacion($id))
+            header("location: ../dashboard/recomendacionesPage.php");
+    else
+        header("location: ../dashboard/recomendacionesPage.php");
+    }else{
+        if(Usuario::is_favorito($_SESSION["idUsuario"], $tipo, $id_actividad) && Usuario::delete_recomendacion($id))
         header("location: ../dashboard/recomendacionesPage.php");
     else if(Usuario::new_favorito($_SESSION["idUsuario"], $tipo, $id_actividad) && Usuario::delete_recomendacion($id))
             header("location: ../dashboard/recomendacionesPage.php");
     else
         header("location: ../dashboard/recomendacionesPage.php");
+    }
+    
 }
 
 if($action === "send"){ //envia una recomendacion

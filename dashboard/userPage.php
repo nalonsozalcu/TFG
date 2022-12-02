@@ -7,6 +7,7 @@
     require_once '../classes/Museo.php';
     require_once '../classes/Restaurante.php';
     require_once '../classes/Monumento.php';
+	require_once '../classes/Plan.php';
 ?>
 
 <body>
@@ -138,114 +139,27 @@
 						<div class="card-body">
 							<h4 class="d-flex align-items-center mb-3"><i class="material-icons text-dark mr-2">Planes</i></h4>
 							<ul class="list-group list-group-flush scroll">
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart" style="color: red;"></i></a>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6>Nombre plan</h6>
-									<a class="btn"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
-								</li>
+							<?php
+								$planesfavoritos = Usuario::get_planesfavoritos_by_id($usuario["id"]);
+								if($planesfavoritos){?>
+										<?php foreach($planesfavoritos as $planfavorito){
+											
+												$plan = Plan::get_plan_by_id($planfavorito["id_plan"]);
+												$icon = "<i class='fa-solid fa-landmark'></i>";
+											
+											?>
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a href="actividadPage.php?content=plan&id=<?php echo($planfavorito["id_plan"]) ?>" style="text-decoration:none"><h6><?php echo($icon." ".$plan->nombre()); ?></h6></a>
+												<?php if(Usuario::is_planfavorito($_SESSION["idUsuario"], $planfavorito["id_plan"])){ ?>
+													<a href="../api/favoritos.php?from=contact&action=delete&plan=true&id=<?php echo (Usuario::is_planfavorito($_SESSION["idUsuario"], $planfavorito["id_plan"])) ?>&id_contacto=<?php echo($usuario["id"]) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+												<?php }else{?>
+													<a href="../api/favoritos.php?from=contact&action=new&plan=true&id_plan=<?php echo($planfavorito["id_plan"]) ?>&id_contacto=<?php echo($usuario["id"]) ?>" class="btn ms-1"><i class="bi bi-suit-heart" style="color: red;"></i></a>
+												<?php }?>
+											</li>
+										<?php } ?>
+								<?php }else{
+									echo("<p>No hay planes favoritas.</p>");
+								} ?>
 							</ul>
 						</div>
 					</div>

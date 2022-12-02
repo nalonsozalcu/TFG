@@ -4,6 +4,7 @@ require_once '../classes/Evento.php';
 require_once '../classes/Museo.php';
 require_once '../classes/Monumento.php';
 require_once '../classes/Restaurante.php';
+require_once '../classes/Plan.php';
 
 
 $action = $_GET['action'];
@@ -19,6 +20,9 @@ if(isset($_GET['tipo'])){
 if(isset($_POST['valoracion'])){
     $valoracion = $_POST['valoracion'];
 }
+if(isset($_GET['id_plan'])){
+    $id_plan = $_GET['id_plan'];
+}
 
 if($action === "delete"){ //elimina la valoracion
     if($tipo === "evento"){
@@ -33,7 +37,13 @@ if($action === "delete"){ //elimina la valoracion
     if($tipo === "monumento"){
         Monumento::delete_valoracion($id);
     }
-    header("location: ../dashboard/actividadPage.php?content=$tipo&id=$id_actividad");
+    if($tipo === "plan"){
+        Plan::delete_valoracion($id);
+        header("location: ../dashboard/actividadPage.php?content=plan&id=$id_plan");
+    }else{
+        header("location: ../dashboard/actividadPage.php?content=$tipo&id=$id_actividad");
+    }
+    
 }
 
 if($action === "new"){ //añade la valoracion
@@ -49,5 +59,11 @@ if($action === "new"){ //añade la valoracion
     if($tipo === "monumento"){
         Monumento::set_valoracion($id_actividad, $_SESSION["idUsuario"], $valoracion);
     }
-    header("location: ../dashboard/actividadPage.php?content=$tipo&id=$id_actividad");
+    if($tipo === "plan"){
+        Plan::set_valoracion($id_plan, $_SESSION["idUsuario"], $valoracion);
+        header("location: ../dashboard/actividadPage.php?content=plan&id=$id_plan");
+    }else{
+        header("location: ../dashboard/actividadPage.php?content=$tipo&id=$id_actividad");
+    }
+    
 }

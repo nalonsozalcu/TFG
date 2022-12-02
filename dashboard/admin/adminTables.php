@@ -17,6 +17,7 @@
 			<a href="adminPage.php?table=eventos" class="btn btn-outline-secondary <?php if($active == 'eventos') echo('active')?>">Eventos</a>
 			<a href="adminPage.php?table=monumentos" class="btn btn-outline-secondary <?php if($active == 'monumentos') echo('active')?>">Monumentos</a>
 			<a href="adminPage.php?table=restaurantes" class="btn btn-outline-secondary <?php if($active == 'restaurantes') echo('active')?>">Restaurantes</a>
+			<a href="adminPage.php?table=planes" class="btn btn-outline-secondary <?php if($active == 'planes') echo('active')?>">Planes</a>
 			</div>
 		</div>
 		<div class="row d-flex justify-content-center">
@@ -32,6 +33,9 @@
 			}
 			if($active == 'restaurantes'){
 				require "tables/restaurantesTable.php";
+			}
+			if($active == 'planes'){
+				require "tables/planesTable.php";
 			}
 		}else{
 			require "tables/usersTable.php";

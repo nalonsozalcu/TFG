@@ -18,7 +18,7 @@ if(isset($_GET["form"])){
 		<div class="row mt-3 mb-3 d-flex justify-content-start">
 			<h4>Tablas de datos</h4>
 			<?php if(!$content){
-				echo("<p>Selecciona un tipo de actividad:</p>");
+				echo("<p>Selecciona una :</p>");
 			}
 			?>
 			<div class="btn-group">
@@ -26,6 +26,7 @@ if(isset($_GET["form"])){
 			<a href="adminPage.php?content=admin&table=eventos" class="btn btn-outline-secondary <?php if($active == 'eventos') echo('active')?>">Eventos</a>
 			<a href="adminPage.php?content=admin&table=monumentos" class="btn btn-outline-secondary <?php if($active == 'monumentos') echo('active')?>">Monumentos</a>
 			<a href="adminPage.php?content=admin&table=restaurantes" class="btn btn-outline-secondary <?php if($active == 'restaurantes') echo('active')?>">Restaurantes</a>
+			<a href="adminPage.php?content=admin&table=planes" class="btn btn-outline-secondary <?php if($active == 'planes') echo('active')?>">Planes</a>
 			</div>
 			<div class='row mt-4 me-5 justify-content-end'>
 				<?php 
@@ -63,6 +64,9 @@ if(isset($_GET["form"])){
 			if($active == 'restaurantes'){
 				require "admin/adminRestaurantes.php";
 			}
+			if($active == 'planes'){
+				require "admin/adminPlanes.php";
+			}
 			if($form == 'museos'){
 				require "forms/museosForm.php";
 			}
@@ -75,6 +79,9 @@ if(isset($_GET["form"])){
 			}
 			if($form == 'restaurantes'){
 				require "forms/restaurantesForm.php";
+			}
+			if($form == 'planes'){
+				require "forms/planesForm.php";
 			}
 		?>
 		</div>

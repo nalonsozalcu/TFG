@@ -104,13 +104,26 @@ CREATE TABLE `eventos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `planes`
+--
+
+CREATE TABLE `planes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `monumentos`
 --
 
 CREATE TABLE `monumentos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
-  `descripcion` varchar(8000) DEFAULT NULL,
   `fecha` varchar(30) DEFAULT NULL,
   `autores` varchar(300) DEFAULT NULL,
   `horario` varchar(100) DEFAULT NULL,

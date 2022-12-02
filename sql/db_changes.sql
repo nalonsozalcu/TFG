@@ -222,3 +222,36 @@ ALTER TABLE `tendencias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 UPDATE `museos` SET `longitud` = '-3.724901454689311' WHERE `museos`.`id` = 6
+
+---
+
+CREATE TABLE `planes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `valoraciones_planes` (
+  `id` int(11) NOT NULL,
+  `id_plan` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `valoraciones_planes`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `valoraciones_planes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ CREATE TABLE `planes_favoritos` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_plan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `planes_favoritos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `planes_favoritos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

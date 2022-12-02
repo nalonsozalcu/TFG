@@ -6,6 +6,9 @@
 	if(isset($_GET["content"])){
 		$active =  $_GET["content"];
 	}
+	if(isset($_GET["id_plan"])){
+		$id =  $_GET["id_plan"];
+	}
 ?>
 
 <body>
@@ -30,6 +33,9 @@
 			}
 			if($active == 'evento'){
 				require "actividades/eventoPage.php";
+			}
+			if($active == 'plan'){
+				require "planes/planPage.php";
 			}
 		?>
 	</main>
