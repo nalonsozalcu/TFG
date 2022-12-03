@@ -244,7 +244,7 @@ ALTER TABLE `valoraciones_planes`
 ALTER TABLE `valoraciones_planes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
- CREATE TABLE `planes_favoritos` (
+CREATE TABLE `planes_favoritos` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_plan` int(11) NOT NULL

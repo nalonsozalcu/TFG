@@ -22,9 +22,9 @@
 			<td><?php echo($planes[$i]["fecha"])?></td>
 			<td><?php echo($planes[$i]["id"])?></td>
 			<?php if(Plan::is_tendencia($planes[$i]["id"])){
-				echo('<td><a class="btn" href="../api/tendencias.php?action=delete&tipo=plan&id='.Plan::is_tendencia($planes[$i]["id"]).'"><i class="bi bi-star-fill"></i></a></td>');
+				echo('<td><a class="btn" href="../api/tendencias.php?action=delete&tipo=planes&id='.Plan::is_tendencia($planes[$i]["id"]).'"><i class="bi bi-star-fill"></i></a></td>');
 			}else{
-				echo('<td><a class="btn" href="../api/tendencias.php?action=new&tipo=plan&id_plan='.$planes[$i]["id"].'"><i class="bi bi-star"></i></a></td>');
+				echo('<td><a class="btn" href="../api/tendencias.php?action=new&tipo=planes&id_actividad='.$planes[$i]["id"].'"><i class="bi bi-star"></i></a></td>');
 			}?>
 			<td><a class="btn" href="adminPage.php?content=admin&form=planes&id=<?php echo($planes[$i]["id"])?>"><i class="bi bi-pencil-square"></i></a></td>
 			<td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#DeleteUserModal<?php echo($planes[$i]["id"])?>"><i class="bi bi-trash3"></i></button></td>
