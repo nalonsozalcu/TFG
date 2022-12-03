@@ -137,17 +137,17 @@
 								<div class="accordion" id="accordionExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="headingTwo">
-									<button class="accordion-button <?php echo(isset($_GET["fav"])?'':'collapsed')?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="<?php echo(isset($_GET["fav"])?'true':'false')?>" aria-controls="collapseTwo">
+									<button class="accordion-button <?php echo(isset($_GET["pfav"])?'':'collapsed')?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="<?php echo(isset($_GET["pfav"])?'true':'false')?>" aria-controls="collapseTwo">
 										Planes favoritas
 									</button>
 									</h2>
-									<div id="collapseTwo" class="accordion-collapse collapse <?php echo(isset($_GET["fav"])?'show':'')?>" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+									<div id="collapseTwo" class="accordion-collapse collapse <?php echo(isset($_GET["pfav"])?'show':'')?>" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 										<div class="accordion-body">
 										<ul class="list-group list-group-flush scroll">
 										<?php
 											$planesfavoritos = Usuario::get_planesfavoritos_by_id($_SESSION["idUsuario"]);
 											if($planesfavoritos){?>
-													<?php foreach($planfavoritos as $planfavorito){
+													<?php foreach($planesfavoritos as $planfavorito){
 														
 															$plan = Plan::get_plan_by_id($planfavorito["id_plan"]);
 															$icon = "<i class='fa-solid fa-landmark'></i>";
@@ -155,7 +155,7 @@
 														?>
 														<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 															<h6><?php echo($icon." ".$plan->nombre()); ?></h6>
-															<a href="../api/favoritos.php?from=prof&action=delete&plan=true&id=<?php echo (Usuario::is_planfavorito($_SESSION["idUsuario"], $favorito["id_plan"])) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
+															<a href="../api/favoritos.php?from=prof&action=delete&plan=true&id=<?php echo (Usuario::is_planfavorito($_SESSION["idUsuario"], $planfavorito["id_plan"])) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
 														</li>
 													<?php } ?>
 											<?php }else{

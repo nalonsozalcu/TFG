@@ -26,7 +26,7 @@ if($action === "delete"){ //elimina  de favoritos
             if($from === "ind")
                 header("location: ../dashboard/actividadPage.php?content=plan&id=$id_plan");
             if($from === "prof")
-                header("location: ../dashboard/profilePage.php?fav=true");
+                header("location: ../dashboard/profilePage.php?pfav=true");
             if($from === "contact")
                 header("location: ../dashboard/userPage.php?id=$id_contacto");
             if($from === "acts")
