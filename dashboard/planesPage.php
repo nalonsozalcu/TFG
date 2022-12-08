@@ -39,7 +39,8 @@ require_once '../classes/Plan.php';
 					<li class="nav-item"><a href="planesPage.php" class="nav-link <?php if($content == false) echo('active')?>"><i class="bi bi-star"></i> Tendencias </i></a></li>
 					<div class="vr"></div>
 					<li class="nav-item"><a href="planesPage.php?table=plan" class="nav-link <?php if($active == 'plan') echo('active')?>"> Planes </a></li>
-					
+					<div class="vr"></div>
+					<li class="nav-item"><a href="planesPage.php?table=plan" class="nav-link <?php if($active == 'plan') echo('active')?>"> Crear plan </a></li>
 				</ul>
 				<div class="row d-flex justify-content-center">
 				<?php 

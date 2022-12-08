@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <?php
 	$conn = Aplicacion::getConexionBD();
-	$query = sprintf("SELECT * FROM `tendencias`");
+	$query = sprintf("SELECT * FROM `tendencias` WHERE `tipo_actividad` = 'planes'");
 	$rs = $conn->query($query);
 	$tendencias = $rs->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<div class="container mt-3">
+<div class="container">
 	<?php
 		if($tendencias):
 			$i = 0;
@@ -17,15 +17,14 @@
 			<div class="row mt-2 mb-3">
 			<?php while ($j < 3):
 					if($i < count($tendencias)):
-						if($tendencias[$i]["tipo_actividad"] == "planes") {$tipo ="plan"; $plan = Plan::get_plan_by_id($tendencias[$i]["id_actividad"]);}
-						
+						$plan = Plan::get_plan_by_id($tendencias[$i]["id_actividad"]);
 						?>
 						<div class="col-4">
 							<div class="card h-100" style="width: 25rem;">
 								<div class="card-body">
-									<img class="mb-3" width="30px" src="../assets/img/<?php echo($tipo."_icon.png") ?>" alt="icon">
-									<a style="text-decoration:none" href="planes/planPage.php?content=<?php echo($tipo) ?>&id=<?php echo($plan->id()) ?>"><h5><?php echo($plan->nombre()) ?> <i class="bi bi-fire"></i></h5></a>
-									<p><?php echo($plan->direccion()) ?></p>
+									<img class="mb-3" width="30px" src="../assets/img/<?php echo("plan_icon.png") ?>" alt="icon">
+									<a style="text-decoration:none" href="actividadPage.php?content=plan&id=<?php echo($plan->id()) ?>"><h5><?php echo($plan->nombre()) ?> <i class="bi bi-fire"></i></h5></a>
+									<p><?php echo($plan->fecha()) ?></p>
 									<?php 
 									if($plan->get_global_valoracion($plan->id())){
 										for($e=1; $e < 6; $e++){

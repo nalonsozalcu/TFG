@@ -91,7 +91,7 @@
 						<div class="col-4">
 							<div class="card h-100">
 								<div class="card-body">
-									<h5><i class="fa-sharp fa-solid fa-book"></i><a href="actividadPage.php?content=plan&id=<?php echo($plan[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($plan[$i]["nombre"]); if(Plan::is_tendencia($plan[$i]["id"])) echo (' <i class="bi bi-fire"></i>');?></a></h5>
+									<h5><i class="fas fa-clipboard-list"></i><a href="actividadPage.php?content=plan&id=<?php echo($plan[$i]["id"]) ?>" class="ms-3 card-link" style="text-decoration:none"><?php echo($plan[$i]["nombre"]); if(Plan::is_tendencia($plan[$i]["id"])) echo (' <i class="bi bi-fire"></i>');?></a></h5>
 									<p class="card-text mb-2"><?php echo($plan[$i]["fecha"])?></p>
 									<?php 
 									if(Plan::get_global_valoracion($plan[$i]["id"])){

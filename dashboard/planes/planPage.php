@@ -11,8 +11,8 @@
 		<div class="col-lg-4">
 			<div class="card mb-4">
 			<div class="card-body text-center">
-				<img src="../assets/img/monumento_icon.png" alt="icon"
-				class="rounded-circle img-fluid" style="width: 150px;">
+				<img src="../assets/img/plan_icon.png" alt="icon"
+				class="img-fluid" style="width: 120px;">
 				<h5 class="my-3"><?php echo($plan->nombre()) ?></h5>
 				<p class="text-muted mb-1">Fecha: <?php echo($plan->fecha()) ?></p>
 				<p class="mb-1">Valoración: <?php if($plan->get_global_valoracion($plan->id())) echo($plan->get_global_valoracion($plan->id())."  (".$plan->num_valoraciones($plan->id()).")")?></p>

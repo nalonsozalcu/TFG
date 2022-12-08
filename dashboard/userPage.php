@@ -145,7 +145,7 @@
 										<?php foreach($planesfavoritos as $planfavorito){
 											
 												$plan = Plan::get_plan_by_id($planfavorito["id_plan"]);
-												$icon = "<i class='fa-solid fa-landmark'></i>";
+												$icon = "<i class='fas fa-clipboard-list'></i>";
 											
 											?>
 											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

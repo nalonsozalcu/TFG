@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <?php
 	$conn = Aplicacion::getConexionBD();
-	$query = sprintf("SELECT * FROM `tendencias`");
+	$query = sprintf("SELECT * FROM `tendencias` WHERE `tipo_actividad` != 'planes'");
 	$rs = $conn->query($query);
 	$tendencias = $rs->fetch_all(MYSQLI_ASSOC);
 ?>
