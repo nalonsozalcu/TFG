@@ -108,6 +108,21 @@ class Usuario
 		$this->rol = $rol;
 	}
 
+	public function setCategoria($tipo, $categoria) : void {
+		$conn = Aplicacion::getConexionBD();
+
+		$id_user = $this->id;
+		$categorias = "//";
+		foreach ($categoria as $valor){
+			$categorias .= $valor."/";
+		}
+
+		$query = sprintf("UPDATE relacion_categorias_usuarios SET `$tipo` = '$categorias' WHERE id_usuario = $id_user");
+		$result = $conn->query($query);
+		
+		
+	}
+
 	private static function hash(string $pwd) {
 		// return password_hash($pwd, PASSWORD_DEFAULT);
 		return sha1($pwd);
@@ -487,9 +502,21 @@ class Usuario
 		} else return true;
 	}
 
+	public static function has_categoria_by_id($id, $tipo, $id_categoria){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT `$tipo` FROM relacion_categorias_usuarios WHERE id_usuario='$id'");
+		$rs = $conn->query($query);
+		$categorias = $rs->fetch_assoc()["$tipo"];
+		if ($rs && strpos($categorias, "/".$id_categoria."/")) {
+			return true;
+			$rs->free();
+		}
+		return false;
+	}
+
 	// ---> Funciones para registrar, actualizar o borrar el usuario <---
 
-	public static function registrar($username, $email, $password, $nombre, $apellidos, $avatar)
+	public static function registrar($username, $email, $password, $nombre, $apellidos, $avatar, $cat_museo, $cat_monumento, $cat_restaurante, $cat_evento, $audiencia)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -502,6 +529,36 @@ class Usuario
 
 		$query = sprintf("INSERT INTO `usuarios` (`id`, `username`, `email`, `password`, `nombre`, `apellidos`, `avatar`, `rol`) VALUES (NULL, '$username', '$email', '$password', '$nombre', '$apellidos','$avatar','user')");
 		$result = $conn->query($query);
+
+		if($result){
+			$query = sprintf("SELECT MAX(`id`) FROM `usuarios`");
+			$result = $conn->query($query);
+			$id_user = $result->fetch_assoc()["MAX(`id`)"];
+			$museos = "//";
+			$monumentos = "//";
+			$restaurantes = "//";
+			$eventos = "//";
+			$audiencias = "//";
+
+			foreach ($cat_museo as $valor){
+				$museos .= $valor."/";
+			}
+			foreach ($cat_monumento as $valor){
+				$monumentos .= $valor."/";
+			}
+			foreach ($cat_restaurante as $valor){
+				$restaurantes .= $valor."/";
+			}
+			foreach ($cat_evento as $valor){
+				$eventos .= $valor."/";
+			}
+			foreach ($audiencia as $valor){
+				$audiencias .= $valor."/";
+			}
+			$query = sprintf("INSERT INTO `relacion_categorias_usuarios` (`id_usuario`, `museos`, `monumentos`,`restaurantes`, `eventos`, `audiencias` ) VALUES ($id_user,  '$museos', '$monumentos', '$restaurantes', '$eventos', '$audiencias')");
+			var_dump($query);
+			$result = $conn->query($query);
+		}
 		
 		if (!$result) {
 			error_log($conn->error);

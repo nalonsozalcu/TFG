@@ -166,6 +166,89 @@
 									</div>
 								</div>
 							</div>
+							<div class="d-flex justify-content-between align-items-center experience mt-3"><span><h4>Categorías seleccionadas</h4></span></div><br>
+							<form class="form" method="POST" action="../api/profile.php">
+								<div class="row mt-2">
+									<div class="col-md-6"><label class="labels">Museos</label>
+										<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM categorias_museos");
+										$rs = $conn->query($query);
+										$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="cat_museo[]" multiple data-live-search="true">
+											<?php foreach ($categorias as $i => $value):?>
+												<option value="<?php echo($categorias[$i]["id"])?>" <?php echo(Usuario::has_categoria_by_id($usuario->id(),"museos", $categorias[$i]["id"])?"selected":"")?>><?php echo($categorias[$i]["categoria"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6"><label class="labels">Restaurantes</label>
+										<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM categorias_restaurantes");
+										$rs = $conn->query($query);
+										$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="cat_restaurante[]" multiple data-live-search="true">
+											<?php foreach ($categorias as $i => $value):?>
+												<option value="<?php echo($categorias[$i]["id"])?>" <?php echo(Usuario::has_categoria_by_id($usuario->id(),"restaurantes", $categorias[$i]["id"])?"selected":"")?>><?php echo($categorias[$i]["categoria"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-md-6"><label class="labels">Monumentos</label>
+										<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM categorias_monumentos");
+										$rs = $conn->query($query);
+										$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="cat_monumento[]" multiple data-live-search="true">
+											<?php foreach ($categorias as $i => $value):?>
+												<option value="<?php echo($categorias[$i]["id"])?>" <?php echo(Usuario::has_categoria_by_id($usuario->id(),"monumentos", $categorias[$i]["id"])?"selected":"")?>><?php echo($categorias[$i]["categoria"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6"><label class="labels">Eventos</label>
+										<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM categorias_eventos");
+										$rs = $conn->query($query);
+										$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="cat_evento[]" multiple data-live-search="true">
+											<?php foreach ($categorias as $i => $value):?>
+												<option value="<?php echo($categorias[$i]["id"])?>" <?php echo(Usuario::has_categoria_by_id($usuario->id(),"eventos", $categorias[$i]["id"])?"selected":"")?>><?php echo($categorias[$i]["categoria"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-md-6"><label class="labels">Audiencia</label>
+										<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM audiencia_eventos");
+										$rs = $conn->query($query);
+										$audiencia = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="audiencia[]" multiple data-live-search="true">
+											<?php foreach ($audiencia as $i => $value):?>
+												<option value="<?php echo($audiencia[$i]["id"])?>" <?php echo(Usuario::has_categoria_by_id($usuario->id(),"audiencias", $audiencia[$i]["id"])?"selected":"")?>><?php echo($audiencia[$i]["tipo"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+								</div>
+								
+								<div class="mt-3 text-end">
+									<button class="btn btn-primary" type="submit">Actualizar preferencias</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -183,6 +266,8 @@
 	<?php
 	require_once "../includes/footer.php";
 	?>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
 
 </body>
 </html>

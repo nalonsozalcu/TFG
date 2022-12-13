@@ -255,3 +255,21 @@ ALTER TABLE `planes_favoritos`
 
 ALTER TABLE `planes_favoritos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+------------------
+CREATE TABLE `relacion_categorias_usuarios` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `museos` varchar(50) NOT NULL,
+  `monumentos` varchar(50) NOT NULL,
+  `restaurantes` varchar(50) NOT NULL,
+  `eventos` varchar(50) NOT NULL,
+  `audiencias` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `relacion_categorias_usuarios`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `relacion_categorias_usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

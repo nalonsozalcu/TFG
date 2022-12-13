@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once "../includes/head.html";
+	require_once '../config.php'
 ?>
 
 <body>
@@ -68,6 +69,85 @@
 									echo ('<p class="text-danger">El tamaño del archivo debe ser menor de 2 MB</p>');
 							} ?>
 							</div>
+							<div class="row">
+								<h5 class="fw-bold mb-2 mt-4">Actividades</h5>
+								<p class="text-warning mb-2 mt-2">Selecciona al menos una categoría para cada tipo.</p>
+								<div class="col-3">
+									<label for="museos" class="form-label"><h6>Museos</h6></label>
+									<?php
+									$conn = Aplicacion::getConexionBD();
+									$query = sprintf("SELECT * FROM categorias_museos");
+									$rs = $conn->query($query);
+									$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+									<div class="form-group">
+										<select class="form-control selectpicker" name="cat_museo[]" multiple data-live-search="true" required>
+										<?php foreach ($categorias as $i => $value):?>
+											<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+										<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="eventos" class="form-label"><h6>Eventos</h6></label>
+									<?php
+									$conn = Aplicacion::getConexionBD();
+									$query = sprintf("SELECT * FROM categorias_eventos");
+									$rs = $conn->query($query);
+									$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+									<div class="form-group">
+										<select class="form-control selectpicker" name="cat_evento[]" multiple data-live-search="true" required>
+										<?php foreach ($categorias as $i => $value):?>
+											<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+										<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="restaurantes" class="form-label"><h6>Restaurantes</h6></label>
+									<?php
+									$conn = Aplicacion::getConexionBD();
+									$query = sprintf("SELECT * FROM categorias_restaurantes");
+									$rs = $conn->query($query);
+									$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+									<div class="form-group">
+										<select class="form-control selectpicker" name="cat_restaurante[]" multiple data-live-search="true" required>
+										<?php foreach ($categorias as $i => $value):?>
+											<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+										<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="monumentos" class="form-label"><h6>Monumentos</h6></label>
+									<?php
+									$conn = Aplicacion::getConexionBD();
+									$query = sprintf("SELECT * FROM categorias_monumentos");
+									$rs = $conn->query($query);
+									$categorias = $rs->fetch_all(MYSQLI_ASSOC);?>
+									<div class="form-group">
+										<select class="form-control selectpicker" name="cat_monumento[]" multiple data-live-search="true" required>
+										<?php foreach ($categorias as $i => $value):?>
+											<option value="<?php echo($categorias[$i]["id"])?>"><?php echo($categorias[$i]["categoria"])?></option>
+										<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="audiencia" class="form-label"><h6>Audiencia</h6></label>
+									<?php
+										$conn = Aplicacion::getConexionBD();
+										$query = sprintf("SELECT * FROM audiencia_eventos");
+										$rs = $conn->query($query);
+										$audiencia = $rs->fetch_all(MYSQLI_ASSOC);?>
+										<div class="form-group">
+											<select class="form-control selectpicker" name="audiencia[]" multiple data-live-search="true">
+											<?php foreach ($audiencia as $i => $value):?>
+												<option value="<?php echo($audiencia[$i]["id"])?>"><?php echo($audiencia[$i]["tipo"])?></option>
+											<?php endforeach; ?>
+											</select>
+										</div>
+								</div>
+							</div>
 							<div class="d-grid">
 								<button type="submit" class="btn btn-outline-primary">Sign in</button>
 							</div>
@@ -83,6 +163,9 @@
 	<?php
 	require_once "../includes/footer.php";
 	?>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
+
 
 </body>
 
