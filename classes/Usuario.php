@@ -506,10 +506,12 @@ class Usuario
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT `$tipo` FROM relacion_categorias_usuarios WHERE id_usuario='$id'");
 		$rs = $conn->query($query);
-		$categorias = $rs->fetch_assoc()["$tipo"];
-		if ($rs && strpos($categorias, "/".$id_categoria."/")) {
-			return true;
-			$rs->free();
+		if($rs && $rs->num_rows == 1){
+			$categorias = $rs->fetch_assoc()["$tipo"];
+			if (strpos($categorias, "/".$id_categoria."/")) {
+				return true;
+				$rs->free();
+			}
 		}
 		return false;
 	}
