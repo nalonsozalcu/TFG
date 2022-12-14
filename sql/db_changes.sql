@@ -273,3 +273,11 @@ ALTER TABLE `relacion_categorias_usuarios`
 
 ALTER TABLE `relacion_categorias_usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `planes` ADD `descripcion` VARCHAR(500) NOT NULL AFTER `nombre`, 
+ADD `hora_act_1` VARCHAR(5) NOT NULL AFTER `descripcion`, ADD `id_act_1` INT NOT NULL AFTER `hora_act_1`, 
+ADD `hora_act_2` VARCHAR(5) NOT NULL AFTER `id_act_1`, ADD `id_act_2` INT NOT NULL AFTER `hora_act_2`;
+
+ALTER TABLE `planes` ADD `hora_act_3` VARCHAR(5) NOT NULL AFTER `id_act_2`, ADD `id_act_3` INT NOT NULL AFTER `hora_act_3`,
+ ADD `hora_act_4` VARCHAR(5) NOT NULL AFTER `id_act_3`, ADD `id_act_4` INT NOT NULL AFTER `hora_act_4`,
+ ADD `hora_act_5` VARCHAR(5) NOT NULL AFTER `id_act_4`, ADD `id_act_5` INT NOT NULL AFTER `hora_act_5`;
