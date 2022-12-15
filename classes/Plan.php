@@ -147,7 +147,7 @@ class Plan
 		$rs = $conn->query($query);
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
-			$plan = new Plan($fila['id'], $fila['nombre'], $fila['fecha']);
+			$plan = new Plan($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['hora_act_1'], $fila['id_act_1'] , $fila['hora_act_2'], $fila['id_act_2'] , $fila['hora_act_3'], $fila['id_act_3'] , $fila['hora_act_4'], $fila['id_act_4'], $fila['hora_act_5'], $fila['id_act_5'], $fila['fecha']);
 			$rs->free();
 
 			return $plan;
