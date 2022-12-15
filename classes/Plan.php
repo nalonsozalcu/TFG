@@ -7,33 +7,43 @@ class Plan
 	private $descripcion;
 	private $hora_act_1;
 	private $id_act_1;
+	private $tipo_act_1;
 	private $hora_act_2;
 	private $id_act_2;
+	private $tipo_act_2;
 	private $hora_act_3;
 	private $id_act_3;
+	private $tipo_act_3;
 	private $hora_act_4;
 	private $id_act_4;
+	private $tipo_act_4;
 	private $hora_act_5;
 	private $id_act_5;
+	private $tipo_act_5;
 	private $fecha;
 
 	// ---> Constructor <---
 
-	private function __construct(?int $id, string $nombre, string $descripcion, string $hora_act_1, string $id_act_1 , string $hora_act_2, string $id_act_2 , string $hora_act_3, string $id_act_3 , string $hora_act_4, string $id_act_4 , string $hora_act_5, string $id_act_5, string $fecha)
+	private function __construct(?int $id, string $nombre, string $descripcion, string $hora_act_1, string $id_act_1 , string $tipo_act_1, string $hora_act_2, string $id_act_2 , string $tipo_act_2, string $hora_act_3, string $id_act_3 ,  string $tipo_act_3, string $hora_act_4, string $id_act_4 ,  string $tipo_act_4, string $hora_act_5, string $id_act_5,  string $tipo_act_5, string $fecha)
 	{
 		$this->setId($id);
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
 		$this->hora_act_1 = $hora_act_1;
 		$this->id_act_1 = $id_act_1;
+		$this->tipo_act_1 = $tipo_act_1;
 		$this->hora_act_2 = $hora_act_2;
 		$this->id_act_2 = $id_act_2;
+		$this->tipo_act_2 = $tipo_act_2;
 		$this->hora_act_3 = $hora_act_3;
 		$this->id_act_3 = $id_act_3;
+		$this->tipo_act_3 = $tipo_act_3;
 		$this->hora_act_4 = $hora_act_4;
 		$this->id_act_4 = $id_act_4;
+		$this->tipo_act_4 = $tipo_act_4;
 		$this->hora_act_5 = $hora_act_5;
 		$this->id_act_5 = $id_act_5;
+		$this->tipo_act_5 = $tipo_act_5;
 		$this->fecha = $fecha;
 		
 	}
@@ -78,6 +88,13 @@ class Plan
 		$this->id_act_1 = $id_act_1;
 	}
 
+	public function tipo_act_1() : string {
+		return $this->tipo_act_1;
+	}
+	public function setTipo_act_1(string $tipo_act_1) : void {
+		$this->tipo_act_1 = $tipo_act_1;
+	}
+
 	public function hora_act_2() : string {
 		return $this->hora_act_2;
 	}
@@ -90,6 +107,13 @@ class Plan
 	}
 	public function setId_act_2(string $id_act_2) : void {
 		$this->id_act_2 = $id_act_2;
+	}
+
+	public function tipo_act_2() : string {
+		return $this->tipo_act_2;
+	}
+	public function setTipo_act_2(string $tipo_act_2) : void {
+		$this->tipo_act_2 = $tipo_act_2;
 	}
 
 	public function hora_act_3() : string {
@@ -106,6 +130,13 @@ class Plan
 		$this->id_act_3= $id_act_3;
 	}
 
+	public function tipo_act_3() : string {
+		return $this->tipo_act_3;
+	}
+	public function setTipo_act_3(string $tipo_act_3) : void {
+		$this->tipo_act_3 = $tipo_act_3;
+	}
+
 	public function hora_act_4() : string {
 		return $this->hora_act_4;
 	}
@@ -118,6 +149,13 @@ class Plan
 	}
 	public function setId_act_4(string $id_act_4) : void {
 		$this->id_act_4= $id_act_4;
+	}
+
+	public function tipo_act_4() : string {
+		return $this->tipo_act_4;
+	}
+	public function setTipo_act_4(string $tipo_act_4) : void {
+		$this->tipo_act_4 = $tipo_act_4;
 	}
 
 	public function hora_act_5() : string {
@@ -134,6 +172,13 @@ class Plan
 		$this->id_act_5 = $id_act_5;
 	}
 
+	public function tipo_act_5() : string {
+		return $this->tipo_act_5;
+	}
+	public function setTipo_act_5(string $tipo_act_5) : void {
+		$this->tipo_act_5 = $tipo_act_5;
+	}
+
 	public function fecha() : string {
 		return $this->fecha;
 	}
@@ -147,7 +192,7 @@ class Plan
 		$rs = $conn->query($query);
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
-			$plan = new Plan($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['hora_act_1'], $fila['id_act_1'] , $fila['hora_act_2'], $fila['id_act_2'] , $fila['hora_act_3'], $fila['id_act_3'] , $fila['hora_act_4'], $fila['id_act_4'], $fila['hora_act_5'], $fila['id_act_5'], $fila['fecha']);
+			$plan = new Plan($fila['id'], $fila['nombre'], $fila['descripcion'], $fila['hora_act_1'], $fila['id_act_1'] ,  $fila['tipo_act_1'] , $fila['hora_act_2'], $fila['id_act_2'] , $fila['tipo_act_2'] , $fila['hora_act_3'], $fila['id_act_3'] ,  $fila['tipo_act_3'] , $fila['hora_act_4'], $fila['id_act_4'],  $fila['tipo_act_4'] , $fila['hora_act_5'], $fila['id_act_5'],  $fila['tipo_act_5'] , $fila['fecha']);
 			$rs->free();
 
 			return $plan;
@@ -255,7 +300,7 @@ class Plan
 	
 	// ---> Funciones para registrar, actualizar o borrar el Plan <---
 
-	public static function registrar($nombre, $descripcion, $hora_act_1, $id_act_1 , $hora_act_2, $id_act_2 , $hora_act_3, $id_act_3 , $hora_act_4, $id_act_4 , $hora_act_5, $id_act_5, $fecha)
+	public static function registrar($nombre, $descripcion, $hora_act_1, $id_act_1 , $tipo_act_1 , $hora_act_2, $id_act_2 , $tipo_act_2 , $hora_act_3, $id_act_3 , $tipo_act_3 , $hora_act_4, $id_act_4 , $tipo_act_4 , $hora_act_5, $id_act_5, $tipo_act_5 , $fecha)
 	{
 		$conn = Aplicacion::getConexionBD();
 
@@ -263,17 +308,22 @@ class Plan
 		$descripcion = $conn->real_escape_string($descripcion);
 		$hora_act_1 = $conn->real_escape_string($hora_act_1);
 		$id_act_1 = $conn->real_escape_string($id_act_1);
+		$tipo_act_1 = $conn->real_escape_string($tipo_act_1);
 		$hora_act_2 = $conn->real_escape_string($hora_act_2);
 		$id_act_2 = $conn->real_escape_string($id_act_2);
+		$tipo_act_2 = $conn->real_escape_string($tipo_act_2);
 		$hora_act_3 = $conn->real_escape_string($hora_act_3);
 		$id_act_3 = $conn->real_escape_string($id_act_3);
+		$tipo_act_3 = $conn->real_escape_string($tipo_act_3);
 		$hora_act_4 = $conn->real_escape_string($hora_act_4);
 		$id_act_4 = $conn->real_escape_string($id_act_4);
+		$tipo_act_4 = $conn->real_escape_string($tipo_act_4);
 		$hora_act_5 = $conn->real_escape_string($hora_act_5);
 		$id_act_5 = $conn->real_escape_string($id_act_5);
+		$tipo_act_5 = $conn->real_escape_string($tipo_act_5);
 		$fecha = $conn->real_escape_string($fecha);
 	
-		$query = sprintf("INSERT INTO `planes` (`id`, `nombre`, `descripcion`, `hora_act_1`, `id_act_1`, `hora_act_2`, `id_act_2`, `hora_act_3`, `id_act_3`, `hora_act_4`, `id_act_4`, `hora_act_5`, `id_act_5`, `fecha`) VALUES (NULL, '$nombre', '$decripcion', '$hora_act_1', '$id_act_1', '$hora_act_2', '$id_act_2', '$hora_act_3', '$id_act_3', '$hora_act_4', '$id_act_4', '$hora_act_5', '$id_act_5', '$fecha')");
+		$query = sprintf("INSERT INTO `planes` (`id`, `nombre`, `descripcion`, `hora_act_1`, `id_act_1`, `tipo_act_1`, `hora_act_2`, `id_act_2`, `tipo_act_2`, `hora_act_3`, `id_act_3`,  `tipo_act_3`, `hora_act_4`, `id_act_4`, `tipo_act_4`, `hora_act_5`, `id_act_5`, `tipo_act_5`, `fecha`) VALUES (NULL, '$nombre', '$decripcion', '$hora_act_1', '$id_act_1', '$tipo_act_1', '$hora_act_2', '$id_act_2', '$tipo_act_2', '$hora_act_3', '$id_act_3', '$tipo_act_3', '$hora_act_4', '$id_act_4', '$tipo_act_4', '$hora_act_5', '$id_act_5', '$tipo_act_5', '$fecha')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `planes`");
@@ -296,17 +346,22 @@ class Plan
 		$escaped_descripcion = $conn->real_escape_string($this->descripcion);
 		$escaped_hora_act_1 = $conn->real_escape_string($this->hora_act_1);
 		$escaped_id_act_1 = $conn->real_escape_string($this->id_act_1);
+		$escaped_tipo_act_1 = $conn->real_escape_string($this->tipo_act_1);
 		$escaped_hora_act_2 = $conn->real_escape_string($this->hora_act_2);
 		$escaped_id_act_2 = $conn->real_escape_string($this->id_act_2);
+		$escaped_tipo_act_2 = $conn->real_escape_string($this->tipo_act_2);
 		$escaped_hora_act_3 = $conn->real_escape_string($this->hora_act_3);
 		$escaped_id_act_3 = $conn->real_escape_string($this->id_act_3);
+		$escaped_tipo_act_3 = $conn->real_escape_string($this->tipo_act_3);
 		$escaped_hora_act_4 = $conn->real_escape_string($this->hora_act_4);
 		$escaped_id_act_4 = $conn->real_escape_string($this->id_act_4);
+		$escaped_tipo_act_4 = $conn->real_escape_string($this->tipo_act_4);
 		$escaped_hora_act_5 = $conn->real_escape_string($this->hora_act_5);
 		$escaped_id_act_5 = $conn->real_escape_string($this->id_act_5);
+		$escaped_tipo_act_5 = $conn->real_escape_string($this->tipo_act_5);
 		$escaped_fecha = $conn->real_escape_string($this->fecha);
 
-		$query = sprintf("UPDATE planes SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', hora_act_1 = '$escaped_hora_act_1', id_act_1 = '$escaped_id_act_1', hora_act_2 = '$escaped_hora_act_2', id_act_2 = '$escaped_id_act_2', hora_act_3 = '$escaped_hora_act_3', id_act_3 = '$escaped_id_act_3', hora_act_4 = '$escaped_hora_act_4', id_act_4 = '$escaped_id_act_4', hora_act_5 = '$escaped_hora_act_5', id_act_5 = '$escaped_id_act_5', fecha = '$escaped_fecha' WHERE id = $this->id");
+		$query = sprintf("UPDATE planes SET id = '$escaped_id', nombre = '$escaped_nombre', descripcion = '$escaped_descripcion', hora_act_1 = '$escaped_hora_act_1', id_act_1 = '$escaped_id_act_1', tipo_act_1 = '$escaped_tipo_act_1', hora_act_2 = '$escaped_hora_act_2', id_act_2 = '$escaped_id_act_2', tipo_act_2 = '$escaped_tipo_act_2', hora_act_3 = '$escaped_hora_act_3', id_act_3 = '$escaped_id_act_3', tipo_act_3 = '$escaped_tipo_act_3', hora_act_4 = '$escaped_hora_act_4', id_act_4 = '$escaped_id_act_4', tipo_act_4 = '$escaped_tipo_act_4', hora_act_5 = '$escaped_hora_act_5', id_act_5 = '$escaped_id_act_5', tipo_act_5 = '$escaped_tipo_act_5', fecha = '$escaped_fecha' WHERE id = $this->id");
 		$result = $conn->query($query);
 
 		if (!$result)
