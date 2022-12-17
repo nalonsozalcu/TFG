@@ -12,7 +12,7 @@
 			<div class="card mb-4">
 			<div class="card-body text-center">
 				<img src="../assets/img/plan_icon.png" alt="icon"
-				class="img-fluid" style="width: 120px;">
+				class="img-fluid" style="width: 80px;">
 				<h5 class="my-3"><?php echo($plan->nombre()) ?></h5>
 				<p class="text-muted mb-1">Fecha: <?php echo($plan->fecha()) ?></p>
 				<p class="mb-1">Valoración: <?php if($plan->get_global_valoracion($plan->id())) echo($plan->get_global_valoracion($plan->id())."  (".$plan->num_valoraciones($plan->id()).")")?></p>
@@ -29,6 +29,7 @@
 				<?php if(isset($_SESSION["idUsuario"])){
 					$contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);?>
 				<div class="d-flex justify-content-end mt-2 mb-2">
+					<a href="../files/planes/Plan_<?php echo($plan->id()) ?>.pdf" class="btn ms-1" download="Plan_<?php echo($plan->nombre()) ?>.pdf"><i class="fas fa-cloud-download-alt" style="color: blue;"></i></a>
 					<?php if(Usuario::is_planfavorito($_SESSION["idUsuario"], $plan->id())){ ?>
 						<a href="../api/favoritos.php?from=ind&action=delete&plan=true&id=<?php echo (Usuario::is_planfavorito($_SESSION["idUsuario"], $plan->id())) ?>&id_plan=<?php echo($plan->id()) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
 					<?php }else{?>
@@ -102,9 +103,200 @@
 			<div class="card mb-4">
 			<div class="card-body">
 				<div class="row">
+					<div class="col">
+						<h5 class="mb-2">Descripción:</h5>
+						<p class="text-muted mb-0"><?php echo($plan->descripcion() != ""? $plan->descripcion(): "No disponible.") ?></p>
+					</div>
 				</div>
 				<hr>
 				<div class="row">
+					<div class="col">
+						<h5 class="mb-2">Timeline:</h5>
+					</div>
+					<div class="container">
+						<div class="main-timeline">
+							<!-- start experience section-->
+							<?php 
+							if($plan->id_act_1() != 0){
+								if($plan->tipo_act_1() == "Museo") {
+									$icon = "<i class='fa-solid fa-landmark'></i>";
+									$actividad = Museo::get_museo_by_id($plan->id_act_1());}
+								if($plan->tipo_act_1() == "Restaurante") {
+									$icon = '<i class="fa-solid fa-utensils"></i>';
+									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_1());}
+								if($plan->tipo_act_1() == "Evento"){ 
+									$icon = "<i class='fa-regular fa-calendar-check'></i>";
+									$actividad = Evento::get_evento_by_id($plan->id_act_1());}
+								if($plan->tipo_act_1() == "Monumento") {
+									$icon = '<i class="fa-solid fa-monument"></i>';
+									$actividad = Monumento::get_monumento_by_id($plan->id_act_1());}
+							?>
+							<div class="timeline">
+								<div class="icon"></div>
+								<div class="date-content">
+									<div class="date-outer">
+										<span class="date">
+												<span class="month"><?php echo($plan->tipo_act_1()) ?></span>
+										<span class="year"><?php echo($plan->hora_act_1()) ?></span>
+										</span>
+									</div>
+								</div>
+								<div class="timeline-content">
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_1())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<p class="description">
+									<?php echo($actividad->direccion()) ?>
+									</p>
+								</div>
+							</div>
+							<?php } ?>
+							<!-- end experience section-->
+
+							<!-- start experience section-->
+							<?php 
+							if($plan->id_act_2() != ""){
+								if($plan->tipo_act_2() == "Museo") {
+									$icon = "<i class='fa-solid fa-landmark'></i>";
+									$actividad = Museo::get_museo_by_id($plan->id_act_2());}
+								if($plan->tipo_act_2() == "Restaurante") {
+									$icon = '<i class="fa-solid fa-utensils"></i>';
+									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_2());}
+								if($plan->tipo_act_2() == "Evento"){ 
+									$icon = "<i class='fa-regular fa-calendar-check'></i>";
+									$actividad = Evento::get_evento_by_id($plan->id_act_2());}
+								if($plan->tipo_act_2() == "Monumento") {
+									$icon = '<i class="fa-solid fa-monument"></i>';
+									$actividad = Monumento::get_monumento_by_id($plan->id_act_2());}
+							?>
+							<div class="timeline">
+								<div class="icon"></div>
+								<div class="date-content">
+									<div class="date-outer">
+										<span class="date">
+												<span class="month"><?php echo($plan->tipo_act_2()) ?></span>
+										<span class="year"><?php echo($plan->hora_act_2()) ?></span>
+										</span>
+									</div>
+								</div>
+								<div class="timeline-content">
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_2())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<p class="description">
+									<?php echo($actividad->direccion()) ?>
+									</p>
+								</div>
+							</div>
+							<?php } ?>
+							<!-- end experience section-->
+
+							<!-- start experience section-->
+							<?php 
+							if($plan->id_act_3() != 0){
+								if($plan->tipo_act_3() == "Museo") {
+									$icon = "<i class='fa-solid fa-landmark'></i>";
+									$actividad = Museo::get_museo_by_id($plan->id_act_3());}
+								if($plan->tipo_act_3() == "Restaurante") {
+									$icon = '<i class="fa-solid fa-utensils"></i>';
+									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_3());}
+								if($plan->tipo_act_3() == "Evento"){ 
+									$icon = "<i class='fa-regular fa-calendar-check'></i>";
+									$actividad = Evento::get_evento_by_id($plan->id_act_3());}
+								if($plan->tipo_act_3() == "Monumento") {
+									$icon = '<i class="fa-solid fa-monument"></i>';
+									$actividad = Monumento::get_monumento_by_id($plan->id_act_3());}
+							?>
+							<div class="timeline">
+								<div class="icon"></div>
+								<div class="date-content">
+									<div class="date-outer">
+										<span class="date">
+												<span class="month"><?php echo($plan->tipo_act_3()) ?></span>
+										<span class="year"><?php echo($plan->hora_act_3()) ?></span>
+										</span>
+									</div>
+								</div>
+								<div class="timeline-content">
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_3())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<p class="description">
+									<?php echo($actividad->direccion()) ?>
+									</p>
+								</div>
+							</div>
+							<?php } ?>
+							<!-- end experience section-->
+
+							<!-- start experience section-->
+							<?php 
+							if($plan->id_act_4() != 0){
+								if($plan->tipo_act_4() == "Museo") {
+									$icon = "<i class='fa-solid fa-landmark'></i>";
+									$actividad = Museo::get_museo_by_id($plan->id_act_4());}
+								if($plan->tipo_act_4() == "Restaurante") {
+									$icon = '<i class="fa-solid fa-utensils"></i>';
+									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_4());}
+								if($plan->tipo_act_4() == "Evento"){ 
+									$icon = "<i class='fa-regular fa-calendar-check'></i>";
+									$actividad = Evento::get_evento_by_id($plan->id_act_4());}
+								if($plan->tipo_act_4() == "Monumento") {
+									$icon = '<i class="fa-solid fa-monument"></i>';
+									$actividad = Monumento::get_monumento_by_id($plan->id_act_4());}
+							?>
+							<div class="timeline">
+								<div class="icon"></div>
+								<div class="date-content">
+									<div class="date-outer">
+										<span class="date">
+												<span class="month"><?php echo($plan->tipo_act_4()) ?></span>
+										<span class="year"><?php echo($plan->hora_act_4()) ?></span>
+										</span>
+									</div>
+								</div>
+								<div class="timeline-content">
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->hora_act_4())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<p class="description">
+									<?php echo($actividad->direccion()) ?>
+									</p>
+								</div>
+							</div>
+							<?php } ?>
+							<!-- end experience section-->
+
+							<!-- start experience section-->
+							<?php 
+							if($plan->id_act_5() != 0){
+								if($plan->tipo_act_5() == "Museo") {
+									$icon = "<i class='fa-solid fa-landmark'></i>";
+									$actividad = Museo::get_museo_by_id($plan->id_act_5());}
+								if($plan->tipo_act_5() == "Restaurante") {
+									$icon = '<i class="fa-solid fa-utensils"></i>';
+									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_5());}
+								if($plan->tipo_act_5() == "Evento"){ 
+									$icon = "<i class='fa-regular fa-calendar-check'></i>";
+									$actividad = Evento::get_evento_by_id($plan->id_act_5());}
+								if($plan->tipo_act_5() == "Monumento") {
+									$icon = '<i class="fa-solid fa-monument"></i>';
+									$actividad = Monumento::get_monumento_by_id($plan->id_act_5());}
+							?>
+							<div class="timeline">
+								<div class="icon"></div>
+								<div class="date-content">
+									<div class="date-outer">
+										<span class="date">
+												<span class="month"><?php echo($plan->tipo_act_5()) ?></span>
+										<span class="year"><?php echo($plan->hora_act_5()) ?></span>
+										</span>
+									</div>
+								</div>
+								<div class="timeline-content">
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_5())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<p class="description">
+									<?php echo($actividad->direccion()) ?>
+									</p>
+								</div>
+							</div>
+							<?php } ?>
+							<!-- end experience section-->
+
+						</div>
+					</div>
 				</div>
 			</div>
 			</div>

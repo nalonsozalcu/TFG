@@ -1,5 +1,9 @@
 <?php require_once '../config.php';
 require_once '../classes/Plan.php';
+require_once '../classes/Evento.php';
+require_once '../classes/Restaurante.php';
+require_once '../classes/Monumento.php';
+require_once '../classes/Museo.php';
 ?>
 <!doctype html>
 <html lang="en">
