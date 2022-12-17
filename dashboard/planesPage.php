@@ -36,18 +36,22 @@ require_once '../classes/Plan.php';
 			</div>
 			<nav class="navbar navbar-expand">
 				<ul class="navbar-nav mb-5">
-					<li class="nav-item"><a href="planesPage.php" class="nav-link <?php if($content == false) echo('active')?>"><i class="bi bi-star"></i> Tendencias </i></a></li>
+					<li class="nav-item"><a href="planesPage.php?table=tendencias" class="nav-link <?php if($content == false) echo('active')?>"><i class="bi bi-star"></i> Tendencias </i></a></li>
 					<div class="vr"></div>
 					<li class="nav-item"><a href="planesPage.php?table=plan" class="nav-link <?php if($active == 'plan') echo('active')?>"> Planes </a></li>
 					<div class="vr"></div>
-					<li class="nav-item"><a href="planesPage.php?table=plan" class="nav-link <?php if($active == 'plan') echo('active')?>"> Crear plan </a></li>
+					<li class="nav-item"><a href="planesPage.php?table=crear" class="nav-link <?php if($active == 'crear') echo('active')?>"> Crear plan </a></li>
 				</ul>
 				<div class="row d-flex justify-content-center">
 				<?php 
-					if(!$content){
+					if(!$content || $active == 'tendencias'){
 						require "planes/planesTendencias.php";
-					}else{
+					}
+					if($active == 'plan'){
 						require "planes/planes.php";
+					}
+					if($active == 'crear'){
+						require "planes/planesForm.php";
 					}
 				?>
 				</div>

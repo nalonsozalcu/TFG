@@ -4,32 +4,7 @@ if(isset($_GET["id"])){
 	require_once '../classes/Plan.php';
 	$id =  $_GET["id"];
 	$plan = Plan::get_plan_by_id($id);
-}else{
-?>
-<form class="form mb-3 mt-md-2" method="POST" action="../api/categoria.php?type=monumentos">
-	<h5 class="mb-3">Añadir categoría</h5>
-	<div class="container">
-		<div class="row mb-3">
-			<div class="col-3">
-				<div class="form-group">
-					<label for="categoria" class="form-label ">Categoría</label>
-					<input
-						type="text"
-						id="categoria"
-						name="categoria"
-						class="form-control"
-						placeholder="categoria"
-						required
-					/>
-				</div>
-			</div>
-			<div class="col-2 align-self-end">
-				<button class="btn btn-primary" type="submit"><i class="bi bi-plus"></i></button>
-			</div>
-		</div>
-	</div>
-</form>
-<?php } ?>
+} ?>
 <form class="form mb-3 mt-md-2" method="POST" action="../api/plan.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
 	<h5 class="mb-5">Formulario de planes</h5>
 	<div class="container">
@@ -52,14 +27,22 @@ if(isset($_GET["id"])){
 				<div class="form-group">
 					<label for="fecha" class="form-label ">Fecha</label>
 					<input
-						type="text"
+						type="date"
 						id="fecha"
 						name="fecha"
 						value="<?php if(isset($_GET["id"])) echo($plan->fecha()) ?>"
 						class="form-control"
-						placeholder="año"
+						placeholder="06/12/2000"
 						required
 					/>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col">
+				<div class="form-group">
+					<label for="descripcion" class="form-label ">Descripción</label>
+					<textarea class="form-control" id="descripcion" name="descripcion" value="<?php if(isset($_GET["id"])) echo($plan->descripcion()) ?>" rows="3"></textarea>
 				</div>
 			</div>
 		</div>
