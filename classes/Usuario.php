@@ -246,6 +246,17 @@ class Usuario
 		}
 		return false;
 	}
+
+	public static function get_favorito_by_id($id){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM `favoritos` WHERE `id` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows > 0) {
+			return $rs->fetch_all(MYSQLI_ASSOC);
+		}
+		return false;
+	}
+
 	public static function get_planesfavoritos_by_id($id){
 		$conn = Aplicacion::getConexionBD();
 		$query = sprintf("SELECT * FROM `planes_favoritos` WHERE `id_usuario` = '$id'");

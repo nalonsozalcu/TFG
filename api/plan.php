@@ -14,25 +14,155 @@ if($action === "delete"){
     else
         header("location: ../dashboard/adminPage.php?content=admin&table=planes&delete=false");
 }
-else{
 
+else{
+    $id_1 = $_POST["id_1"] != "" ? $_POST["id_1"] : null;
+    $favorito = Usuario::get_favorito_by_id($id_1);
+	if($favorito){?>
+		<?php foreach($favoritos as $favorito){
+		if($favorito["tipo_actividad"] == "museo"){
+														$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+                                                        $id_act_1 = $actividad->id();
+														$tipo_act_1 = $actividad->nombre();
+														
+													}
+													if($favorito["tipo_actividad"] == "restaurante"){
+														$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+														$id_act_1 = $actividad->id();
+														$tipo_act_1 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "monumento"){ 
+														$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+														$id_act_1 = $actividad->id();
+														$tipo_act_1 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "evento") {
+														$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+														$id_act_1 = $actividad->id();
+														$tipo_act_1 = $actividad->nombre();
+														}
+													 } 
+										}
+                                        $id_2 = $_POST["id_2"] != "" ? $_POST["id_2"] : null;
+    $favorito = Usuario::get_favorito_by_id($id_2);
+	if($favorito){?>
+		<?php foreach($favoritos as $favorito){
+		if($favorito["tipo_actividad"] == "museo"){
+														$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+                                                        $id_act_2 = $actividad->id();
+														$tipo_act_2 = $actividad->nombre();
+														
+													}
+													if($favorito["tipo_actividad"] == "restaurante"){
+														$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+														$id_act_2 = $actividad->id();
+														$tipo_act_2 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "monumento"){ 
+														$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+														$id_act_2 = $actividad->id();
+														$tipo_act_2 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "evento") {
+														$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+														$id_act_2 = $actividad->id();
+														$tipo_act_2 = $actividad->nombre();
+														}
+													 } 
+										}
+                                        $id_3 = $_POST["id_3"] != "" ? $_POST["id_3"] : null;
+    $favorito = Usuario::get_favorito_by_id($id_3);
+	if($favorito){?>
+		<?php foreach($favoritos as $favorito){
+		if($favorito["tipo_actividad"] == "museo"){
+														$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+                                                        $id_act_3 = $actividad->id();
+														$tipo_act_3 = $actividad->nombre();
+														
+													}
+													if($favorito["tipo_actividad"] == "restaurante"){
+														$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+														$id_act_3 = $actividad->id();
+														$tipo_act_3 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "monumento"){ 
+														$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+														$id_act_3 = $actividad->id();
+														$tipo_act_3 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "evento") {
+														$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+														$id_act_3 = $actividad->id();
+														$tipo_act_3 = $actividad->nombre();
+														}
+													 } 
+										}
+                                        $id_4 = $_POST["id_4"] != "" ? $_POST["id_4"] : null;
+    $favorito = Usuario::get_favorito_by_id($id_4);
+	if($favorito){?>
+		<?php foreach($favoritos as $favorito){
+		if($favorito["tipo_actividad"] == "museo"){
+														$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+                                                        $id_act_4 = $actividad->id();
+														$tipo_act_4 = $actividad->nombre();
+														
+													}
+													if($favorito["tipo_actividad"] == "restaurante"){
+														$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+														$id_act_4 = $actividad->id();
+														$tipo_act_4 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "monumento"){ 
+														$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+														$id_act_4 = $actividad->id();
+														$tipo_act_4 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "evento") {
+														$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+														$id_act_4 = $actividad->id();
+														$tipo_act_4 = $actividad->nombre();
+														}
+													 } 
+										}
+                                        $id_5 = $_POST["id_5"] != "" ? $_POST["id_5"] : null;
+    $favorito = Usuario::get_favorito_by_id($id_5);
+	if($favorito){?>
+		<?php foreach($favoritos as $favorito){
+		if($favorito["tipo_actividad"] == "museo"){
+														$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+                                                        $id_act_5 = $actividad->id();
+														$tipo_act_5 = $actividad->nombre();
+														
+													}
+													if($favorito["tipo_actividad"] == "restaurante"){
+														$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+														$id_act_5 = $actividad->id();
+														$tipo_act_5 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "monumento"){ 
+														$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+														$id_act_5 = $actividad->id();
+														$tipo_act_5 = $actividad->nombre();
+														}
+													if($favorito["tipo_actividad"] == "evento") {
+														$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+														$id_act_5 = $actividad->id();
+														$tipo_act_5 = $actividad->nombre();
+														}
+													 } 
+										}
 $nombre = $_POST["nombre"] != "" ? $_POST["nombre"] : null;
 $descripcion = $_POST["descripcion"] != "" ? $_POST["descripcion"] : null;
 $hora_act_1 = $_POST["hora_act_1"] != "" ? $_POST["hora_act_1"] : null;
-$id_act_1 = $_POST["id_act_1"] != "" ? $_POST["id_act_1"] : null;
-$tipo_act_1 = $_POST["tipo_act_1"] != "" ? $_POST["tipo_act_1"] : null;
+
 $hora_act_2 = $_POST["hora_act_2"] != "" ? $_POST["hora_act_2"] : null;
-$id_act_2 = $_POST["id_act_2"] != "" ? $_POST["id_act_2"] : null;
-$tipo_act_2 = $_POST["tipo_act_2"] != "" ? $_POST["tipo_act_2"] : null;
+
 $hora_act_3 = $_POST["hora_act_3"] != "" ? $_POST["hora_act_3"] : null;
-$id_act_3 = $_POST["id_act_3"] != "" ? $_POST["id_act_3"] : null;
-$tipo_act_3 = $_POST["tipo_act_3"] != "" ? $_POST["tipo_act_3"] : null;
+
 $hora_act_4 = $_POST["hora_act_4"] != "" ? $_POST["hora_act_4"] : null;
-$id_act_4 = $_POST["id_act_4"] != "" ? $_POST["id_act_4"] : null;
-$tipo_act_4 = $_POST["tipo_act_4"] != "" ? $_POST["tipo_act_4"] : null;
+
 $hora_act_5 = $_POST["hora_act_5"] != "" ? $_POST["hora_act_5"] : null;
-$id_act_5 = $_POST["id_act_5"] != "" ? $_POST["id_act_5"] : null;
-$tipo_act_5 = $_POST["tipo_act_5"] != "" ? $_POST["tipo_act_5"] : null;
+
 $fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
 
 
