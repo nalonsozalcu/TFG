@@ -323,7 +323,7 @@ class Plan
 		$tipo_act_5 = $conn->real_escape_string($tipo_act_5);
 		$fecha = $conn->real_escape_string($fecha);
 	
-		$query = sprintf("INSERT INTO `planes` (`id`, `nombre`, `descripcion`, `hora_act_1`, `id_act_1`, `tipo_act_1`, `hora_act_2`, `id_act_2`, `tipo_act_2`, `hora_act_3`, `id_act_3`,  `tipo_act_3`, `hora_act_4`, `id_act_4`, `tipo_act_4`, `hora_act_5`, `id_act_5`, `tipo_act_5`, `fecha`) VALUES (NULL, '$nombre', '$decripcion', '$hora_act_1', '$id_act_1', '$tipo_act_1', '$hora_act_2', '$id_act_2', '$tipo_act_2', '$hora_act_3', '$id_act_3', '$tipo_act_3', '$hora_act_4', '$id_act_4', '$tipo_act_4', '$hora_act_5', '$id_act_5', '$tipo_act_5', '$fecha')");
+		$query = sprintf("INSERT INTO `planes` (`id`, `nombre`, `descripcion`, `hora_act_1`, `id_act_1`, `tipo_act_1`, `hora_act_2`, `id_act_2`, `tipo_act_2`, `hora_act_3`, `id_act_3`,  `tipo_act_3`, `hora_act_4`, `id_act_4`, `tipo_act_4`, `hora_act_5`, `id_act_5`, `tipo_act_5`, `fecha`) VALUES (NULL, '$nombre', '$descripcion', '$hora_act_1', '$id_act_1', '$tipo_act_1', '$hora_act_2', '$id_act_2', '$tipo_act_2', '$hora_act_3', '$id_act_3', '$tipo_act_3', '$hora_act_4', '$id_act_4', '$tipo_act_4', '$hora_act_5', '$id_act_5', '$tipo_act_5', '$fecha')");
 		$result = $conn->query($query);
 		if($result){
 			$query = sprintf("SELECT MAX(`id`) FROM `planes`");

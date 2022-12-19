@@ -55,7 +55,7 @@ require_once '../classes/Museo.php';
 						require "planes/planes.php";
 					}
 					if($active == 'crear'){
-						require "planes/planesForm.php";
+						require "admin/forms/planesForm.php";
 					}
 				?>
 				</div>
@@ -65,5 +65,8 @@ require_once '../classes/Museo.php';
 
 
 	</main>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
 </body>
 </html>

@@ -153,7 +153,7 @@
 
 							<!-- start experience section-->
 							<?php 
-							if($plan->id_act_2() != ""){
+							if($plan->id_act_2() != 0){
 								if($plan->tipo_act_2() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
 									$actividad = Museo::get_museo_by_id($plan->id_act_2());}
