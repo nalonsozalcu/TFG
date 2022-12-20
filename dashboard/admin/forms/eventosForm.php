@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
-	require_once '../classes/Evento.php';
 	$id =  $_GET["id"];
 	$museo = Evento::get_evento_by_id($id);
 }else{

@@ -1,6 +1,10 @@
 <?php
 require_once '../config.php';
 require_once '../classes/Plan.php';
+require_once '../classes/Evento.php';
+require_once '../classes/Restaurante.php';
+require_once '../classes/Monumento.php';
+require_once '../classes/Museo.php';
 
 $action = $_GET['action'];
 if(isset($_GET['id'])){
@@ -14,32 +18,248 @@ if($action === "delete"){
 	else
 		header("location: ../dashboard/adminPage.php?content=admin&table=planes&delete=false");
 }
+if($action === "generate"){
+	$fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
+	$nombre = "Plan automático " . rand();
+	$descripcion = "Plan generado automaticamente.";
+
+	$tipos = ["Museo", "Evento", "Restaurante", "Monumento"];
+	$horas_1 = ["09:00", "10:00", "11:00", "12:00"];
+	$horas_2 = ["12:30", "13:00", "13:30", "14:00"];
+	$horas_3 = ["14:30", "15:00", "15:30", "16:00"];
+	$horas_4 = ["17:00", "17:30", "18:00", "18:30"];
+	$horas_5 = ["19:00", "20:00", "21:00", "22:00"];
+
+	$max_museo = 69;
+	$max_restaurante = 986;
+	$max_monumento = 1845;
+	$max_evento = 1000;
+
+	$num_act = $_POST["num_act"] != "" ? $_POST["num_act"] : null;
+	$favs = $_POST["flexRadioDefault"] == "favs" ? true : false;
+	$cats = $_POST["flexRadioDefault"] == "cats" ? true : false;
+	// $valoracion_check = isset($_POST["val_check"]) ? true : false;
+	// $valoracion = $_POST["valoracion"] != "" ? $_POST["valoracion"] : null;
+
+	if($favs){
+		$favoritos = Usuario::get_favoritos_by_id($_SESSION["idUsuario"]);
+		$indices = array_rand($favoritos, $num_act);
+	}else if($cats){
+
+	}
+
+	if($favs){
+		if($num_act == 1){
+			$favorito = $favoritos[$indices];
+		}else{
+			$favorito = $favoritos[$indices[0]];
+		}
+		if($favorito["tipo_actividad"] == "museo"){
+			$tipo = "Museo";
+			$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+		}
+		if($favorito["tipo_actividad"] == "restaurante"){
+			$tipo = "Restaurante";
+			$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+		}
+		if($favorito["tipo_actividad"] == "monumento"){ 
+			$tipo = "Monumento";
+			$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+		}
+		if($favorito["tipo_actividad"] == "evento") {
+			$tipo = "Evento";
+			$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+		}
+		$id_act_1 = $actividad->id();
+		$tipo_act_1 = $tipo;
+	}else{
+		$tipo = $tipos[array_rand($tipos)];
+		if($tipo == "Museo") $id_act_1 = random_int(1, $max_museo);
+		if($tipo == "Restaurante") $id_act_1 = random_int(1, $max_restaurante);
+		if($tipo == "Monumento") $id_act_1 = random_int(1, $max_monumento);
+		if($tipo == "Evento") $id_act_1 = random_int(1, $max_evento);
+		$tipo_act_1 = $tipo;
+	}
+
+	$hora_act_1 = $horas_1[array_rand($horas_1)];
+
+	if($num_act > 1){
+		if($favs){
+			$favorito = $favoritos[$indices[1]];
+			if($favorito["tipo_actividad"] == "museo"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "restaurante"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "monumento"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "evento") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+			}
+			$id_act_2 = $actividad->id();
+			$tipo_act_2 = $tipo;
+		}else{
+			$tipo = $tipos[array_rand($tipos)];
+			if($tipo == "Museo") $id_act_2 = random_int(1, $max_museo);
+			if($tipo == "Restaurante") $id_act_2 = random_int(1, $max_restaurante);
+			if($tipo == "Monumento") $id_act_2 = random_int(1, $max_monumento);
+			if($tipo == "Evento") $id_act_2 = random_int(1, $max_evento);
+			$tipo_act_2 = $tipo;
+		}
+		$hora_act_2 = $horas_2[array_rand($horas_2)];
+	}else{
+		$id_act_2 = 0;
+		$tipo_act_2 = "";
+		$hora_act_2 = "";
+	}
+
+	if($num_act > 2){
+		if($favs){
+			$favorito = $favoritos[$indices[2]];
+			if($favorito["tipo_actividad"] == "museo"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "restaurante"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "monumento"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "evento") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+			}
+			$id_act_3 = $actividad->id();
+			$tipo_act_3 = $tipo;
+		}else{
+			$tipo = $tipos[array_rand($tipos)];
+			if($tipo == "Museo") $id_act_3 = random_int(1, $max_museo);
+			if($tipo == "Restaurante") $id_act_3 = random_int(1, $max_restaurante);
+			if($tipo == "Monumento") $id_act_3 = random_int(1, $max_monumento);
+			if($tipo == "Evento") $id_act_3 = random_int(1, $max_evento);
+			$tipo_act_3 = $tipo;
+		}
+		$hora_act_3 = $horas_3[array_rand($horas_3)];
+	}else{
+		$id_act_3 = 0;
+		$tipo_act_3 = "";
+		$hora_act_3 = "";
+	}
+
+	if($num_act > 3){
+		if($favs){
+			$favorito = $favoritos[$indices[3]];
+			if($favorito["tipo_actividad"] == "museo"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "restaurante"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "monumento"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "evento") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+			}
+			$id_act_4 = $actividad->id();
+			$tipo_act_4 = $tipo;
+		}else{
+			$tipo = $tipos[array_rand($tipos)];
+			if($tipo == "Museo") $id_act_4 = random_int(1, $max_museo);
+			if($tipo == "Restaurante") $id_act_4 = random_int(1, $max_restaurante);
+			if($tipo == "Monumento") $id_act_4 = random_int(1, $max_monumento);
+			if($tipo == "Evento") $id_act_4 = random_int(1, $max_evento);
+			$tipo_act_4 = $tipo;
+		}
+		$hora_act_4 = $horas_4[array_rand($horas_4)];
+	} else {
+		$id_act_4 = 0;
+		$tipo_act_4 = "";
+		$hora_act_4 = "";
+	}
+
+	if($num_act > 4){
+		if($favs){
+			$favorito = $favoritos[$indices[4]];
+			if($favorito["tipo_actividad"] == "museo"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "restaurante"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "monumento"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($favorito["id_actividad"]);
+			}
+			if($favorito["tipo_actividad"] == "evento") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($favorito["id_actividad"]);
+			}
+			$id_act_5 = $actividad->id();
+			$tipo_act_5 = $tipo;
+		}else{
+			$tipo = $tipos[array_rand($tipos)];
+			if($tipo == "Museo") $id_act_5 = random_int(1, $max_museo);
+			if($tipo == "Restaurante") $id_act_5 = random_int(1, $max_restaurante);
+			if($tipo == "Monumento") $id_act_5 = random_int(1, $max_monumento);
+			if($tipo == "Evento") $id_act_5 = random_int(1, $max_evento);
+			$tipo_act_5 = $tipo;
+		}
+		$hora_act_5 = $horas_5[array_rand($horas_5)];
+	} else {
+		$id_act_5 = 0;
+		$tipo_act_5 = "";
+		$hora_act_5 = "";
+	}
+
+
+	if (Plan::registrar($nombre, $descripcion, $hora_act_1, $id_act_1, $tipo_act_1, $hora_act_2, $id_act_2, $tipo_act_2, $hora_act_3, $id_act_3, $tipo_act_3, $hora_act_4, $id_act_4, $tipo_act_4, $hora_act_5, $id_act_5, $tipo_act_5, $fecha))
+		header("location: ../dashboard/planesPage.php?table=plan");
+	else
+		header("location: ../dashboard/planesPage.php?table=plan");
+}
 
 else{
-$nombre = $_POST["nombre"] != "" ? $_POST["nombre"] : null;
-$descripcion = $_POST["descripcion"] != "" ? $_POST["descripcion"] : null;
 
-$id_act_1 = $_POST["id_1"] != "" ? $_POST["id_1"] : null;
-$tipo_act_1 = $_POST["tipo_1"] != "" ? $_POST["tipo_1"] : null;
-$hora_act_1 = $_POST["hora_act_1"] != "" ? $_POST["hora_act_1"] : null;
+	$nombre = $_POST["nombre"] != "" ? $_POST["nombre"] : null;
+	$descripcion = $_POST["descripcion"] != "" ? $_POST["descripcion"] : null;
 
-$id_act_2 = $_POST["id_2"] != "" ? $_POST["id_2"] : null;
-$tipo_act_2 = $_POST["tipo_2"] != "" ? $_POST["tipo_2"] : null;
-$hora_act_2 = $_POST["hora_act_2"] != "" ? $_POST["hora_act_2"] : null;
+	$id_act_1 = $_POST["id_1"] != "" ? $_POST["id_1"] : null;
+	$tipo_act_1 = $_POST["tipo_1"] != "" ? $_POST["tipo_1"] : null;
+	$hora_act_1 = $_POST["hora_act_1"] != "" ? $_POST["hora_act_1"] : null;
 
-$id_act_3 = $_POST["id_3"] != "" ? $_POST["id_3"] : null;
-$tipo_act_3 = $_POST["tipo_3"] != "" ? $_POST["tipo_3"] : null;
-$hora_act_3 = $_POST["hora_act_3"] != "" ? $_POST["hora_act_3"] : null;
+	$id_act_2 = $_POST["id_2"] != "" ? $_POST["id_2"] : null;
+	$tipo_act_2 = $_POST["tipo_2"] != "" ? $_POST["tipo_2"] : null;
+	$hora_act_2 = $_POST["hora_act_2"] != "" ? $_POST["hora_act_2"] : null;
 
-$id_act_4 = $_POST["id_4"] != "" ? $_POST["id_4"] : null;
-$tipo_act_4 = $_POST["tipo_4"] != "" ? $_POST["tipo_4"] : null;
-$hora_act_4 = $_POST["hora_act_4"] != "" ? $_POST["hora_act_4"] : null;
+	$id_act_3 = $_POST["id_3"] != "" ? $_POST["id_3"] : null;
+	$tipo_act_3 = $_POST["tipo_3"] != "" ? $_POST["tipo_3"] : null;
+	$hora_act_3 = $_POST["hora_act_3"] != "" ? $_POST["hora_act_3"] : null;
 
-$id_act_5 = $_POST["id_5"] != "" ? $_POST["id_5"] : null;
-$tipo_act_5 = $_POST["tipo_5"] != "" ? $_POST["tipo_5"] : null;
-$hora_act_5 = $_POST["hora_act_5"] != "" ? $_POST["hora_act_5"] : null;
+	$id_act_4 = $_POST["id_4"] != "" ? $_POST["id_4"] : null;
+	$tipo_act_4 = $_POST["tipo_4"] != "" ? $_POST["tipo_4"] : null;
+	$hora_act_4 = $_POST["hora_act_4"] != "" ? $_POST["hora_act_4"] : null;
 
-$fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
+	$id_act_5 = $_POST["id_5"] != "" ? $_POST["id_5"] : null;
+	$tipo_act_5 = $_POST["tipo_5"] != "" ? $_POST["tipo_5"] : null;
+	$hora_act_5 = $_POST["hora_act_5"] != "" ? $_POST["hora_act_5"] : null;
+
+	$fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
 
 
 	if($action === "new"){
@@ -70,8 +290,8 @@ $fecha = $_POST["fecha"] != "" ? $_POST["fecha"] : null;
 		if($fecha)$plan->setFecha($fecha);
 
 		if($plan->update())
-			header("location: ../dashboard/adminPage.php?content=admin&table=planes&update=true");
+			header("location: ../dashboard/actividadPage.php?content=plan&id=$id");
 		else
-			header("location: ../dashboard/adminPage.php?content=admin&table=planes&update=false");
+			header("location: ../dashboard/actividadPage.php?content=plan&id=$id");
 	}
 }

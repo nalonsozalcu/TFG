@@ -78,6 +78,10 @@
 			<div class="card-body p-0">
 				<ul class="list-group list-group-flush rounded-3">
 				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
+					<p class="mb-0 me-3">Modificar:</p>
+					<a href="actividadPage.php?content=plan&edit=true&id=<?php echo($plan->id()) ?>"><i class="bi bi-pencil-square"></i></a>
+				</li>
+				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
 					<?php if(isset($_SESSION["idUsuario"])){ if($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])){?>
 						<p class="mb-0 me-2">Tu valoración: <?php echo($plan->get_valoracion($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])))?></p>
 						<i class="bi bi-star-fill text-warning ms-1"></i>
@@ -102,6 +106,9 @@
 		<div class="col-lg-8">
 			<div class="card mb-4">
 			<div class="card-body">
+				<?php if(isset($_GET["edit"])){ 
+						require "admin/forms/planesForm.php";
+				} else { ?>
 				<div class="row">
 					<div class="col">
 						<h5 class="mb-2">Descripción:</h5>
@@ -298,6 +305,7 @@
 						</div>
 					</div>
 				</div>
+				<?php } ?>
 			</div>
 			</div>
 		</div>

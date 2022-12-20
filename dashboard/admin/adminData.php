@@ -12,6 +12,12 @@ if(isset($_GET["form"])){
 }else{
 	$form ="";
 }
+require_once '../classes/Restaurante.php';
+require_once '../classes/Museo.php';
+require_once '../classes/Monumento.php';
+require_once '../classes/Evento.php';
+require_once '../classes/Plan.php';
+
 ?>
 <div class="vh-80 d-flex justify-content-center align-items-center">
 	<div class="container">

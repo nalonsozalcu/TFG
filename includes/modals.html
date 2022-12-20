@@ -35,4 +35,62 @@
 		</div>
 	</div>
 </div>
+<!-- Modal filtrar plan-->
+<div class="modal fade" id="generatePlanModal" tabindex="-1" aria-labelledby="generatePlanModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="generatePlanModalLabel">Filtros</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form class="form" method="POST" action="../api/plan.php?action=generate">
+				<div class="modal-body">
+					<div class="form-group mb-3">
+						<label for="fecha" class="form-label">Fecha del plan</label>
+						<input type="date" id="fecha" name="fecha" class="form-control" value="" required>
+					</div>
+					<div class="form-group mb-3">
+						<label for="fecha" class="form-label">Número de actividades</label>
+						<input min="1" max="5" type="number" id="num_act" name="num_act" value="1" class="form-control" />
+					</div>
+					<?php if(isset($_SESSION["idUsuario"])){ ?>
+					<div class="form-check mb-2">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" value="rand" checked>
+						<label class="form-check-label" for="rend">
+							Aleatorio
+						</label>
+					</div>
+					<div class="form-check mb-2">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" value="favs">
+						<label class="form-check-label" for="favs">
+							Actividades favoritas
+						</label>
+					</div>
+					<div class="form-check mb-2">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" value="cats">
+						<label class="form-check-label" for="cats">
+							Categorías favoritas
+						</label>
+					</div>
+					<?php }?>
+					<!-- <div class="form-check">
+						<input class="form-check-input" type="checkbox" name="val_check" id="flexCheck">
+						<label for="flexCheck" class="form-label">Valoración de las actividades <i class="bi bi-star-fill text-warning ms-1"></i></label>
+					</div>
+					<p class="form-label">0&emsp;&emsp;&emsp;&emsp;&emsp;
+										1&emsp;&emsp;&emsp;&emsp;&emsp;
+										2&emsp;&emsp;&emsp;&emsp;&emsp;
+										3&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+										4&emsp;&emsp;&emsp;&emsp;&nbsp;5</p>
+					<input type="range" class="form-range" min="0" max="5" name="valoracion" id="valoracion"> -->
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary mt-3 mb-3">Generar plan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 </html>

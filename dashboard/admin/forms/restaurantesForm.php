@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
-	require_once '../classes/Restaurante.php';
 	$id =  $_GET["id"];
 	$restaurante = Restaurante::get_restaurante_by_id($id);
 }else{

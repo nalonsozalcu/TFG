@@ -7,7 +7,7 @@
 	$tendencias = $rs->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<div class="container">
+<div class="container-fluid">
 	<?php
 		if($tendencias):
 			$i = 0;

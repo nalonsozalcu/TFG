@@ -62,11 +62,6 @@ require_once '../classes/Museo.php';
 			</nav>
 		</div>
 	</div>
-
-
 	</main>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
 </body>
 </html>

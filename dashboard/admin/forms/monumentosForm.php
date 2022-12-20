@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
 if(isset($_GET["id"])){
-	require_once '../classes/Monumento.php';
 	$id =  $_GET["id"];
 	$monumento = Monumento::get_monumento_by_id($id);
 }else{
