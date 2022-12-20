@@ -8,7 +8,7 @@ if(isset($_GET["id"])){
 	$plan = Plan::get_plan_by_id($id);
 } ?>
 <form class="form mb-3 mt-md-2" method="POST" id="planform" action="../api/plan.php?action=<?php echo(isset($_GET["id"]) ? "update&id=$id": "new")?>">
-	<h5 class="mb-5">Formulario de planes</h5>
+	
 <?php  if(isset($_GET["id"])){
 		echo('<h5 class="mb-5">Modificar plan</h5>');
 	} else { ?>
