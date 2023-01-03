@@ -36,6 +36,7 @@ if($action === "generate"){
 	$max_evento = 1000;
 
 	$num_act = $_POST["num_act"] != "" ? $_POST["num_act"] : null;
+	$tend = $_POST["flexRadioDefault"] == "tend" ? true : false;
 	$favs = $_POST["flexRadioDefault"] == "favs" ? true : false;
 	$cats = $_POST["flexRadioDefault"] == "cats" ? true : false;
 	// $valoracion_check = isset($_POST["val_check"]) ? true : false;
@@ -44,8 +45,18 @@ if($action === "generate"){
 	if($favs){
 		$favoritos = Usuario::get_favoritos_by_id($_SESSION["idUsuario"]);
 		$indices = array_rand($favoritos, $num_act);
-	}else if($cats){
-
+	}else if($tend){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT * FROM `tendencias` WHERE `tipo_actividad` != 'planes'");
+		$rs = $conn->query($query);
+		$tendencias = $rs->fetch_all(MYSQLI_ASSOC);
+		$indices = array_rand($tendencias, $num_act);
+	}
+	else if($cats){
+		$cat_museo = Usuario::get_categorias_by_id($_SESSION["idUsuario"], "museos");
+		$cat_restaurante = Usuario::get_categorias_by_id($_SESSION["idUsuario"], "restaurantes");
+		$cat_monumento = Usuario::get_categorias_by_id($_SESSION["idUsuario"], "monumentos");
+		$cat_evento = Usuario::get_categorias_by_id($_SESSION["idUsuario"], "eventos");
 	}
 
 	if($favs){
@@ -72,13 +83,91 @@ if($action === "generate"){
 		}
 		$id_act_1 = $actividad->id();
 		$tipo_act_1 = $tipo;
-	}else{
-		$tipo = $tipos[array_rand($tipos)];
-		if($tipo == "Museo") $id_act_1 = random_int(1, $max_museo);
-		if($tipo == "Restaurante") $id_act_1 = random_int(1, $max_restaurante);
-		if($tipo == "Monumento") $id_act_1 = random_int(1, $max_monumento);
-		if($tipo == "Evento") $id_act_1 = random_int(1, $max_evento);
+	}
+	else if($tend){
+		if($num_act == 1){
+			$tendencia = $tendencias[$indices];
+		}else{
+			$tendencia = $tendencias[$indices[0]];
+		}
+		var_dump($tendencia);
+		if($tendencia["tipo_actividad"] == "museos"){
+			$tipo = "Museo";
+			$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);
+		}
+		if($tendencia["tipo_actividad"] == "restaurantes"){
+			$tipo = "Restaurante";
+			$actividad = Restaurante::get_restaurante_by_id($tendencia["id_actividad"]);
+		}
+		if($tendencia["tipo_actividad"] == "monumentos"){ 
+			$tipo = "Monumento";
+			$actividad = Monumento::get_monumento_by_id($tendencia["id_actividad"]);
+		}
+		if($tendencia["tipo_actividad"] == "eventos") {
+			$tipo = "Evento";
+			$actividad = Evento::get_evento_by_id($tendencia["id_actividad"]);
+		}
+		$id_act_1 = $actividad->id();
 		$tipo_act_1 = $tipo;
+	}
+	else if($cats){
+		$tipo_act_1 = $tipos[array_rand($tipos)];
+		
+		if($tipo_act_1 == "Museo"){ 
+			$has_cat = false;
+			while(!$has_cat){
+				$id_act_1 = random_int(1, $max_museo);
+				foreach($cat_museo as $id_cat){
+					if(Museo::has_categoria_by_id($id_act_1, $id_cat)){
+						$has_cat = true;
+						break;
+					}
+				}
+			}
+		}
+		if($tipo_act_1 == "Restaurante") {
+			$has_cat = false;
+			while(!$has_cat){
+				$id_act_1 = random_int(1, $max_restaurante);
+				foreach($cat_museo as $id_cat){
+					if(Restaurante::has_categoria_by_id($id_act_1, $id_cat)){
+						$has_cat = true;
+						break;
+					}
+				}
+			}
+		}
+		if($tipo_act_1 == "Monumento"){
+			$has_cat = false;
+			while(!$has_cat){
+				$id_act_1 = random_int(1, $max_monumento);
+				foreach($cat_museo as $id_cat){
+					if(Monumento::has_categoria_by_id($id_act_1, $id_cat)){
+						$has_cat = true;
+						break;
+					}
+				}
+			}
+		}
+		if($tipo_act_1 == "Evento"){
+			$has_cat = false;
+			while(!$has_cat){
+				$id_act_1 = random_int(1, $max_evento);
+				foreach($cat_museo as $id_cat){
+					if(Evento::has_categoria_by_id($id_act_1, $id_cat)){
+						$has_cat = true;
+						break;
+					}
+				}
+			}
+		}
+	}else{
+		$tipo_act_1 = $tipos[array_rand($tipos)];
+
+		if($tipo_act_1 == "Museo") $id_act_1 = random_int(1, $max_museo);
+		if($tipo_act_1 == "Restaurante") $id_act_1 = random_int(1, $max_restaurante);
+		if($tipo_act_1 == "Monumento") $id_act_1 = random_int(1, $max_monumento);
+		if($tipo_act_1 == "Evento") $id_act_1 = random_int(1, $max_evento);
 	}
 
 	$hora_act_1 = $horas_1[array_rand($horas_1)];
@@ -104,15 +193,86 @@ if($action === "generate"){
 			}
 			$id_act_2 = $actividad->id();
 			$tipo_act_2 = $tipo;
-		}else{
-			$tipo = $tipos[array_rand($tipos)];
-			if($tipo == "Museo") $id_act_2 = random_int(1, $max_museo);
-			if($tipo == "Restaurante") $id_act_2 = random_int(1, $max_restaurante);
-			if($tipo == "Monumento") $id_act_2 = random_int(1, $max_monumento);
-			if($tipo == "Evento") $id_act_2 = random_int(1, $max_evento);
+		}else if($tend){
+			$tendencia = $tendencias[$indices[1]];
+			if($tendencia["tipo_actividad"] == "museos"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "restaurantes"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "monumentos"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "eventos") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($tendencia["id_actividad"]);
+			}
+			$id_act_2 = $actividad->id();
 			$tipo_act_2 = $tipo;
+		}else if($cats){
+			$tipo_act_2 = $tipos[array_rand($tipos)];
+			
+			if($tipo_act_2 == "Museo"){ 
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_2 = random_int(1, $max_museo);
+					foreach($cat_museo as $id_cat){
+						if(Museo::has_categoria_by_id($id_act_2, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_2 == "Restaurante") {
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_2 = random_int(1, $max_restaurante);
+					foreach($cat_museo as $id_cat){
+						if(Restaurante::has_categoria_by_id($id_act_2, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_2 == "Monumento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_2 = random_int(1, $max_monumento);
+					foreach($cat_museo as $id_cat){
+						if(Monumento::has_categoria_by_id($id_act_2, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_2 == "Evento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_2 = random_int(1, $max_evento);
+					foreach($cat_museo as $id_cat){
+						if(Evento::has_categoria_by_id($id_act_2, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+		}else{
+			$tipo_act_2 = $tipos[array_rand($tipos)];
+			if($tipo_act_2 == "Museo") $id_act_2 = random_int(1, $max_museo);
+			if($tipo_act_2 == "Restaurante") $id_act_2 = random_int(1, $max_restaurante);
+			if($tipo_act_2 == "Monumento") $id_act_2 = random_int(1, $max_monumento);
+			if($tipo_act_2 == "Evento") $id_act_2 = random_int(1, $max_evento);
 		}
 		$hora_act_2 = $horas_2[array_rand($horas_2)];
+
 	}else{
 		$id_act_2 = 0;
 		$tipo_act_2 = "";
@@ -140,13 +300,84 @@ if($action === "generate"){
 			}
 			$id_act_3 = $actividad->id();
 			$tipo_act_3 = $tipo;
-		}else{
-			$tipo = $tipos[array_rand($tipos)];
-			if($tipo == "Museo") $id_act_3 = random_int(1, $max_museo);
-			if($tipo == "Restaurante") $id_act_3 = random_int(1, $max_restaurante);
-			if($tipo == "Monumento") $id_act_3 = random_int(1, $max_monumento);
-			if($tipo == "Evento") $id_act_3 = random_int(1, $max_evento);
+		}else if($tend){
+			$tendencia = $tendencias[$indices[2]];
+			if($tendencia["tipo_actividad"] == "museos"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "restaurantes"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "monumentos"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "eventos") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($tendencia["id_actividad"]);
+			}
+			$id_act_3 = $actividad->id();
 			$tipo_act_3 = $tipo;
+		}
+		else if($cats){
+			$tipo_act_3 = $tipos[array_rand($tipos)];
+			
+			if($tipo_act_3 == "Museo"){ 
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_3 = random_int(1, $max_museo);
+					foreach($cat_museo as $id_cat){
+						if(Museo::has_categoria_by_id($id_act_3, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_3 == "Restaurante") {
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_3 = random_int(1, $max_restaurante);
+					foreach($cat_museo as $id_cat){
+						if(Restaurante::has_categoria_by_id($id_act_3, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_3 == "Monumento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_3 = random_int(1, $max_monumento);
+					foreach($cat_museo as $id_cat){
+						if(Monumento::has_categoria_by_id($id_act_3, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_3 == "Evento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_3 = random_int(1, $max_evento);
+					foreach($cat_museo as $id_cat){
+						if(Evento::has_categoria_by_id($id_act_3, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+		}else{
+			$tipo_act_3 = $tipos[array_rand($tipos)];
+			if($tipo_act_3 == "Museo") $id_act_3 = random_int(1, $max_museo);
+			if($tipo_act_3 == "Restaurante") $id_act_3 = random_int(1, $max_restaurante);
+			if($tipo_act_3 == "Monumento") $id_act_3 = random_int(1, $max_monumento);
+			if($tipo_act_3 == "Evento") $id_act_3 = random_int(1, $max_evento);
 		}
 		$hora_act_3 = $horas_3[array_rand($horas_3)];
 	}else{
@@ -176,13 +407,84 @@ if($action === "generate"){
 			}
 			$id_act_4 = $actividad->id();
 			$tipo_act_4 = $tipo;
-		}else{
-			$tipo = $tipos[array_rand($tipos)];
-			if($tipo == "Museo") $id_act_4 = random_int(1, $max_museo);
-			if($tipo == "Restaurante") $id_act_4 = random_int(1, $max_restaurante);
-			if($tipo == "Monumento") $id_act_4 = random_int(1, $max_monumento);
-			if($tipo == "Evento") $id_act_4 = random_int(1, $max_evento);
+		}else if($tend){
+			$tendencia = $tendencias[$indices[3]];
+			if($tendencia["tipo_actividad"] == "museos"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "restaurantes"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "monumentos"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "eventos") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($tendencia["id_actividad"]);
+			}
+			$id_act_4 = $actividad->id();
 			$tipo_act_4 = $tipo;
+		}
+		else if($cats){
+			$tipo_act_4 = $tipos[array_rand($tipos)];
+			
+			if($tipo_act_4 == "Museo"){ 
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_4 = random_int(1, $max_museo);
+					foreach($cat_museo as $id_cat){
+						if(Museo::has_categoria_by_id($id_act_4, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_4 == "Restaurante") {
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_4 = random_int(1, $max_restaurante);
+					foreach($cat_museo as $id_cat){
+						if(Restaurante::has_categoria_by_id($id_act_4, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_4 == "Monumento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_4 = random_int(1, $max_monumento);
+					foreach($cat_museo as $id_cat){
+						if(Monumento::has_categoria_by_id($id_act_4, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_4 == "Evento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_4 = random_int(1, $max_evento);
+					foreach($cat_museo as $id_cat){
+						if(Evento::has_categoria_by_id($id_act_4, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+		}else{
+			$tipo_act_4 = $tipos[array_rand($tipos)];
+			if($tipo_act_4 == "Museo") $id_act_4 = random_int(1, $max_museo);
+			if($tipo_act_4 == "Restaurante") $id_act_4 = random_int(1, $max_restaurante);
+			if($tipo_act_4 == "Monumento") $id_act_4 = random_int(1, $max_monumento);
+			if($tipo_act_4 == "Evento") $id_act_4 = random_int(1, $max_evento);
 		}
 		$hora_act_4 = $horas_4[array_rand($horas_4)];
 	} else {
@@ -212,13 +514,83 @@ if($action === "generate"){
 			}
 			$id_act_5 = $actividad->id();
 			$tipo_act_5 = $tipo;
-		}else{
-			$tipo = $tipos[array_rand($tipos)];
-			if($tipo == "Museo") $id_act_5 = random_int(1, $max_museo);
-			if($tipo == "Restaurante") $id_act_5 = random_int(1, $max_restaurante);
-			if($tipo == "Monumento") $id_act_5 = random_int(1, $max_monumento);
-			if($tipo == "Evento") $id_act_5 = random_int(1, $max_evento);
+		}else if($tend){
+			$tendencia = $tendencias[$indices[4]];
+			if($tendencia["tipo_actividad"] == "museos"){
+				$tipo = "Museo";
+				$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "restaurantes"){
+				$tipo = "Restaurante";
+				$actividad = Restaurante::get_restaurante_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "monumentos"){ 
+				$tipo = "Monumento";
+				$actividad = Monumento::get_monumento_by_id($tendencia["id_actividad"]);
+			}
+			if($tendencia["tipo_actividad"] == "eventos") {
+				$tipo = "Evento";
+				$actividad = Evento::get_evento_by_id($tendencia["id_actividad"]);
+			}
+			$id_act_5 = $actividad->id();
 			$tipo_act_5 = $tipo;
+		}else if($cats){
+			$tipo_act_5 = $tipos[array_rand($tipos)];
+			
+			if($tipo_act_5 == "Museo"){ 
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_5 = random_int(1, $max_museo);
+					foreach($cat_museo as $id_cat){
+						if(Museo::has_categoria_by_id($id_act_5, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_5 == "Restaurante") {
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_5 = random_int(1, $max_restaurante);
+					foreach($cat_museo as $id_cat){
+						if(Restaurante::has_categoria_by_id($id_act_5, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_5 == "Monumento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_5 = random_int(1, $max_monumento);
+					foreach($cat_museo as $id_cat){
+						if(Monumento::has_categoria_by_id($id_act_5, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+			if($tipo_act_5 == "Evento"){
+				$has_cat = false;
+				while(!$has_cat){
+					$id_act_5 = random_int(1, $max_evento);
+					foreach($cat_museo as $id_cat){
+						if(Evento::has_categoria_by_id($id_act_5, $id_cat)){
+							$has_cat = true;
+							break;
+						}
+					}
+				}
+			}
+		}else{
+			$tipo_act_5 = $tipos[array_rand($tipos)];
+			if($tipo_act_5 == "Museo") $id_act_5 = random_int(1, $max_museo);
+			if($tipo_act_5 == "Restaurante") $id_act_5 = random_int(1, $max_restaurante);
+			if($tipo_act_5 == "Monumento") $id_act_5 = random_int(1, $max_monumento);
+			if($tipo_act_5 == "Evento") $id_act_5 = random_int(1, $max_evento);
 		}
 		$hora_act_5 = $horas_5[array_rand($horas_5)];
 	} else {
@@ -227,11 +599,8 @@ if($action === "generate"){
 		$hora_act_5 = "";
 	}
 
-
-	if (Plan::registrar($nombre, $descripcion, $hora_act_1, $id_act_1, $tipo_act_1, $hora_act_2, $id_act_2, $tipo_act_2, $hora_act_3, $id_act_3, $tipo_act_3, $hora_act_4, $id_act_4, $tipo_act_4, $hora_act_5, $id_act_5, $tipo_act_5, $fecha))
-		header("location: ../dashboard/planesPage.php?table=plan");
-	else
-		header("location: ../dashboard/planesPage.php?table=plan");
+	$id = Plan::registrar($nombre, $descripcion, $hora_act_1, $id_act_1, $tipo_act_1, $hora_act_2, $id_act_2, $tipo_act_2, $hora_act_3, $id_act_3, $tipo_act_3, $hora_act_4, $id_act_4, $tipo_act_4, $hora_act_5, $id_act_5, $tipo_act_5, $fecha);
+	header("location: ../dashboard/actividadPage.php?content=plan&id=$id");
 }
 
 else{
@@ -263,10 +632,8 @@ else{
 
 
 	if($action === "new"){
-		if (Plan::registrar($nombre, $descripcion, $hora_act_1, $id_act_1, $tipo_act_1, $hora_act_2, $id_act_2, $tipo_act_2, $hora_act_3, $id_act_3, $tipo_act_3, $hora_act_4, $id_act_4, $tipo_act_4, $hora_act_5, $id_act_5, $tipo_act_5, $fecha))
-			header("location: ../dashboard/planesPage.php?table=plan");
-		else
-			header("location: ../dashboard/planesPage.php?table=plan");
+		$id = Plan::registrar($nombre, $descripcion, $hora_act_1, $id_act_1, $tipo_act_1, $hora_act_2, $id_act_2, $tipo_act_2, $hora_act_3, $id_act_3, $tipo_act_3, $hora_act_4, $id_act_4, $tipo_act_4, $hora_act_5, $id_act_5, $tipo_act_5, $fecha);
+		header("location: ../dashboard/actividadPage.php?content=plan&id=$id");
 
 	}
 	if($action === "update"){

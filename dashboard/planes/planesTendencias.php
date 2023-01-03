@@ -22,7 +22,7 @@
 						<div class="col-4">
 							<div class="card h-100" style="width: 25rem;">
 								<div class="card-body">
-									<img class="mb-3" width="30px" src="../assets/img/<?php echo("plan_icon.png") ?>" alt="icon">
+									<img class="mb-3" width="20px" src="../assets/img/<?php echo("plan_icon.png") ?>" alt="icon">
 									<a style="text-decoration:none" href="actividadPage.php?content=plan&id=<?php echo($plan->id()) ?>"><h5><?php echo($plan->nombre()) ?> <i class="bi bi-fire"></i></h5></a>
 									<p><?php echo($plan->fecha()) ?></p>
 									<?php 

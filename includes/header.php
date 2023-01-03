@@ -4,10 +4,9 @@
 <header class="p-3 border-bottom" style = "background-color: #f7f6fb;">
 	<div class="container-fluid">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-			<a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-				<h4>PlanWays</h4>
+			<a href="../dashboard" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+				<img src="../assets/img/brand_name.png" alt="logo" height="36">
 			</a>
-
 			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="../dashboard" class="nav-link px-2 link-secondary">Home</a></li>
 				<li><a href="../dashboard/actividadesPage.php" class="nav-link px-2 link-dark">Actividades</a></li>
@@ -18,7 +17,10 @@
 			</ul>
 			<?php if (isset($_SESSION['login'])) {?>
 				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-					<a href="../dashboard/recomendacionesPage.php" class="btn btn-warning position-relative" style="color: white;">
+					<a href="../dashboard/contactsPage.php" class="btn btn-secondary"><i class="bi bi-person-lines-fill"></i></a>
+				</div>
+				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+					<a href="../dashboard/recomendacionesPage.php" class="btn position-relative" style="background-color: #65a2ff; color: white;">
 						<i class="bi bi-chat-square-heart-fill"></i>
 						<?php
 						$recomendaciones = Usuario::get_num_recomendaciones_by_id($_SESSION["idUsuario"]);
@@ -28,9 +30,6 @@
 							</span>
 						<?php } ?>
 					</a>
-				</div>
-				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-					<a href="../dashboard/contactsPage.php" class="btn btn-secondary"><i class="bi bi-person-lines-fill"></i></a>
 				</div>
 				<div class = "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
 					<a href="../dashboard/solicitudPage.php" class="btn btn-primary position-relative">

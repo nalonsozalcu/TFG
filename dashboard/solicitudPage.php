@@ -38,7 +38,7 @@
 												<p class="text-muted"><?php echo($user["email"]) ?></p>
 											</div>
 											<div class="col-md-4 col-sm-3 align-self-center">
-												<a href="../api/contactos.php?action=acept&id=<?php echo($user["id"]) ?>" class="btn btn-success pull-right"><i class="bi bi-person-check-fill"></i></a>
+												<a href="../api/contactos.php?action=acept&id=<?php echo($user["id"]) ?>" class="btn pull-right" style="background-color: #1eb529; color: white;"><i class="bi bi-person-check-fill"></i></a>
 												<a href="../api/contactos.php?action=discard&id=<?php echo($user["id"]) ?>" class="btn btn-danger pull-right"><i class="bi bi-person-x-fill"></i></a>
 											</div>
 										</div>

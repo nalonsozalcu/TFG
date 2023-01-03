@@ -335,7 +335,7 @@ class Plan
 			error_log($conn->error);
 		} else if ($conn->affected_rows != 1) {
 			error_log("Se han actualizado '$conn->affected_rows' !");
-		} else return true;
+		} else return $id_plan;
 	}
 	public function update()
 	{

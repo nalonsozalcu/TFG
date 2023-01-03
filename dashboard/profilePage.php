@@ -83,7 +83,7 @@
 								<div class="mt-5 text-center">
 									<button class="btn btn-primary" type="submit">Save Profile</button>
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#SignOutModal">Logout</button>
+									<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#SignOutModal">Logout</button>
 								</div>
 							</form>
 						</div>
@@ -246,7 +246,7 @@
 								</div>
 								
 								<div class="mt-3 text-end">
-									<button class="btn btn-primary" type="submit">Actualizar preferencias</button>
+									<button class="btn" style="background-color: #65a2ff; color: white;" type="submit">Actualizar preferencias</button>
 								</div>
 							</form>
 						</div>

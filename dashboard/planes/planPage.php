@@ -257,7 +257,7 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->hora_act_4())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_5())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
 									<p class="description">
 									<?php echo($actividad->direccion()) ?>
 									</p>

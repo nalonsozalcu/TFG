@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <?php
 	require_once "../includes/head.html";
-?>  
+?>
 
 <body>
 	<!-- ENCABEZADO -->

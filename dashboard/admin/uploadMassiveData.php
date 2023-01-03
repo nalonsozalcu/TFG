@@ -10,7 +10,7 @@
 			<div class="row mb-4">
 				<div class="col-2">
 					<h5 class="mb-3"><?php echo($actividad) ?></h5>
-					<a href="../files/plantillas/<?php echo($actividad) ?>_Plantilla.xlsx" class="btn btn-success" download="<?php echo($actividad) ?>_Plantilla.xlsx">Descargar plantilla <i class="bi bi-cloud-download"></i></a>
+					<a href="../files/plantillas/<?php echo($actividad) ?>_Plantilla.xlsx" class="btn" style="background-color: #1eb529; color: white;" download="<?php echo($actividad) ?>_Plantilla.xlsx">Descargar plantilla <i class="bi bi-cloud-download"></i></a>
 				</div>
 				<form class="form col align-self-end" method="POST" action="../api/upload.php?type=<?php echo($actividad) ?>" enctype="multipart/form-data">
 					<div class="row">

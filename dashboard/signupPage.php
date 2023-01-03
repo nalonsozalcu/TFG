@@ -16,7 +16,7 @@
 	<main>
 		<div class="vh-80 d-flex justify-content-center align-items-center">
 			<div class="container">
-				<div class="row d-flex justify-content-center">
+				<div class="row d-flex justify-content-center mt-4">
 					<div class="card bg-white">
 					<div class="card-body p-5">
 						<form class="form row g-3" method="POST" action="../api/signup.php" enctype="multipart/form-data">

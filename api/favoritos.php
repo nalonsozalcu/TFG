@@ -55,7 +55,7 @@ if($action === "new"){ //añade la actividad a favoritos
             if($from === "contact")
                 header("location: ../dashboard/userPage.php?id=$id_contacto");
             if($from === "acts")
-                header("location: ../dashboard/planesPage.php?table=planes");
+                header("location: ../dashboard/planesPage.php?table=plan");
         }
     }else{ 
     if(Usuario::new_favorito($_SESSION["idUsuario"], $tipo, $id_actividad)){

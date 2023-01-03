@@ -53,13 +53,19 @@
 						<label for="fecha" class="form-label">Número de actividades</label>
 						<input min="1" max="5" type="number" id="num_act" name="num_act" value="1" class="form-control" />
 					</div>
-					<?php if(isset($_SESSION["idUsuario"])){ ?>
 					<div class="form-check mb-2">
 						<input class="form-check-input" type="radio" name="flexRadioDefault" value="rand" checked>
 						<label class="form-check-label" for="rend">
 							Aleatorio
 						</label>
 					</div>
+					<div class="form-check mb-2">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" value="tend" checked>
+						<label class="form-check-label" for="tend">
+							Tendencias
+						</label>
+					</div>
+					<?php if(isset($_SESSION["idUsuario"])){ ?>
 					<div class="form-check mb-2">
 						<input class="form-check-input" type="radio" name="flexRadioDefault" value="favs">
 						<label class="form-check-label" for="favs">

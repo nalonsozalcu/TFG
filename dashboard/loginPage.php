@@ -16,7 +16,7 @@
 	<main>
 		<div class="vh-80 d-flex justify-content-center align-items-center">
 			<div class="container">
-				<div class="row d-flex justify-content-center">
+				<div class="row d-flex justify-content-center mt-4">
 				<div class="col-12 col-md-8 col-lg-6">
 					<div class="card bg-white">
 					<div class="card-body p-5">
@@ -79,7 +79,7 @@
 
 	<!-- PIE DE PÁGINA -->
 	<?php
-	require_once "../includes/footer.php";
+	// require_once "../includes/footer.php";
 	?>
 
 </body>

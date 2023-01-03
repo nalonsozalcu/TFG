@@ -17,10 +17,15 @@ if(isset($_GET["id"])){
 			<h5 class="mb-5">Crear un plan nuevo</h5>
 		</div>
 		<div class="col-2">
+			<div class="row justify-content-end">
+			<div class="col-9">
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#generatePlanModal">
-				Generar plan automaticamente
+			<button type="button" class="btn" style="background-color: #65a2ff; color: white;" data-bs-toggle="modal" data-bs-target="#generatePlanModal">
+				Generar plan <i class="bi bi-shuffle"></i>
 			</button>
+			</div>
+			</div>
+
 		</div>
 	<?php } ?>
 	<div class="container">
@@ -106,7 +111,7 @@ if(isset($_GET["id"])){
 				</select>
 			</div>
 			<div class="col-1 align-self-end" id="div_button_1">
-				<button type="button" id="button_1" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
+				<button type="button" id="button_1" class="btn" style="background-color: #1eb529; color: white;"><i class="bi bi-plus-lg"></i></button>
 			</div>
 		</div>
 		<div class="row mb-3" id="div_2" <?php if(isset($_GET["id"]) && $plan->id_act_2() == 0 ) echo("hidden") ?> <?php if(!isset($_GET["id"]))echo("hidden") ?>>
@@ -153,7 +158,7 @@ if(isset($_GET["id"])){
 			</div>
 			<div class="col-2 align-self-end">
 				<button type="button" id="button_2_delete" class="btn btn-danger"><i class="bi bi-dash-lg"></i></button>
-				<button type="button" id="button_2_add" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
+				<button type="button" id="button_2_add" class="btn" style="background-color: #1eb529; color: white;"><i class="bi bi-plus-lg"></i></button>
 			</div>
 		</div>
 		<div class="row mb-3" id="div_3" <?php if(isset($_GET["id"]) && $plan->id_act_3() == 0 ) echo("hidden") ?> <?php if(!isset($_GET["id"]))echo("hidden") ?>>
@@ -201,7 +206,7 @@ if(isset($_GET["id"])){
 			</div>
 			<div class="col-2 align-self-end">
 				<button type="button" id="button_3_delete" class="btn btn-danger"><i class="bi bi-dash-lg"></i></button>
-				<button type="button" id="button_3_add" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
+				<button type="button" id="button_3_add" class="btn" style="background-color: #1eb529; color: white;"><i class="bi bi-plus-lg"></i></button>
 			</div>
 		</div>
 		<div class="row mb-3" id="div_4" <?php if(isset($_GET["id"]) && $plan->id_act_4() == 0 ) echo("hidden") ?> <?php if(!isset($_GET["id"]))echo("hidden") ?>>
@@ -249,7 +254,7 @@ if(isset($_GET["id"])){
 			</div>
 			<div class="col-2 align-self-end">
 				<button type="button" id="button_4_delete" class="btn btn-danger"><i class="bi bi-dash-lg"></i></button>
-				<button type="button" id="button_4_add" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
+				<button type="button" id="button_4_add" class="btn" style="background-color: #1eb529; color: white;"><i class="bi bi-plus-lg"></i></button>
 			</div>
 		</div>
 		<div class="row mb-3" id="div_5" <?php if(isset($_GET["id"]) && $plan->id_act_5() == 0 ) echo("hidden") ?> <?php if(!isset($_GET["id"]))echo("hidden") ?>>

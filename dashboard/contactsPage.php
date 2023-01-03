@@ -26,7 +26,7 @@
 							<h3>Contactos</h3>
 						</div>
 						<div class="row d-flex justify-content-left mt-2">
-							<button class="col-2 btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+							<button class="col-2 btn" style="background-color: #1eb529; color: white;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 								<i class="bi bi-person-plus-fill"></i> Agregar
 							</button>
 							<div class="collapse <?php echo((isset($_GET['username']) || isset($_GET['contact']) || isset($_GET['sol_send']) || isset($_GET['sol_recived']))? 'show': '')?>" id="collapseExample">

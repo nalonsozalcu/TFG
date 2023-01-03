@@ -527,6 +527,20 @@ class Usuario
 		return false;
 	}
 
+	public static function get_categorias_by_id($id, $tipo){
+		$conn = Aplicacion::getConexionBD();
+		$query = sprintf("SELECT `$tipo` FROM `relacion_categorias_usuarios` WHERE `id_usuario` = '$id'");
+		$rs = $conn->query($query);
+		if ($rs && $rs->num_rows == 1) {
+			$categorias = $rs->fetch_assoc()["$tipo"];
+			$categorias = substr($categorias, 2);
+			$categorias = substr($categorias, 0, -1);
+			$categorias = explode("/", $categorias);
+			return $categorias;
+		}
+		return false;
+	}
+
 	// ---> Funciones para registrar, actualizar o borrar el usuario <---
 
 	public static function registrar($username, $email, $password, $nombre, $apellidos, $avatar, $cat_museo, $cat_monumento, $cat_restaurante, $cat_evento, $audiencia)
