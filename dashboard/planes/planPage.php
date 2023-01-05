@@ -29,7 +29,6 @@
 				<?php if(isset($_SESSION["idUsuario"])){
 					$contactos = Usuario::get_user_contactos_by_id($_SESSION["idUsuario"]);?>
 				<div class="d-flex justify-content-end mt-2 mb-2">
-					<a href="../files/planes/Plan_<?php echo($plan->id()) ?>.pdf" class="btn ms-1" download="Plan_<?php echo($plan->nombre()) ?>.pdf"><i class="fas fa-cloud-download-alt" style="color: blue;"></i></a>
 					<?php if(Usuario::is_planfavorito($_SESSION["idUsuario"], $plan->id())){ ?>
 						<a href="../api/favoritos.php?from=ind&action=delete&plan=true&id=<?php echo (Usuario::is_planfavorito($_SESSION["idUsuario"], $plan->id())) ?>&id_plan=<?php echo($plan->id()) ?>" class="btn ms-1"><i class="bi bi-suit-heart-fill" style="color: red;"></i></a>
 					<?php }else{?>
@@ -77,28 +76,32 @@
 			<div class="card mb-4 mb-lg-0">
 			<div class="card-body p-0">
 				<ul class="list-group list-group-flush rounded-3">
-				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<p class="mb-0 me-3">Modificar:</p>
-					<a href="actividadPage.php?content=plan&edit=true&id=<?php echo($plan->id()) ?>"><i class="bi bi-pencil-square"></i></a>
-				</li>
-				<li class="list-group-item d-flex justify-content-start align-items-center p-3">
-					<?php if(isset($_SESSION["idUsuario"])){ if($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])){?>
-						<p class="mb-0 me-2">Tu valoración: <?php echo($plan->get_valoracion($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])))?></p>
-						<i class="bi bi-star-fill text-warning ms-1"></i>
-						<a href="../api/valoracion.php?action=delete&tipo=plan&id_plan=<?php echo($plan->id()) ?>&id=<?php echo($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
-					<?php }else{ ?>
-						<i class="bi bi-star-fill text-warning"></i>
-						<p class="mb-0 ms-2">Valorar:</p>
-						<form method="POST" action="../api/valoracion.php?action=new&tipo=plan&id_plan=<?php echo($plan->id()) ?>">
-							<div class="row ms-2">
-								<div class="col-6">
-								<input min="0" max="5" type="number" id="valoracion" name="valoracion" value="0" class="form-control" />
-							</div>
-								<button type="submit" class="btn col-6">Enviar</button>
-							</div>
-						</form>
-					<?php }} ?>
-				</li>
+					<li class="list-group-item d-flex justify-content-start align-items-center p-3">
+						<p class="mb-0 me-1">Descargar PDF:</p>
+						<button type="button" id="button_download" class="btn"><i class="fas fa-cloud-download-alt" style="color: blue;"></i></button>
+					</li>
+					<li class="list-group-item d-flex justify-content-start align-items-center p-3">
+						<p class="mb-0 me-3">Modificar:</p>
+						<a href="actividadPage.php?content=plan&edit=true&id=<?php echo($plan->id()) ?>"><i class="bi bi-pencil-square" style="color: orange;"></i></a>
+					</li>
+					<li class="list-group-item d-flex justify-content-start align-items-center p-3">
+						<?php if(isset($_SESSION["idUsuario"])){ if($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])){?>
+							<p class="mb-0 me-2">Tu valoración: <?php echo($plan->get_valoracion($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])))?></p>
+							<i class="bi bi-star-fill text-warning ms-1"></i>
+							<a href="../api/valoracion.php?action=delete&tipo=plan&id_plan=<?php echo($plan->id()) ?>&id=<?php echo($plan->is_valoracion($plan->id(), $_SESSION["idUsuario"])) ?>"><i class="bi bi-trash3 ms-3" style="color: red;"></i></a>
+						<?php }else{ ?>
+							<i class="bi bi-star-fill text-warning"></i>
+							<p class="mb-0 ms-2">Valorar:</p>
+							<form method="POST" action="../api/valoracion.php?action=new&tipo=plan&id_plan=<?php echo($plan->id()) ?>">
+								<div class="row ms-2">
+									<div class="col-6">
+									<input min="0" max="5" type="number" id="valoracion" name="valoracion" value="0" class="form-control" />
+								</div>
+									<button type="submit" class="btn col-6">Enviar</button>
+								</div>
+							</form>
+						<?php }} ?>
+					</li>
 				</ul>
 			</div>
 			</div>
@@ -127,16 +130,16 @@
 							if($plan->id_act_1() != 0){
 								if($plan->tipo_act_1() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
-									$actividad = Museo::get_museo_by_id($plan->id_act_1());}
+									$actividad1 = Museo::get_museo_by_id($plan->id_act_1());}
 								if($plan->tipo_act_1() == "Restaurante") {
 									$icon = '<i class="fa-solid fa-utensils"></i>';
-									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_1());}
+									$actividad1 = Restaurante::get_restaurante_by_id($plan->id_act_1());}
 								if($plan->tipo_act_1() == "Evento"){ 
 									$icon = "<i class='fa-regular fa-calendar-check'></i>";
-									$actividad = Evento::get_evento_by_id($plan->id_act_1());}
+									$actividad1 = Evento::get_evento_by_id($plan->id_act_1());}
 								if($plan->tipo_act_1() == "Monumento") {
 									$icon = '<i class="fa-solid fa-monument"></i>';
-									$actividad = Monumento::get_monumento_by_id($plan->id_act_1());}
+									$actividad1 = Monumento::get_monumento_by_id($plan->id_act_1());}
 							?>
 							<div class="timeline">
 								<div class="icon"></div>
@@ -149,9 +152,9 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_1())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_1())) ?>&id=<?php echo($actividad1->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad1->nombre()) ?></a></h5>
 									<p class="description">
-									<?php echo($actividad->direccion()) ?>
+									<?php echo($actividad1->direccion()) ?>
 									</p>
 								</div>
 							</div>
@@ -163,16 +166,16 @@
 							if($plan->id_act_2() != 0){
 								if($plan->tipo_act_2() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
-									$actividad = Museo::get_museo_by_id($plan->id_act_2());}
+									$actividad2 = Museo::get_museo_by_id($plan->id_act_2());}
 								if($plan->tipo_act_2() == "Restaurante") {
 									$icon = '<i class="fa-solid fa-utensils"></i>';
-									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_2());}
+									$actividad2 = Restaurante::get_restaurante_by_id($plan->id_act_2());}
 								if($plan->tipo_act_2() == "Evento"){ 
 									$icon = "<i class='fa-regular fa-calendar-check'></i>";
-									$actividad = Evento::get_evento_by_id($plan->id_act_2());}
+									$actividad2 = Evento::get_evento_by_id($plan->id_act_2());}
 								if($plan->tipo_act_2() == "Monumento") {
 									$icon = '<i class="fa-solid fa-monument"></i>';
-									$actividad = Monumento::get_monumento_by_id($plan->id_act_2());}
+									$actividad2 = Monumento::get_monumento_by_id($plan->id_act_2());}
 							?>
 							<div class="timeline">
 								<div class="icon"></div>
@@ -185,9 +188,9 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_2())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_2())) ?>&id=<?php echo($actividad2->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad2->nombre()) ?></a></h5>
 									<p class="description">
-									<?php echo($actividad->direccion()) ?>
+									<?php echo($actividad2->direccion()) ?>
 									</p>
 								</div>
 							</div>
@@ -199,16 +202,16 @@
 							if($plan->id_act_3() != 0){
 								if($plan->tipo_act_3() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
-									$actividad = Museo::get_museo_by_id($plan->id_act_3());}
+									$actividad3 = Museo::get_museo_by_id($plan->id_act_3());}
 								if($plan->tipo_act_3() == "Restaurante") {
 									$icon = '<i class="fa-solid fa-utensils"></i>';
-									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_3());}
+									$actividad3 = Restaurante::get_restaurante_by_id($plan->id_act_3());}
 								if($plan->tipo_act_3() == "Evento"){ 
 									$icon = "<i class='fa-regular fa-calendar-check'></i>";
-									$actividad = Evento::get_evento_by_id($plan->id_act_3());}
+									$actividad3 = Evento::get_evento_by_id($plan->id_act_3());}
 								if($plan->tipo_act_3() == "Monumento") {
 									$icon = '<i class="fa-solid fa-monument"></i>';
-									$actividad = Monumento::get_monumento_by_id($plan->id_act_3());}
+									$actividad3 = Monumento::get_monumento_by_id($plan->id_act_3());}
 							?>
 							<div class="timeline">
 								<div class="icon"></div>
@@ -221,9 +224,9 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_3())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_3())) ?>&id=<?php echo($actividad3->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad3->nombre()) ?></a></h5>
 									<p class="description">
-									<?php echo($actividad->direccion()) ?>
+									<?php echo($actividad3->direccion()) ?>
 									</p>
 								</div>
 							</div>
@@ -235,16 +238,16 @@
 							if($plan->id_act_4() != 0){
 								if($plan->tipo_act_4() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
-									$actividad = Museo::get_museo_by_id($plan->id_act_4());}
+									$actividad4 = Museo::get_museo_by_id($plan->id_act_4());}
 								if($plan->tipo_act_4() == "Restaurante") {
 									$icon = '<i class="fa-solid fa-utensils"></i>';
-									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_4());}
+									$actividad4 = Restaurante::get_restaurante_by_id($plan->id_act_4());}
 								if($plan->tipo_act_4() == "Evento"){ 
 									$icon = "<i class='fa-regular fa-calendar-check'></i>";
-									$actividad = Evento::get_evento_by_id($plan->id_act_4());}
+									$actividad4 = Evento::get_evento_by_id($plan->id_act_4());}
 								if($plan->tipo_act_4() == "Monumento") {
 									$icon = '<i class="fa-solid fa-monument"></i>';
-									$actividad = Monumento::get_monumento_by_id($plan->id_act_4());}
+									$actividad4 = Monumento::get_monumento_by_id($plan->id_act_4());}
 							?>
 							<div class="timeline">
 								<div class="icon"></div>
@@ -257,9 +260,9 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_5())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_4())) ?>&id=<?php echo($actividad4->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad4->nombre()) ?></a></h5>
 									<p class="description">
-									<?php echo($actividad->direccion()) ?>
+									<?php echo($actividad4->direccion()) ?>
 									</p>
 								</div>
 							</div>
@@ -271,16 +274,16 @@
 							if($plan->id_act_5() != 0){
 								if($plan->tipo_act_5() == "Museo") {
 									$icon = "<i class='fa-solid fa-landmark'></i>";
-									$actividad = Museo::get_museo_by_id($plan->id_act_5());}
+									$actividad5 = Museo::get_museo_by_id($plan->id_act_5());}
 								if($plan->tipo_act_5() == "Restaurante") {
 									$icon = '<i class="fa-solid fa-utensils"></i>';
-									$actividad = Restaurante::get_restaurante_by_id($plan->id_act_5());}
+									$actividad5 = Restaurante::get_restaurante_by_id($plan->id_act_5());}
 								if($plan->tipo_act_5() == "Evento"){ 
 									$icon = "<i class='fa-regular fa-calendar-check'></i>";
-									$actividad = Evento::get_evento_by_id($plan->id_act_5());}
+									$actividad5 = Evento::get_evento_by_id($plan->id_act_5());}
 								if($plan->tipo_act_5() == "Monumento") {
 									$icon = '<i class="fa-solid fa-monument"></i>';
-									$actividad = Monumento::get_monumento_by_id($plan->id_act_5());}
+									$actividad5 = Monumento::get_monumento_by_id($plan->id_act_5());}
 							?>
 							<div class="timeline">
 								<div class="icon"></div>
@@ -293,9 +296,9 @@
 									</div>
 								</div>
 								<div class="timeline-content">
-									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_5())) ?>&id=<?php echo($actividad->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad->nombre()) ?></a></h5>
+									<h5 class="title"><a href="actividadPage.php?content=<?php echo(strtolower($plan->tipo_act_5())) ?>&id=<?php echo($actividad5->id()) ?>" style="text-decoration:none"><?php echo($icon." ".$actividad5->nombre()) ?></a></h5>
 									<p class="description">
-									<?php echo($actividad->direccion()) ?>
+									<?php echo($actividad5->direccion()) ?>
 									</p>
 								</div>
 							</div>
@@ -312,3 +315,134 @@
 		</div>
 	</div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<script type="text/javascript">
+
+	var button = document.getElementById("button_download");
+	button.addEventListener("click", function() {
+		createPDF();
+	});
+
+	function createPDF(){
+		var doc = new jsPDF();
+		/// Codigo para agregar una imagen
+		var logo = new Image();
+		logo.src = '../assets/img/brand_blue.jpeg';
+		var icon = new Image();
+		icon.src = '../assets/img/plan.png';
+		doc.addImage(logo,75,10,60,20);
+		// Inicio texto
+		var z = 20;
+		var x = 28;
+		var y = 40;
+
+		doc.addImage(icon,z,y -5,5,5)
+		doc.setFontSize(14);
+		doc.setTextColor(100);
+		doc.text(z + 8, y, 'Actividad 1:');
+		doc.setFontSize(12);
+		doc.setTextColor(0, 0, 0);
+		doc.text(z + 36, y, "<?php echo ($plan->tipo_act_1()); ?>");
+		doc.setTextColor(100);
+		doc.text(x, y+10, 'Nombre:');
+		doc.text(x, y+20, 'Hora:');
+		doc.text(x, y+30, 'Lugar:');
+		doc.setTextColor(0, 0, 0);
+		doc.text(x+18, y+10, "<?php echo ($actividad1->nombre()); ?>");
+		doc.text(x+15, y+20, "<?php echo ($plan->hora_act_1()); ?>");
+		doc.text(x+15, y+30, "<?php echo ($actividad1->direccion()); ?>");
+		// ------------------------------ //
+		<?php if($plan->id_act_2() != 0){ ?>
+			doc.rect(z, y+35, 170, 0);
+			var y = 85;
+			doc.addImage(icon,z,y -5,5,5)
+			doc.setFontSize(14);
+			doc.setTextColor(100);
+			doc.text(z + 8, y, 'Actividad 2:');
+			doc.setFontSize(12);
+			doc.setTextColor(0, 0, 0);
+			doc.text(z + 36, y, "<?php echo ($plan->tipo_act_2()); ?>");
+			doc.setTextColor(100);
+			doc.text(x, y+10, 'Nombre:');
+			doc.text(x, y+20, 'Hora:');
+			doc.text(x, y+30, 'Lugar:');
+			doc.setTextColor(0, 0, 0);
+			doc.text(x+18, y+10, "<?php echo ($actividad2->nombre()); ?>");
+			doc.text(x+15, y+20, "<?php echo ($plan->hora_act_2()); ?>");
+			doc.text(x+15, y+30, "<?php echo ($actividad2->direccion()); ?>");
+		<?php } ?>
+		// ------------------------------ //
+		<?php if($plan->id_act_3() != 0){ ?>
+			doc.rect(z, y+35, 170, 0);
+			var y = 130;
+			doc.addImage(icon,z,y -5,5,5)
+			doc.setFontSize(14);
+			doc.setTextColor(100);
+			doc.text(z + 8, y, 'Actividad 3:');
+			doc.setFontSize(12);
+			doc.setTextColor(0, 0, 0);
+			doc.text(z + 36, y, "<?php echo ($plan->tipo_act_3()); ?>");
+			doc.setTextColor(100);
+			doc.text(x, y+10, 'Nombre:');
+			doc.text(x, y+20, 'Hora:');
+			doc.text(x, y+30, 'Lugar:');
+			doc.setTextColor(0, 0, 0);
+			doc.text(x+18, y+10, "<?php echo ($actividad3->nombre()); ?>");
+			doc.text(x+15, y+20, "<?php echo ($plan->hora_act_3()); ?>");
+			doc.text(x+15, y+30, "<?php echo ($actividad3->direccion()); ?>");
+		<?php } ?>
+	
+		// ------------------------------ //
+		<?php if($plan->id_act_4() != 0){ ?>
+
+			doc.rect(z, y+35, 170, 0);
+			var y = 175;
+			doc.addImage(icon,z,y -5,5,5)
+			doc.setFontSize(14);
+			doc.setTextColor(100);
+			doc.text(z + 8, y, 'Actividad 4:');
+			doc.setFontSize(12);
+			doc.setTextColor(0, 0, 0);
+			doc.text(z + 36, y, "<?php echo ($plan->tipo_act_4()); ?>");
+			doc.setTextColor(100);
+			doc.text(x, y+10, 'Nombre:');
+			doc.text(x, y+20, 'Hora:');
+			doc.text(x, y+30, 'Lugar:');
+			doc.setTextColor(0, 0, 0);
+			doc.text(x+18, y+10, "<?php echo ($actividad4->nombre()); ?>");
+			doc.text(x+15, y+20, "<?php echo ($plan->hora_act_4()); ?>");
+			doc.text(x+15, y+30, "<?php echo ($actividad4->direccion()); ?>");
+		<?php } ?>
+
+		// ------------------------------ //
+		<?php if($plan->id_act_5() != 0){ ?>
+
+			doc.rect(z, y+35, 170, 0);
+			var y = 220;
+			doc.addImage(icon,z,y -5,5,5)
+			doc.setFontSize(14);
+			doc.setTextColor(100);
+			doc.text(z + 8, y, 'Actividad 5:');
+			doc.setFontSize(12);
+			doc.setTextColor(0, 0, 0);
+			doc.text(z + 36, y, "<?php echo ($plan->tipo_act_5()); ?>");
+			doc.setTextColor(100);
+			doc.text(x, y+10, 'Nombre:');
+			doc.text(x, y+20, 'Hora:');
+			doc.text(x, y+30, 'Lugar:');
+			doc.setTextColor(0, 0, 0);
+			doc.text(x+18, y+10, "<?php echo ($actividad5->nombre()); ?>");
+			doc.text(x+15, y+20, "<?php echo ($plan->hora_act_5()); ?>");
+			doc.text(x+15, y+30, "<?php echo ($actividad5->direccion()); ?>");
+
+		<?php } ?>
+
+
+		doc.text(180, 280, "<?php echo ($plan->fecha()); ?>");
+		
+		doc.save('Plan"<?php echo ($plan->nombre()); ?>".pdf');
+	}
+
+</script>
