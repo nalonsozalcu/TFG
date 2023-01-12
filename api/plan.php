@@ -90,7 +90,6 @@ if($action === "generate"){
 		}else{
 			$tendencia = $tendencias[$indices[0]];
 		}
-		var_dump($tendencia);
 		if($tendencia["tipo_actividad"] == "museos"){
 			$tipo = "Museo";
 			$actividad = Museo::get_museo_by_id($tendencia["id_actividad"]);

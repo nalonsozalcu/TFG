@@ -2,7 +2,7 @@
 <?php 
 if(isset($_GET["id"])){
 	$id =  $_GET["id"];
-	$museo = Evento::get_evento_by_id($id);
+	$evento = Evento::get_evento_by_id($id);
 }else{
 ?>
 <div class="container">
