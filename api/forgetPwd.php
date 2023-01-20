@@ -32,18 +32,14 @@ try {
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('neverainteligente2022@gmail.com', 'MadWays');
+    $mail->setFrom('neverainteligente2022@gmail.com', 'PlanWays');
     $mail->addAddress($email, );     //Add a recipient
-
-    //Attachments
-    //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Recuperacion de contrasena';
-    $mail->Body    = 'Se ha generado una nueva contraseña para que puedas iniciar sesión con tu correo en la aplicación de MadWays. <br><br>' . 'Su nueva contraseña es:  ' . $contraseña;
-    //$mail->AltBody = 'Se ha generado una nueva contraseña para que puedas iniciar sesión con tu correo en la aplicación de MadWays';
+    $mail->Body    = 'Se ha generado una nueva contraseña para que puedas iniciar sesión con tu correo en la aplicación de PlanWays. <br><br>' . 'Su nueva contraseña es:  ' . $contraseña;
+    //$mail->AltBody = 'Se ha generado una nueva contraseña para que puedas iniciar sesión con tu correo en la aplicación de PlanWays';
 
     $mail->send();
 	header("location: ../dashboard/index.php");
